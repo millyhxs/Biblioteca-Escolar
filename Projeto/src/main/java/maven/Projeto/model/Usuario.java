@@ -9,11 +9,13 @@ public class Usuario {
 	protected String tipoDeUsuario;
 	protected String telefone;
 	protected String email;
-	
+		
         // construtor padrão
-	
-        public Usuario() {}
-
+		
+        public Usuario() {
+        	
+        }
+        
         // construtor parametrizado
         public Usuario(String nome, String matricula, String telefone, String email) {
         this.nome = nome;
@@ -21,5 +23,9 @@ public class Usuario {
         this.telefone = telefone;
         this.email = email;
     }
+        
+	public void setTipoDeUsuario(String tipoDeUsuario) {
+		this.tipoDeUsuario = tipoDeUsuario;
+	}
 	
 }

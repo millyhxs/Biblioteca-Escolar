@@ -13,6 +13,10 @@ public abstract class Obra {
     
     //Construtores
     
+    public Obra() {
+    	
+    }
+    
     public Obra(String código, String titulo, String autor, String status, int anoDePublicacao) {
 		this.código = código;
 		this.titulo = titulo;

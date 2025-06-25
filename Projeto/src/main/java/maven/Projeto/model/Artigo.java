@@ -4,6 +4,9 @@ public class Artigo extends Obra{
 	
 	//Construtores
 	
+	public Artigo() {
+		
+	}
 	
 	public Artigo(String código, String titulo, String autor, String status, int anoDePublicacao) {
 		super(código, titulo, autor, status, anoDePublicacao);
