@@ -1,0 +1,14 @@
+package maven.Projeto.model;
+
+public class Aluno extends Usuario {
+
+    // construtores
+
+    public Aluno() {
+        super();
+    }
+
+    public Aluno(String nome, String matricula, String tipoDeUsuario, String telefone, String email) {
+        super(nome, matricula, tipoDeUsuario, telefone, email);
+    }
+}
