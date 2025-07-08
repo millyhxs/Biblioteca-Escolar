@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public abstract class Obra {
+public abstract class Obra implements Emprestavel {
 	
 	//Atributos
 	
@@ -10,6 +10,7 @@ public abstract class Obra {
     protected String Status;
     protected int anoDePublicacao;
     protected int tempoDeEmprestimo;
+    protected boolean emprestado;
     
     //Construtores
     
@@ -23,11 +24,36 @@ public abstract class Obra {
 		this.autor = autor;
 		Status = status;
 		this.anoDePublicacao = anoDePublicacao;
+		this.emprestado = false;
+
 	}
     
     //Métodos
     
 	public abstract int getTempoEmprestimo();
+	
+	 @Override
+	public boolean emprestar() {
+		 if (!emprestado) {
+			 emprestado = true;
+			 return true;
+			 }
+		 return false;
+		 }
+	 
+	 @Override
+	 public boolean devolver() {
+		 if (emprestado) {
+			 emprestado = false;
+			 return true;
+			 }
+		 return false;
+	    }
+	 
+	 @Override
+	 public boolean isEmprestado() {
+		 return emprestado;
+	    }
 	
 	// Get's & Set's
 	
