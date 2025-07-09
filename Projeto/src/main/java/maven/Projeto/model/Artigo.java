@@ -8,8 +8,8 @@ public class Artigo extends Obra{
 		
 	}
 	
-	public Artigo(String código, String titulo, String autor, String status, int anoDePublicacao) {
-		super(código, titulo, autor, status, anoDePublicacao);
+	public Artigo(String codigo, String titulo, String autor, String status, int anoDePublicacao) {
+		super(codigo, titulo, autor, status, anoDePublicacao);
 		this.tempoDeEmprestimo = 2;
 	}
 	

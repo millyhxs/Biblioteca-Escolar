@@ -3,7 +3,7 @@ package maven.Projeto.model;
 public abstract class Obra {
 	//Atributos de obra
 	
-	protected String código;
+	protected String codigo;
     protected String titulo;
     protected String autor;
     protected String Status;
@@ -17,8 +17,8 @@ public abstract class Obra {
     	
     }
     
-    public Obra(String código, String titulo, String autor, String status, int anoDePublicacao) {
-		this.código = código;
+    public Obra(String codigo, String titulo, String autor, String status, int anoDePublicacao) {
+		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
 		Status = status;
@@ -33,12 +33,12 @@ public abstract class Obra {
 	
 	// Get's & Set's
 	
-	public String getCódigo() {
-		return código;
+	public String getCodigo() {
+		return codigo;
 	}
 	
-	public void setCódigo(String código) {
-		this.código = código;
+	public void setCodigo(String código) {
+		this.codigo = código;
 	}
 	
 	public String getTitulo() {
