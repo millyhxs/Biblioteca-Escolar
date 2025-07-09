@@ -72,4 +72,5 @@ public abstract class Obra {
 	public void setAnoDePublicacao(int anoDePublicacao) {
 		this.anoDePublicacao = anoDePublicacao;
 	}
+	
 }
