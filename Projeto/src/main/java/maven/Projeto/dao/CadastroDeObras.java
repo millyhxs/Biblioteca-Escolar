@@ -1,12 +1,13 @@
 package maven.Projeto.dao;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 //Bibliotecas
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.itextpdf.text.List;
 
 // Imports
 
@@ -17,15 +18,16 @@ public abstract class CadastroDeObras extends Obra {
 	
 	private static final String CAMINHO = "listaDeLivros.json";
 	
-	public static void cadastrar(Obra teste) {
+	static ArrayList<Obra> indexLivros = new ArrayList<>();
+	
+	public static void cadastrar(Obra novoLivro) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();	
-		
 		try (FileWriter listaDeLivros = new FileWriter(CAMINHO)) {
-			gson.toJson(teste, listaDeLivros);	
+			gson.toJson(novoLivro, listaDeLivros);	
 			System.out.println("Cadastro concluido!");
+			indexLivros.add(novoLivro);
 		} catch (IOException e) {
 			System.out.println("Ocorreu um erro de leitura ou escrita!");
 		}
 	}
-	
 }
