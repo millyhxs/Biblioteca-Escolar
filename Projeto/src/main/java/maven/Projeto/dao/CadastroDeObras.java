@@ -24,7 +24,7 @@ public abstract class CadastroDeObras extends Obra {
 			gson.toJson(teste, listaDeLivros);	
 			System.out.println("Cadastro concluido!");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Ocorreu um erro de leitura ou escrita!");
 		}
 	}
 	

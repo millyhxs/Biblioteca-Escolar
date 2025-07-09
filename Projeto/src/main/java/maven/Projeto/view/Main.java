@@ -13,5 +13,6 @@ public class Main {
 		Obra teste = new Livro("0000", "Caminho dos reis", "Brandon Sanderson", "Disponível", 2005);
 		
 		CadastroDeObras.cadastrar(teste);
+		
 	}
 }
