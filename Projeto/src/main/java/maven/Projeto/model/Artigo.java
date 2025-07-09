@@ -15,7 +15,7 @@ public class Artigo extends Obra{
 	//Métodos
 	@Override
 	public int getTempoEmprestimo() {
-		tempoDeEmprestimo = 3;
+		tempoDeEmprestimo = 2;
 		return tempoDeEmprestimo;
 	}
 	

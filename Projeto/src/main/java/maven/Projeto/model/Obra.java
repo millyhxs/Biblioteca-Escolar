@@ -1,7 +1,7 @@
 package maven.Projeto.model;
 
 public abstract class Obra {
-	//Atributos
+	//Atributos de obra
 	
 	protected String código;
     protected String titulo;
@@ -10,7 +10,6 @@ public abstract class Obra {
     protected int anoDePublicacao;
     protected int tempoDeEmprestimo;
     protected boolean emprestado;
-    protected String teste;
     
     //Construtores
     
