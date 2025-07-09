@@ -10,6 +10,7 @@ public class Artigo extends Obra{
 	
 	public Artigo(String código, String titulo, String autor, String status, int anoDePublicacao) {
 		super(código, titulo, autor, status, anoDePublicacao);
+		this.tempoDeEmprestimo = 2;
 	}
 	
 	//Métodos

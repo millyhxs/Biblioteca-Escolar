@@ -10,13 +10,14 @@ public class Livro extends Obra{
 	
 	public Livro(String código, String titulo, String autor, String status, int anoDePublicacao) {
 		super(código, titulo, autor, status, anoDePublicacao);
+		this.tempoDeEmprestimo = 7;
 	}
 	
 	//Métodos
 	
 	@Override
 	public int getTempoEmprestimo() {
-		tempoDeEmprestimo = 2;
+		tempoDeEmprestimo = 7;
 		return tempoDeEmprestimo;
 		
 	}

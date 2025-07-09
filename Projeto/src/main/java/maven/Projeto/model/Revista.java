@@ -10,13 +10,14 @@ public class Revista extends Obra{
 	
 	public Revista(String código, String titulo, String autor, String status, int anoDePublicacao) {
 		super(código, titulo, autor, status, anoDePublicacao);
+		this.tempoDeEmprestimo = 3;
 	}
 	
 	//Métodos
 	
 	@Override
 	public int getTempoEmprestimo() {
-		tempoDeEmprestimo = 2;
+		tempoDeEmprestimo = 3;
 		return tempoDeEmprestimo;
 	}
 	

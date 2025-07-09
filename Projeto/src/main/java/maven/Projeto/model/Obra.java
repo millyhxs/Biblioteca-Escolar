@@ -24,13 +24,12 @@ public abstract class Obra {
 		Status = status;
 		this.anoDePublicacao = anoDePublicacao;
 		this.emprestado = false;
-
+		
 	}
     
     //Métodos
     
 	public abstract int getTempoEmprestimo();
-	
 	
 	// Get's & Set's
 	
