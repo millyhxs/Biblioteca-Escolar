@@ -8,12 +8,11 @@
     "emprestado": false
   },
   {
-    "codigo": "090990",
-    "titulo": "hp",
-    "autor": "jk",
-    "anoDePublicacao": 2006,
+    "codigo": "0001",
+    "titulo": "Harry Potter",
+    "autor": "JK",
+    "anoDePublicacao": 2007,
     "tempoDeEmprestimo": 7,
     "emprestado": false
-  },
-
+  }
 ]

@@ -1,0 +1,10 @@
+[
+  {
+    "codigo": "A001",
+    "titulo": "TCC Aleatorio",
+    "autor": "Joao",
+    "anoDePublicacao": 2020,
+    "tempoDeEmprestimo": 2,
+    "emprestado": false
+  }
+]
