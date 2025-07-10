@@ -1,9 +1,17 @@
 [
   {
-    "codigo": "0001",
+    "codigo": "L001",
     "titulo": "Harry Potter",
     "autor": "JK",
     "anoDePublicacao": 2007,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
+  },
+  {
+    "codigo": "L002",
+    "titulo": "Percy Jackson",
+    "autor": "Rick Riordian",
+    "anoDePublicacao": 2010,
     "tempoDeEmprestimo": 7,
     "emprestado": false
   }

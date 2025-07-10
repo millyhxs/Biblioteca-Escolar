@@ -11,7 +11,7 @@ import maven.Projeto.model.Revista;
 
 public class Main {
     public static void main(String[] args) {
-        menu();
+    	menu();
     }
     
     public static void menu() {
