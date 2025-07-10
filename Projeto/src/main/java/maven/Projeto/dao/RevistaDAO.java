@@ -17,80 +17,59 @@ import maven.Projeto.model.Revista;
 public class RevistaDAO {
 	
 	private static final String CAMINHO = "listaDeRevistas.json";
-	
-	public static void cadastrar(Revista novaObra) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Revista> listaDeObras = new ArrayList<>();
+	private static List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
+    private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    
+    public static void cadastrar(Revista novaObra) {
+        buscarArquivo();
         
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            Type tipoLista = new TypeToken<List<Revista>>() {}.getType();
-            listaDeObras = gson.fromJson(leitor, tipoLista);
-            
-            if (listaDeObras == null) {
-                listaDeObras = new ArrayList<>();
-            }
-            
-        } catch (IOException e) {
-            // se o arquivo não existir ainda, criaremos um novo.
-            listaDeObras = new ArrayList<>();
+        if (LISTA_DE_OBRAS == null) {
+            LISTA_DE_OBRAS = new ArrayList<>();
         }
-     
-        boolean codigoRepetido = false;
-        for (Revista revista : listaDeObras) {
+        
+        for (Revista revista : LISTA_DE_OBRAS) {
             if (revista.getCodigo().equals(novaObra.getCodigo())) {
-                codigoRepetido = true;
-                break;
+                System.out
+                        .println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo()
+                                + "\".");
+                return;
             }
         }
         
-        if (codigoRepetido) {
-            System.out.println("Erro: Já existe uma revista cadastrada com o código \"" + novaObra.getCodigo() + "\".");
-            return;
-        }
+        LISTA_DE_OBRAS.add(novaObra);
         
-        listaDeObras.add(novaObra);
-        
-        // grava a lista atualizada de volta no JSON
-        try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            gson.toJson(listaDeObras, escritor);
-            System.out.println("Cadastro concluído!");
-        } catch (IOException e) {
-            System.out.println("Erro ao escrever no arquivo JSON!");
-        }
+        atualizarJson();
     }
     
     public static void excluir(String codigo) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Revista> listaDeObras = new ArrayList<>();
+        buscarArquivo();
+        boolean excluiu = LISTA_DE_OBRAS.removeIf(revista -> revista.getCodigo().equals(codigo));
         
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            Type tipoLista = new TypeToken<List<Revista>>() {}.getType();
-            listaDeObras = gson.fromJson(leitor, tipoLista);
-            
-            if (listaDeObras == null) {
-                listaDeObras = new ArrayList<>();
-            } else {
-                listaDeObras.removeIf(r -> r == null || r.getCodigo() == null);
-            }
-            
-        } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo. Nenhuma revista foi carregada.");
-            return;
-        }
-        
-        // Verifica se a revista com o código existe e remove
-        boolean removido = listaDeObras.removeIf(revista -> codigo.equals(revista.getCodigo()));
-        
-        if (removido) {
-            // Salva a lista atualizada
-            try (FileWriter escritor = new FileWriter(CAMINHO)) {
-                gson.toJson(listaDeObras, escritor);
-                System.out.println("Revista com código \"" + codigo + "\" foi excluída com sucesso!");
-            } catch (IOException e) {
-                System.out.println("Erro ao escrever no arquivo JSON!");
-            }
+        if (excluiu) {
+            atualizarJson();
+            System.out.println("Revista excluída");
         } else {
-            System.out.println("Erro: Nenhuma revista encontrada com o código \"" + codigo + "\".");
+            System.out.println("Revista não encontrada");
+        }
+    }
+    
+    private static void buscarArquivo() {
+        try {
+            FileReader leitor = new FileReader(CAMINHO);
+            Type tipoLista = new TypeToken<List<Revista>>() {}.getType();
+            
+            LISTA_DE_OBRAS = GSON.fromJson(leitor, tipoLista);
+        } catch (IOException e) {
+            System.out.println("Erro ao adicionar obra no arquivo JSON!");
+        }
+    }
+    
+    private static void atualizarJson() {
+        try (FileWriter escritor = new FileWriter(CAMINHO)) {
+            GSON.toJson(LISTA_DE_OBRAS, escritor);
+            System.out.println("Obra adicionada com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
 }

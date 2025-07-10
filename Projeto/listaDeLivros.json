@@ -14,5 +14,13 @@
     "anoDePublicacao": 2010,
     "tempoDeEmprestimo": 7,
     "emprestado": false
+  },
+  {
+    "codigo": "L003",
+    "titulo": "Batman",
+    "autor": "ksks",
+    "anoDePublicacao": 2009,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
   }
 ]

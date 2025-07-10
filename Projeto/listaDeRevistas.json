@@ -6,5 +6,13 @@
     "anoDePublicacao": 3000,
     "tempoDeEmprestimo": 3,
     "emprestado": false
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Vida",
+    "autor": "ll",
+    "anoDePublicacao": 2000,
+    "tempoDeEmprestimo": 3,
+    "emprestado": false
   }
 ]

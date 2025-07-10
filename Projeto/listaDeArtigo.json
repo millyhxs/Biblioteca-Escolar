@@ -6,5 +6,13 @@
     "anoDePublicacao": 2020,
     "tempoDeEmprestimo": 2,
     "emprestado": false
+  },
+  {
+    "codigo": "A002",
+    "titulo": "TCC de Lucas",
+    "autor": "Lucas",
+    "anoDePublicacao": 2022,
+    "tempoDeEmprestimo": 2,
+    "emprestado": false
   }
 ]

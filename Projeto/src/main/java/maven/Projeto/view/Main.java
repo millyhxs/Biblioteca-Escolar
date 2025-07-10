@@ -11,10 +11,10 @@ import maven.Projeto.model.Revista;
 
 public class Main {
     public static void main(String[] args) {
-    	menu();
+    	menuCadastro();
     }
     
-    public static void menu() {
+    public static void menuCadastro() {
         Scanner sc = new Scanner(System.in);
         System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista\n4 - Excluir revista\n5 - Excluir artigo\n6 - Excluir livro");
         int op = sc.nextInt();
