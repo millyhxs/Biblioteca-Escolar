@@ -6,7 +6,6 @@ public abstract class Obra {
 	protected String codigo;
     protected String titulo;
     protected String autor;
-    protected String Status;
     protected int anoDePublicacao;
     protected int tempoDeEmprestimo;
     protected boolean emprestado;
@@ -17,11 +16,10 @@ public abstract class Obra {
     	
     }
     
-    public Obra(String codigo, String titulo, String autor, String status, int anoDePublicacao) {
+    public Obra(String codigo, String titulo, String autor, int anoDePublicacao) {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
-		Status = status;
 		this.anoDePublicacao = anoDePublicacao;
 		this.emprestado = false;
 		
@@ -55,14 +53,6 @@ public abstract class Obra {
 	
 	public void setAutor(String autor) {
 		this.autor = autor;
-	}
-	
-	public String getStatus() {
-		return Status;
-	}
-	
-	public void setStatus(String status) {
-		Status = status;
 	}
 	
 	public int getAnoDePublicacao() {

@@ -1,9 +1,18 @@
-{
-  "codigo": "000",
-  "titulo": "Caminho dos reis",
-  "autor": "Brandon Sanderson",
-  "Status": "Disponível",
-  "anoDePublicacao": 2005,
-  "tempoDeEmprestimo": 7,
-  "emprestado": false
-}
+[
+  {
+    "codigo": "0000",
+    "titulo": "Caminho dos reis",
+    "autor": "Brandon Sanderson",
+    "anoDePublicacao": 2005,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
+  },
+  {
+    "codigo": "090990",
+    "titulo": "hp",
+    "autor": "jk",
+    "anoDePublicacao": 2006,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
+  }
+]

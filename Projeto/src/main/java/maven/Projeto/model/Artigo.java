@@ -5,11 +5,11 @@ public class Artigo extends Obra{
 	//Construtores
 	
 	public Artigo() {
-		
+		this.tempoDeEmprestimo = 2;
 	}
 	
-	public Artigo(String codigo, String titulo, String autor, String status, int anoDePublicacao) {
-		super(codigo, titulo, autor, status, anoDePublicacao);
+	public Artigo(String codigo, String titulo, String autor, int anoDePublicacao) {
+		super(codigo, titulo, autor, anoDePublicacao);
 		this.tempoDeEmprestimo = 2;
 	}
 	

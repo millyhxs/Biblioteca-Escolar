@@ -5,11 +5,11 @@ public class Livro extends Obra{
 	//Construtores
 	
 	public Livro() {
-		
+		this.tempoDeEmprestimo = 7;
 	}
 	
-	public Livro(String codigo, String titulo, String autor, String status, int anoDePublicacao) {
-		super(codigo, titulo, autor, status, anoDePublicacao);
+	public Livro(String codigo, String titulo, String autor, int anoDePublicacao) {
+		super(codigo, titulo, autor, anoDePublicacao);
 		this.tempoDeEmprestimo = 7;
 	}
 	
