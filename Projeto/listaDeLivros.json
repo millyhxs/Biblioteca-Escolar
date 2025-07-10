@@ -1,13 +1,5 @@
 [
   {
-    "codigo": "0000",
-    "titulo": "Caminho dos reis",
-    "autor": "Brandon Sanderson",
-    "anoDePublicacao": 2005,
-    "tempoDeEmprestimo": 7,
-    "emprestado": false
-  },
-  {
     "codigo": "0001",
     "titulo": "Harry Potter",
     "autor": "JK",

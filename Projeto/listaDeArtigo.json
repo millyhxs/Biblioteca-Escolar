@@ -1,18 +1,1 @@
-[
-  {
-    "codigo": "A001",
-    "titulo": "TCC Aleatorio",
-    "autor": "Joao",
-    "anoDePublicacao": 2020,
-    "tempoDeEmprestimo": 2,
-    "emprestado": false
-  },
-  {
-    "codigo": "0001",
-    "titulo": "A arte de programar",
-    "autor": "H.M. Souza",
-    "anoDePublicacao": 2025,
-    "tempoDeEmprestimo": 2,
-    "emprestado": false
-  }
-]
+[]

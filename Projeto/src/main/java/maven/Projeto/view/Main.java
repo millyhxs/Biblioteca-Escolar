@@ -5,7 +5,6 @@ import java.util.Scanner;
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.RevistaDAO;
-
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Revista;
@@ -17,7 +16,7 @@ public class Main {
     
     public static void menu() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista");
+        System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista\n4 - Excluir revista\n5 - Excluir artigo\n6 - Excluir livro");
         int op = sc.nextInt();
         sc.nextLine(); 
         
@@ -71,7 +70,18 @@ public class Main {
             
             RevistaDAO.cadastrar(revista);
         }
-        
+        else if (op == 4) {
+        	System.out.println("Digite o código da revista que você quer excluir:");
+        	RevistaDAO.excluir(sc.nextLine());
+        }
+        else if (op == 5) {
+        	System.out.println("Digite o código do artigo que você quer excluir:");
+        	ArtigoDAO.excluir(sc.nextLine());
+        }
+        else if (op == 6) {
+        	System.out.println("Digite o código do livro que você quer excluir:");
+        	LivroDAO.excluir(sc.nextLine());
+        }
         else {
             System.out.println("Opção inválida.");
         }

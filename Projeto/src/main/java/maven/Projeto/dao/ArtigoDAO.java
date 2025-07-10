@@ -11,8 +11,8 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import maven.Projeto.model.Artigo; 
 
+import maven.Projeto.model.Artigo;
 
 public class ArtigoDAO {
 	
@@ -57,6 +57,40 @@ public class ArtigoDAO {
             System.out.println("Cadastro concluído!");
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo JSON!");
+        }
+    }
+    
+    public static void excluir(String codigo) {
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    	List<Artigo> listaDeObras = new ArrayList<>();
+    	
+    	try (FileReader leitor = new FileReader(CAMINHO)) {
+    		Type tipoLista = new TypeToken<List<Artigo>>() {}.getType();
+            listaDeObras = gson.fromJson(leitor, tipoLista);
+    		
+            if (listaDeObras == null) {
+                listaDeObras = new ArrayList<>();
+            } else {
+                listaDeObras.removeIf(r -> r == null || r.getCodigo() == null);
+            }
+            
+    	} catch (IOException e) {
+    		System.out.println("Erro ao ler o arquivo. Nenhuma livro foi carregado.");
+            return;
+    	}
+    	
+    	boolean removido = listaDeObras.removeIf(artigo -> codigo.equals(artigo.getCodigo()));
+    	
+    	if (removido) {
+            // Salva a lista atualizada
+            try (FileWriter escritor = new FileWriter(CAMINHO)) {
+                gson.toJson(listaDeObras, escritor);
+                System.out.println("Artigo com código \"" + codigo + "\" foi excluído com sucesso!");
+            } catch (IOException e) {
+                System.out.println("Erro ao escrever no arquivo JSON!");
+            }
+        } else {
+            System.out.println("Erro: Nenhum artigo encontrado com o código \"" + codigo + "\".");
         }
     }
 }
