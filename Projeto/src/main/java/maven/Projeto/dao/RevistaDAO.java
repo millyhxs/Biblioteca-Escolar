@@ -11,23 +11,18 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import maven.Projeto.model.Revista;
 
-// Imports
-
-import maven.Projeto.model.Livro;
-
-public abstract class CadastroDeObras extends Livro {
+public class RevistaDAO {
 	
-	private static final String CAMINHO = "listaDeLivros.json";
+	private static final String CAMINHO = "listaDeRevistas.json";
 	
-    // Método para cadastrar uma nova obra
-    public static void cadastrar(Livro novaObra) {
+    public static void cadastrar(Revista novaObra) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Livro> listaDeObras = new ArrayList<>();
+        List<Revista> listaDeObras = new ArrayList<>();
         
-        // 1. Lê o conteúdo existente do arquivo JSON (se existir)
         try (FileReader leitor = new FileReader(CAMINHO)) {
-            Type tipoLista = new TypeToken<List<Livro>>() {}.getType();
+            Type tipoLista = new TypeToken<List<Revista>>() {}.getType();
             listaDeObras = gson.fromJson(leitor, tipoLista);
             
             if (listaDeObras == null) {
@@ -35,26 +30,26 @@ public abstract class CadastroDeObras extends Livro {
             }
             
         } catch (IOException e) {
-            // Se o arquivo não existir ainda, criaremos um novo.
+            // se o arquivo não existir ainda, criaremos um novo.
             listaDeObras = new ArrayList<>();
         }
-        // 2. Verifica se já existe um livro com o mesmo código
+     
         boolean codigoRepetido = false;
-        for (Livro livro : listaDeObras) {
-            if (livro.getCodigo().equals(novaObra.getCodigo())) {
+        for (Revista revista : listaDeObras) {
+            if (revista.getCodigo().equals(novaObra.getCodigo())) {
                 codigoRepetido = true;
                 break;
             }
         }
         
         if (codigoRepetido) {
-            System.out.println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo() + "\".");
+            System.out.println("Erro: Já existe uma revista cadastrada com o código \"" + novaObra.getCodigo() + "\".");
             return;
         }
-        // 3. Adiciona a nova obra à lista
+    
         listaDeObras.add(novaObra);
         
-        // 4. Grava a lista atualizada de volta no JSON
+        // grava a lista atualizada de volta no JSON
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             gson.toJson(listaDeObras, escritor);
             System.out.println("Cadastro concluído!");
