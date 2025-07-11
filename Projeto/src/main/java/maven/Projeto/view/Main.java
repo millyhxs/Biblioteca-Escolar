@@ -1,20 +1,58 @@
 package maven.Projeto.view;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.RevistaDAO;
+import maven.Projeto.dao.UsuarioDAO;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Revista;
+import maven.Projeto.model.Usuario;
 
 public class Main {
     public static void main(String[] args) {
-    	menuCadastro();
+    	menuCadastroUsuarios();
     }
     
-    public static void menuCadastro() {
+    public static void menuCadastroUsuarios() {    
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("O que você deseja fazer?\n1 - Cadastrar usuario\n2 - Excluir usuario");
+    	int op = sc.nextInt();
+    	sc.nextLine();
+    	
+    	if (op == 1) {
+    		Usuario usuario = new Usuario();
+    		System.out.println("Nome do usuario:");
+            usuario.setNome(sc.nextLine());
+            
+            System.out.println("Matricula:");
+            usuario.setMatricula(sc.nextLine());
+            
+            System.out.println("Tipo de usuario:");
+            usuario.setTipoDeUsuario(sc.nextLine());
+            
+            System.out.println("Telefone:");
+            usuario.setTelefone(sc.nextLine());
+            
+            System.out.println("Email:");
+            usuario.setEmail(sc.nextLine());
+            
+            UsuarioDAO.cadastrar(usuario);
+    	}
+    	else if (op == 2) {
+    		System.out.println("Digite a matricula do usuario:");
+    		String matricula = sc.nextLine();
+            UsuarioDAO.excluir(matricula);
+    	}
+    	
+    	sc.close();
+    	
+    }
+    public static void menuCadastroObras() {
         Scanner sc = new Scanner(System.in);
         System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista\n4 - Excluir revista\n5 - Excluir artigo\n6 - Excluir livro");
         int op = sc.nextInt();
