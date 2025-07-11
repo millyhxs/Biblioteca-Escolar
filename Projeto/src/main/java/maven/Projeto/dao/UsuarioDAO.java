@@ -67,5 +67,18 @@ public class UsuarioDAO {
     	}
     }
     
+    private static void editarUsuario(String matricula) {
+    	buscarArquivo();
+    	
+    	if (LISTA_DE_USUARIOS == null) {
+            LISTA_DE_USUARIOS = new ArrayList<>();
+        }
+    	
+    	for (Usuario usuario : LISTA_DE_USUARIOS) {
+            if (usuario.getMatricula().equals(matricula)) {
+                return;
+            }
+        }
+    }
   
 }

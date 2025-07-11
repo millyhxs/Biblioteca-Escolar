@@ -46,6 +46,7 @@ public class Main {
     	else if (op == 2) {
     		System.out.println("Digite a matricula do usuario:");
     		String matricula = sc.nextLine();
+    		
             UsuarioDAO.excluir(matricula);
     	}
     	
