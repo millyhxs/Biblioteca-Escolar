@@ -2,8 +2,6 @@ package maven.Projeto.model;
 
 public class Revista extends Obra{
 	
-	//Construtores
-	
 	public Revista() {
 		this.tempoDeEmprestimo = 3;
 	}
@@ -12,8 +10,6 @@ public class Revista extends Obra{
 		super(codigo, titulo, autor, anoDePublicacao);
 		this.tempoDeEmprestimo = 3;
 	}
-	
-	//Métodos
 	
 	@Override
 	public int getTempoEmprestimo() {

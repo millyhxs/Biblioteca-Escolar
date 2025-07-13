@@ -1,4 +1,4 @@
-package maven.Projeto.execoes;
+package maven.Projeto.excepctions;
 
 public class ObraNaoEncontradaException extends Exception {
 	public ObraNaoEncontradaException(String mensagem) {

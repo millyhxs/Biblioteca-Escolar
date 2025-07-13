@@ -1,8 +1,7 @@
 package maven.Projeto.model;
 
 public class Artigo extends Obra{
-	
-	//Construtores
+
 	
 	public Artigo() {
 		this.tempoDeEmprestimo = 2;
@@ -13,7 +12,6 @@ public class Artigo extends Obra{
 		this.tempoDeEmprestimo = 2;
 	}
 	
-	//Métodos
 	@Override
 	public int getTempoEmprestimo() {
 		tempoDeEmprestimo = 2;

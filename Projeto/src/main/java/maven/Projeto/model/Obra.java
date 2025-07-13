@@ -1,7 +1,6 @@
 package maven.Projeto.model;
 
 public abstract class Obra {
-	//Atributos de obra
 	
 	protected String codigo;
     protected String titulo;
@@ -10,7 +9,6 @@ public abstract class Obra {
     protected int tempoDeEmprestimo;
     protected boolean emprestado;
     
-    //Construtores
     
     public Obra() {
     	
@@ -25,11 +23,7 @@ public abstract class Obra {
 		
 	}
     
-    //Métodos
-    
 	public abstract int getTempoEmprestimo();
-	
-	// Get's & Set's
 	
 	public String getCodigo() {
 		return codigo;
