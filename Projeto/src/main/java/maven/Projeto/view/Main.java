@@ -4,16 +4,40 @@ import java.util.Scanner;
 
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.ArtigoDAO;
+import maven.Projeto.dao.FuncionarioDAO;
 import maven.Projeto.dao.RevistaDAO;
 import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Revista;
+import maven.Projeto.model.Funcionario;
 import maven.Projeto.model.Leitor;
 
 public class Main {
     public static void main(String[] args) {
-    	menuCadastroUsuarios();
+    	menuCadastroFuncionarios();
+    }
+    
+    public static void menuCadastroFuncionarios() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("O que você deseja fazer?\n1 - Cadastrar servidor");
+        int op = sc.nextInt();
+        sc.nextLine();
+        
+        if (op == 1) {
+            Funcionario funcionario = new Funcionario();
+            System.out.println("Nome do Servidor:");
+            funcionario.setNome(sc.nextLine());
+            
+            System.out.println("Id:");
+            funcionario.setId(sc.nextLine());
+            
+            System.out.println("Tipo de Servidor:");
+            funcionario.setTipo(sc.nextLine());
+            
+            FuncionarioDAO.cadastrar(funcionario);
+        }
+        sc.close();
     }
     
     public static void menuCadastroUsuarios() {    

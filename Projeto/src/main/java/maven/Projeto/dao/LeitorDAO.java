@@ -92,6 +92,5 @@ public class LeitorDAO {
             System.out.println("Usuário com matrícula \"" + matricula + "\" não encontrado.");
         }
     }
-
   
 }
