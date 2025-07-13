@@ -2,6 +2,7 @@ package maven.Projeto.model;
 
 public class Funcionario {
     private String id;
+    private String senha;
     private String nome;
     private String tipo;
     private boolean ativo;
@@ -10,8 +11,9 @@ public class Funcionario {
     	
     }
     
-    public Funcionario(String id, String nome, String tipo, boolean ativo) {
+    public Funcionario(String id, String senha, String nome, String tipo, boolean ativo) {
     	this.id = id;
+    	this.senha = senha;
     	this.nome = nome;
     	this.tipo = tipo;
     	this.ativo = ativo;
@@ -40,6 +42,12 @@ public class Funcionario {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
     
     

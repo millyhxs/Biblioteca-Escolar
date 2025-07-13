@@ -1,8 +1,9 @@
 [
   {
     "id": "211212",
+	"senha":"oi",
     "nome": "Joao",
-    "tipo": "AMD",
+    "tipo": "Administrador",
     "ativo": false
   }
 ]

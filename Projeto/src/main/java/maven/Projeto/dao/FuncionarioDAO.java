@@ -53,5 +53,16 @@ public class FuncionarioDAO {
     		System.out.println("Erro ao escrever no arquivo JSON.");
     	}
     }
-    
+    public static Funcionario buscarPorIdESenha(String id, String senha) {
+        buscarArquivo();
+
+        if (LISTA_DE_FUNCIONARIOS != null) {
+            for (Funcionario funcionario : LISTA_DE_FUNCIONARIOS) {
+                if (funcionario.getId().equals(id) && funcionario.getSenha().equals(senha)) {
+                    return funcionario;
+                }
+            }
+        }
+        return null;
+    }
 }
