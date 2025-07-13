@@ -1,17 +1,15 @@
 package maven.Projeto.view;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.RevistaDAO;
-import maven.Projeto.dao.UsuarioDAO;
+import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Revista;
-import maven.Projeto.model.Usuario;
+import maven.Projeto.model.Leitor;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,58 +21,58 @@ public class Main {
         System.out.println("O que você deseja fazer?\n1 - Cadastrar usuário\n2 - Excluir usuário\n3 - Editar usuário");
         int op = sc.nextInt();
         sc.nextLine();
-
+        
         if (op == 1) {
-            Usuario usuario = new Usuario();
+            Leitor usuario = new Leitor();
             System.out.println("Nome do usuário:");
             usuario.setNome(sc.nextLine());
-
+            
             System.out.println("Matrícula:");
             usuario.setMatricula(sc.nextLine());
-
+            
             System.out.println("Tipo de usuário:");
             usuario.setTipoDeUsuario(sc.nextLine());
-
+            
             System.out.println("Telefone:");
             usuario.setTelefone(sc.nextLine());
-
+            
             System.out.println("Email:");
             usuario.setEmail(sc.nextLine());
-
-            UsuarioDAO.cadastrar(usuario);
+            
+            LeitorDAO.cadastrar(usuario);
         } 
         else if (op == 2) {
             System.out.println("Digite a matrícula do usuário:");
             String matricula = sc.nextLine();
-            UsuarioDAO.excluir(matricula);
+            LeitorDAO.excluir(matricula);
         } 
         else if (op == 3) {
             System.out.println("Digite a matrícula do usuário que deseja editar:");
             String matricula = sc.nextLine();
-
-            Usuario novosDados = new Usuario();
-
+            
+            Leitor novosDados = new Leitor();
+            
             System.out.println("Novo nome:");
             novosDados.setNome(sc.nextLine());
-
+            
             System.out.println("Novo tipo de usuário:");
             novosDados.setTipoDeUsuario(sc.nextLine());
-
+            
             System.out.println("Novo telefone:");
             novosDados.setTelefone(sc.nextLine());
-
+            
             System.out.println("Novo email:");
             novosDados.setEmail(sc.nextLine());
-
-            UsuarioDAO.editarUsuario(matricula, novosDados);
+            
+            LeitorDAO.editarUsuario(matricula, novosDados);
         } 
         else {
             System.out.println("Opção inválida.");
         }
-
+        
         sc.close();
     }
-
+    
     public static void menuCadastroObras() {
         Scanner sc = new Scanner(System.in);
         System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista\n4 - Excluir revista\n5 - Excluir artigo\n6 - Excluir livro");

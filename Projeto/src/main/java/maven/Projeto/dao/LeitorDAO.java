@@ -11,22 +11,22 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import maven.Projeto.model.Usuario;
+import maven.Projeto.model.Leitor;
 
-public class UsuarioDAO {
+public class LeitorDAO {
 	
     private static final String CAMINHO = "listaDeUsuarios.json";
-    private static List<Usuario> LISTA_DE_USUARIOS = new ArrayList<>();
+    private static List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
-    public static void cadastrar(Usuario novoUsuario) {
+    public static void cadastrar(Leitor novoUsuario) {
         buscarArquivo();
         
         if (LISTA_DE_USUARIOS == null) {
             LISTA_DE_USUARIOS = new ArrayList<>();
         }
         
-        for (Usuario usuario : LISTA_DE_USUARIOS) {
+        for (Leitor usuario : LISTA_DE_USUARIOS) {
             if (usuario.getMatricula().equals(novoUsuario.getMatricula())) {
                 System.out.println("Erro: Já existe um usuário com a matrícula \"" + novoUsuario.getMatricula() + "\".");
                 return;
@@ -51,7 +51,7 @@ public class UsuarioDAO {
     
     private static void buscarArquivo() {
         try (FileReader leitor = new FileReader(CAMINHO)) {
-            Type tipoLista = new TypeToken<List<Usuario>>() {}.getType();
+            Type tipoLista = new TypeToken<List<Leitor>>() {}.getType();
             LISTA_DE_USUARIOS = GSON.fromJson(leitor, tipoLista);
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo JSON.");
@@ -67,16 +67,16 @@ public class UsuarioDAO {
     	}
     }
     
-    public static void editarUsuario(String matricula, Usuario novosDados) {
+    public static void editarUsuario(String matricula, Leitor novosDados) {
         buscarArquivo();
-
+        
         if (LISTA_DE_USUARIOS == null) {
             LISTA_DE_USUARIOS = new ArrayList<>();
         }
-
+        
         boolean encontrou = false;
-
-        for (Usuario usuario : LISTA_DE_USUARIOS) {
+        
+        for (Leitor usuario : LISTA_DE_USUARIOS) {
             if (usuario.getMatricula().equals(matricula)) {
                 usuario.setNome(novosDados.getNome());
                 usuario.setTipoDeUsuario(novosDados.getTipoDeUsuario());

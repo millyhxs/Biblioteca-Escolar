@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public class Servidor extends Usuario {
+public class Servidor extends Leitor {
     public Servidor() {
         super();
         super.setTipoDeUsuario("Servidor");

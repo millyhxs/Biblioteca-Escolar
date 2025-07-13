@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public class Aluno extends Usuario {
+public class Aluno extends Leitor {
     public Aluno() {
         super();
         super.setTipoDeUsuario("Aluno");

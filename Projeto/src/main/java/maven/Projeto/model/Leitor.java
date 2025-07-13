@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public class Usuario {
+public class Leitor {
 	
 	protected String nome;
 	protected String matricula;
@@ -9,11 +9,11 @@ public class Usuario {
 	protected String email;
 
 		
-        public Usuario() {
+        public Leitor() {
         	
         }
         
-        public Usuario(String nome, String matricula, String telefone, String email) {
+        public Leitor(String nome, String matricula, String telefone, String email) {
         this.nome = nome;
         this.matricula = matricula;
         this.telefone = telefone;
