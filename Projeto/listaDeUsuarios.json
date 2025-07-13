@@ -5,5 +5,12 @@
     "tipoDeUsuario": "aluno",
     "telefone": "223232",
     "email": "lslsls"
+  },
+  {
+    "nome": "Millena",
+    "matricula": "123456",
+    "tipoDeUsuario": "Aluna",
+    "telefone": "6545156",
+    "email": "millyhxs@gmail.com"
   }
 ]

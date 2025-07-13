@@ -67,18 +67,31 @@ public class UsuarioDAO {
     	}
     }
     
-    private static void editarUsuario(String matricula) {
-    	buscarArquivo();
-    	
-    	if (LISTA_DE_USUARIOS == null) {
+    public static void editarUsuario(String matricula, Usuario novosDados) {
+        buscarArquivo();
+
+        if (LISTA_DE_USUARIOS == null) {
             LISTA_DE_USUARIOS = new ArrayList<>();
         }
-    	
-    	for (Usuario usuario : LISTA_DE_USUARIOS) {
+
+        boolean encontrou = false;
+
+        for (Usuario usuario : LISTA_DE_USUARIOS) {
             if (usuario.getMatricula().equals(matricula)) {
-                return;
+                usuario.setNome(novosDados.getNome());
+                usuario.setTipoDeUsuario(novosDados.getTipoDeUsuario());
+                usuario.setTelefone(novosDados.getTelefone());
+                usuario.setEmail(novosDados.getEmail());
+                encontrou = true;
+                break;
             }
+        } if (encontrou) {
+            atualizarJson();
+            System.out.println("Usuário atualizado com sucesso.");
+        } else {
+            System.out.println("Usuário com matrícula \"" + matricula + "\" não encontrado.");
         }
     }
+
   
 }

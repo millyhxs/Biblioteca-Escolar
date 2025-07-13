@@ -19,40 +19,62 @@ public class Main {
     }
     
     public static void menuCadastroUsuarios() {    
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("O que você deseja fazer?\n1 - Cadastrar usuario\n2 - Excluir usuario");
-    	int op = sc.nextInt();
-    	sc.nextLine();
-    	
-    	if (op == 1) {
-    		Usuario usuario = new Usuario();
-    		System.out.println("Nome do usuario:");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("O que você deseja fazer?\n1 - Cadastrar usuário\n2 - Excluir usuário\n3 - Editar usuário");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op == 1) {
+            Usuario usuario = new Usuario();
+            System.out.println("Nome do usuário:");
             usuario.setNome(sc.nextLine());
-            
-            System.out.println("Matricula:");
+
+            System.out.println("Matrícula:");
             usuario.setMatricula(sc.nextLine());
-            
-            System.out.println("Tipo de usuario:");
+
+            System.out.println("Tipo de usuário:");
             usuario.setTipoDeUsuario(sc.nextLine());
-            
+
             System.out.println("Telefone:");
             usuario.setTelefone(sc.nextLine());
-            
+
             System.out.println("Email:");
             usuario.setEmail(sc.nextLine());
-            
+
             UsuarioDAO.cadastrar(usuario);
-    	}
-    	else if (op == 2) {
-    		System.out.println("Digite a matricula do usuario:");
-    		String matricula = sc.nextLine();
-    		
+        } 
+        else if (op == 2) {
+            System.out.println("Digite a matrícula do usuário:");
+            String matricula = sc.nextLine();
             UsuarioDAO.excluir(matricula);
-    	}
-    	
-    	sc.close();
-    	
+        } 
+        else if (op == 3) {
+            System.out.println("Digite a matrícula do usuário que deseja editar:");
+            String matricula = sc.nextLine();
+
+            Usuario novosDados = new Usuario();
+
+            System.out.println("Novo nome:");
+            novosDados.setNome(sc.nextLine());
+
+            System.out.println("Novo tipo de usuário:");
+            novosDados.setTipoDeUsuario(sc.nextLine());
+
+            System.out.println("Novo telefone:");
+            novosDados.setTelefone(sc.nextLine());
+
+            System.out.println("Novo email:");
+            novosDados.setEmail(sc.nextLine());
+
+            UsuarioDAO.editarUsuario(matricula, novosDados);
+        } 
+        else {
+            System.out.println("Opção inválida.");
+        }
+
+        sc.close();
     }
+
     public static void menuCadastroObras() {
         Scanner sc = new Scanner(System.in);
         System.out.println("O que você deseja cadastrar?\n1 - Livro\n2 - Artigo\n3 - Revista\n4 - Excluir revista\n5 - Excluir artigo\n6 - Excluir livro");
