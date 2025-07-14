@@ -38,6 +38,7 @@ public class TelaAdministrador extends JFrame {
         btnObras.setForeground(corTextoBotao);
         btnObras.setFocusPainted(false);
         painel.add(btnObras);
+        btnObras.addActionListener(e -> new TelaCadastroObras().setVisible(true));
 
         JButton btnLeitores = new JButton("Cadastrar Leitores");
         btnLeitores.setBounds(150, 160, 200, 40);

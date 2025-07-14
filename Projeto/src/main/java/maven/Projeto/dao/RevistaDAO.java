@@ -72,4 +72,9 @@ public class RevistaDAO {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
+    public static List<Revista> getRevistas() {
+        buscarArquivo();
+        return LISTA_DE_OBRAS;
+    }
+
 }

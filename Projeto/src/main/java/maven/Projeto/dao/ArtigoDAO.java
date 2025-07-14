@@ -72,4 +72,8 @@ public class ArtigoDAO {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
+    public static List<Artigo> getArtigos() {
+        buscarArquivo();
+        return LISTA_DE_OBRAS;
+    }
 }

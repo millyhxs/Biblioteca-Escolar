@@ -14,5 +14,10 @@
     "anoDePublicacao": 2000,
     "tempoDeEmprestimo": 3,
     "emprestado": false
+  },
+  {
+    "anoDePublicacao": 0,
+    "tempoDeEmprestimo": 3,
+    "emprestado": false
   }
 ]
