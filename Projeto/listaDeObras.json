@@ -1,0 +1,50 @@
+[
+  {
+    "codigo": "L001",
+    "titulo": "Harry Potter",
+    "autor": "J.K. Rowling",
+    "anoDePublicacao": 2007,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
+  },
+  {
+    "codigo": "L002",
+    "titulo": "Percy Jackson",
+    "autor": "Rick Riordian",
+    "anoDePublicacao": 2010,
+    "tempoDeEmprestimo": 7,
+    "emprestado": false
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de João",
+    "autor": "João",
+    "anoDePublicacao": 2020,
+    "tempoDeEmprestimo": 2,
+    "emprestado": false
+  },
+  {
+    "codigo": "A002",
+    "titulo": "TCC de Lucas",
+    "autor": "Lucas",
+    "anoDePublicacao": 2022,
+    "tempoDeEmprestimo": 2,
+    "emprestado": false
+  },
+  {
+    "codigo": "R001",
+    "titulo": "Veja",
+    "autor": "S/N",
+    "anoDePublicacao": 2000,
+    "tempoDeEmprestimo": 3,
+    "emprestado": false
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Capricho",
+    "autor": "S/N",
+    "anoDePublicacao": 2002,
+    "tempoDeEmprestimo": 3,
+    "emprestado": false
+  }
+]

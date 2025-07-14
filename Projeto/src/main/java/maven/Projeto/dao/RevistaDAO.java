@@ -16,7 +16,7 @@ import maven.Projeto.model.Revista;
 
 public class RevistaDAO {
 	
-	private static final String CAMINHO = "listaDeRevistas.json";
+	private static final String CAMINHO = "listaDeObras.json";
 	private static List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
@@ -30,7 +30,7 @@ public class RevistaDAO {
         for (Revista revista : LISTA_DE_OBRAS) {
             if (revista.getCodigo().equals(novaObra.getCodigo())) {
                 System.out
-                        .println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo()
+                        .println("Erro: Já existe uma revista cadastrada com o código \"" + novaObra.getCodigo()
                                 + "\".");
                 return;
             }
@@ -67,7 +67,7 @@ public class RevistaDAO {
     private static void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_OBRAS, escritor);
-            System.out.println("Obra adicionada com sucesso!");
+            System.out.println("Arquivo JSON atualizado!");
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }

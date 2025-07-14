@@ -16,7 +16,7 @@ import maven.Projeto.model.Artigo;
 
 public class ArtigoDAO {
 	
-	private static final String CAMINHO = "listaDeArtigo.json";
+	private static final String CAMINHO = "listaDeObras.json";
 	private static List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
@@ -30,7 +30,7 @@ public class ArtigoDAO {
         for (Artigo artigo : LISTA_DE_OBRAS) {
             if (artigo.getCodigo().equals(novaObra.getCodigo())) {
                 System.out
-                        .println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo()
+                        .println("Erro: Já existe um artigo cadastrado com o código \"" + novaObra.getCodigo()
                                 + "\".");
                 return;
             }
@@ -67,7 +67,7 @@ public class ArtigoDAO {
     private static void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_OBRAS, escritor);
-            System.out.println("Obra adicionada com sucesso!");
+            System.out.println("Arquivo JSON atualizado!");
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }

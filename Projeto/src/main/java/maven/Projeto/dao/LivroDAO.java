@@ -16,7 +16,7 @@ import maven.Projeto.model.Livro;
 
 public class LivroDAO {
 	
-    private static final String CAMINHO = "listaDeLivros.json";
+    private static final String CAMINHO = "listaDeObras.json";
     private static List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
@@ -67,7 +67,7 @@ public class LivroDAO {
     private static void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_OBRAS, escritor);
-            System.out.println("Obra adicionada com sucesso!");
+            System.out.println("Arquivo JSON atualizado!");
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
