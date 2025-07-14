@@ -9,13 +9,13 @@ import maven.Projeto.model.Livro;
 import maven.Projeto.model.Revista;
 
 public class ObraController {
-	public void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicação, String emprestado) throws CampoVazioException{
+	public static void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicação, String emprestado) throws CampoVazioException{
 		if (codigo == null || codigo.isEmpty()|| titulo == null || titulo.isEmpty() || autor == null || autor.isEmpty() || 
 				anoDePublicação == null || anoDePublicação.isEmpty() || emprestado == null || emprestado.isEmpty()) {
-			throw new CampoVazioException("Preencha todos os espaços."); 
+			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
 		}
 		
-		if (opcao == "Livro") {
+		if (opcao.equals("Livro")) {
 			Livro livro = new Livro();
 			
 			try {
@@ -25,7 +25,7 @@ public class ObraController {
 			}
 		}
 		
-		else if (opcao == "Revista") {
+		else if (opcao.equals("Revista")) {
 			Revista revista = new Revista();
 			
 			try {
@@ -35,7 +35,7 @@ public class ObraController {
 			}
 		} 
 		
-		else if (opcao == "Artigo") {
+		else if (opcao.equals("Artigo")) {
 			Artigo artigo = new Artigo();
 			
 			try {
@@ -46,17 +46,23 @@ public class ObraController {
 		} 
 	}
 	
-	public void exclusaoDeDados(String codigo) throws CampoVazioException {
+	public static void exclusaoDeDados(String opcao, String codigo) throws CampoVazioException {
 		if (codigo == null || codigo.isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
-		else {
-			try {
-				
-			} catch (Exception e) {
-				
-			}
-		}
+		switch (opcao) {
+        case "Livro":
+            LivroDAO.excluir(codigo);
+            break;
+        case "Revista":
+            RevistaDAO.excluir(codigo);
+            break;
+        case "Artigo":
+            ArtigoDAO.excluir(codigo);
+            break;
+        default:
+            System.out.println("Tipo de obra inválido");
+    }
 		
 	}
 }
