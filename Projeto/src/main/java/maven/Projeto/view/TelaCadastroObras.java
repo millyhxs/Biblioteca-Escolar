@@ -1,9 +1,6 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.ObraController;
-import maven.Projeto.dao.ArtigoDAO;
-import maven.Projeto.dao.LivroDAO;
-import maven.Projeto.dao.RevistaDAO;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Livro;
@@ -184,7 +181,6 @@ public class TelaCadastroObras extends JFrame {
             });
         }
     }
-    
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new TelaCadastroObras().setVisible(true));

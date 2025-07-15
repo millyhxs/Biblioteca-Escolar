@@ -12,7 +12,7 @@ import maven.Projeto.model.Revista;
 
 public class ObraController {
 	public static void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
-		if (codigo == null || codigo.isEmpty()|| titulo == null || titulo.isEmpty() || autor == null || autor.isEmpty() || anoDePublicacao == null || anoDePublicacao.isEmpty()) {
+		if (codigo == null || codigo.trim().isEmpty()|| titulo == null || titulo.trim().isEmpty() || autor == null || autor.trim().isEmpty() || anoDePublicacao == null || anoDePublicacao.trim().isEmpty()) {
 			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
 		}
 		
@@ -63,7 +63,7 @@ public class ObraController {
 	}
 	
 	public static void exclusaoDeDados(String tipo, String codigo) throws CampoVazioException {
-		if (codigo == null || codigo.isEmpty()) {
+		if (codigo == null || codigo.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
 		switch (tipo) {

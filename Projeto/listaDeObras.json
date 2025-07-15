@@ -36,15 +36,6 @@
     "tipo": "Artigo"
   },
   {
-    "codigo": "A003",
-    "titulo": "TCC de José",
-    "autor": "José",
-    "anoDePublicacao": "2021",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "L002",
     "titulo": "Percy Jackson",
     "autor": "Rick Riordian",

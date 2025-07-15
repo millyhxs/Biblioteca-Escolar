@@ -20,17 +20,17 @@ public class TelaAdministrador extends JFrame {
         };
         painel.setLayout(null);
         add(painel);
-
+        
         JLabel titulo = new JLabel("Área do Administrador", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 26));
         titulo.setForeground(Color.WHITE);
         titulo.setBounds(0, 30, 500, 40);
         painel.add(titulo);
-
+        
         Font fonteBtn = new Font("SansSerif", Font.BOLD, 16);
         Color corBotao = new Color(220, 53, 69);
         Color corTextoBotao = Color.WHITE;
-
+        
         JButton btnObras = new JButton("Cadastrar Obras");
         btnObras.setBounds(150, 100, 200, 40);
         btnObras.setFont(fonteBtn);
@@ -39,7 +39,7 @@ public class TelaAdministrador extends JFrame {
         btnObras.setFocusPainted(false);
         painel.add(btnObras);
         btnObras.addActionListener(e -> new TelaCadastroObras().setVisible(true));
-
+        
         JButton btnLeitores = new JButton("Cadastrar Leitores");
         btnLeitores.setBounds(150, 160, 200, 40);
         btnLeitores.setFont(fonteBtn);
@@ -47,7 +47,8 @@ public class TelaAdministrador extends JFrame {
         btnLeitores.setForeground(corTextoBotao);
         btnLeitores.setFocusPainted(false);
         painel.add(btnLeitores);
-
+        btnLeitores.addActionListener(e -> new TelaCadastroLeitores().setVisible(true));
+        
         JButton btnFuncionarios = new JButton("Cadastrar Funcionários");
         btnFuncionarios.setBounds(150, 220, 200, 40);
         btnFuncionarios.setFont(fonteBtn);
@@ -56,7 +57,7 @@ public class TelaAdministrador extends JFrame {
         btnFuncionarios.setFocusPainted(false);
         painel.add(btnFuncionarios);
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new TelaAdministrador().setVisible(true);

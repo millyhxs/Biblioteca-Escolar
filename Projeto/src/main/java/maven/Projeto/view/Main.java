@@ -17,7 +17,7 @@ import maven.Projeto.model.Leitor;
 
 public class Main {
     public static void main(String[] args) throws CampoVazioException {
-    	menuCadastroObras();
+    	menuCadastroUsuarios();
     }
     
     public static void menuCadastroFuncionarios() {

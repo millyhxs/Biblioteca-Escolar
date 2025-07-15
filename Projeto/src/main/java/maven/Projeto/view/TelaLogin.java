@@ -71,7 +71,7 @@ public class TelaLogin extends JFrame {
             String senha = new String(senhaField.getPassword());
 
             FuncionarioDAO dao = new FuncionarioDAO();
-            Funcionario funcionario = dao.buscarPorIdESenha(id, senha);
+            Funcionario funcionario = dao.buscarPorIdESenha(id, senha); // ver isso dps
 
             if (funcionario != null) {
                 String nivel = funcionario.getTipo();
