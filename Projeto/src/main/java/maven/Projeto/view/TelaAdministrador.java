@@ -56,6 +56,7 @@ public class TelaAdministrador extends JFrame {
         btnFuncionarios.setForeground(corTextoBotao);
         btnFuncionarios.setFocusPainted(false);
         painel.add(btnFuncionarios);
+        btnLeitores.addActionListener(e -> new TelaCadastroFuncionarios().setVisible(true));
     }
     
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public class Revista extends Obra{
+public class Revista extends Obra implements Emprestavel{
 	
 	public Revista() {
 		this.tempoDeEmprestimo = 3;
@@ -12,9 +12,28 @@ public class Revista extends Obra{
 	}
 	
 	@Override
-	public int getTempoEmprestimo() {
-		tempoDeEmprestimo = 3;
-		return tempoDeEmprestimo;
-	}
-	
+	public boolean emprestar() {
+        if (!emprestado) {
+            emprestado = true;
+            return true;
+        }
+        return false;
+    }
+	@Override
+	public boolean devolver() {
+        if (emprestado) {
+            emprestado = false;
+            return true;
+        }
+        return false;
+    }
+	@Override
+	public boolean isEmprestado() {
+        return emprestado;
+    }
+
+    @Override
+    public int getTempoEmprestimo() {
+        return 3;
+    }
 }

@@ -1,6 +1,6 @@
 package maven.Projeto.model;
 
-public class Emprestimo implements Emprestavel{
+public class Emprestimo{
 	private Obra obra;
 	private Leitor leitor;
 	private String responsavel;
@@ -13,22 +13,4 @@ public class Emprestimo implements Emprestavel{
 		
 	}
 
-	@Override
-	public boolean emprestar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean devolver() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEmprestado() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 }
