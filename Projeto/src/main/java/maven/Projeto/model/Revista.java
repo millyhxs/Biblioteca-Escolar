@@ -6,8 +6,8 @@ public class Revista extends Obra{
 		this.tempoDeEmprestimo = 3;
 	}
 	
-	public Revista(String codigo, String titulo, String autor, int anoDePublicacao) {
-		super(codigo, titulo, autor, anoDePublicacao);
+	public Revista(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
+		super(codigo, titulo, autor, anoDePublicacao, emprestado);
 		this.tempoDeEmprestimo = 3;
 	}
 	

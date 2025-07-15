@@ -9,9 +9,8 @@ import maven.Projeto.model.Livro;
 import maven.Projeto.model.Revista;
 
 public class ObraController {
-	public static void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicação, String emprestado) throws CampoVazioException{
-		if (codigo == null || codigo.isEmpty()|| titulo == null || titulo.isEmpty() || autor == null || autor.isEmpty() || 
-				anoDePublicação == null || anoDePublicação.isEmpty() || emprestado == null || emprestado.isEmpty()) {
+	public static void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
+		if (codigo == null || codigo.isEmpty()|| titulo == null || titulo.isEmpty() || autor == null || autor.isEmpty() || anoDePublicacao == null || anoDePublicacao.isEmpty()) {
 			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
 		}
 		
@@ -19,6 +18,11 @@ public class ObraController {
 			Livro livro = new Livro();
 			
 			try {
+				livro.setCodigo(codigo);
+	            livro.setTitulo(titulo);
+	            livro.setAutor(autor);
+	            livro.setAnoDePublicacao(anoDePublicacao);
+	            livro.setEmprestado(emprestado);
 				LivroDAO.cadastrar(livro);
 			} catch (Exception e) {
 				
@@ -29,6 +33,11 @@ public class ObraController {
 			Revista revista = new Revista();
 			
 			try {
+				revista.setCodigo(codigo);
+                revista.setTitulo(titulo);
+                revista.setAutor(autor);
+                revista.setAnoDePublicacao(anoDePublicacao);
+                revista.setEmprestado(emprestado);
 				RevistaDAO.cadastrar(revista);
 			} catch (Exception e) {
 				
@@ -39,6 +48,11 @@ public class ObraController {
 			Artigo artigo = new Artigo();
 			
 			try {
+				 artigo.setCodigo(codigo);
+	             artigo.setTitulo(titulo);
+	             artigo.setAutor(autor);
+	             artigo.setAnoDePublicacao(anoDePublicacao);
+	             artigo.setEmprestado(emprestado);
 				ArtigoDAO.cadastrar(artigo);
 			} catch (Exception e) {
 				

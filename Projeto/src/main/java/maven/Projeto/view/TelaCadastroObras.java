@@ -18,7 +18,6 @@ public class TelaCadastroObras extends JFrame {
     private JTextField codField, tituloField, autorField, anoField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
-    private ObraController controller = new ObraController();
 
     public TelaCadastroObras() {
         setTitle("Cadastro de Obras");
@@ -75,7 +74,7 @@ public class TelaCadastroObras extends JFrame {
                 String autor = autorField.getText();
                 String ano = anoField.getText();
 
-                controller.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, "Disponível");
+                ObraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
                 JOptionPane.showMessageDialog(this, "Obra adicionada com sucesso!");
                 atualizarTabela();
             } catch (CampoVazioException ex) {
@@ -109,15 +108,36 @@ public class TelaCadastroObras extends JFrame {
         modeloTabela.setRowCount(0);
 
         for (Livro livro : LivroDAO.getLivros()) {
-            modeloTabela.addRow(new Object[]{livro.getCodigo(), livro.getTitulo(), livro.getAutor(), livro.getAnoDePublicacao(), "Livro"});
+            modeloTabela.addRow(new Object[]{
+                livro.getCodigo(),
+                livro.getTitulo(),
+                livro.getAutor(),
+                livro.getAnoDePublicacao(),
+                "Livro"
+            });
         }
+
         for (Revista revista : RevistaDAO.getRevistas()) {
-            modeloTabela.addRow(new Object[]{revista.getCodigo(), revista.getTitulo(), revista.getAutor(), revista.getAnoDePublicacao(), "Revista"});
+            modeloTabela.addRow(new Object[]{
+                revista.getCodigo(),
+                revista.getTitulo(),
+                revista.getAutor(),
+                revista.getAnoDePublicacao(),
+                "Revista"
+            });
         }
+
         for (Artigo artigo : ArtigoDAO.getArtigos()) {
-            modeloTabela.addRow(new Object[]{artigo.getCodigo(), artigo.getTitulo(), artigo.getAutor(), artigo.getAnoDePublicacao(), "Artigo"});
+            modeloTabela.addRow(new Object[]{
+                artigo.getCodigo(),
+                artigo.getTitulo(),
+                artigo.getAutor(),
+                artigo.getAnoDePublicacao(),
+                "Artigo"
+            });
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new TelaCadastroObras().setVisible(true));

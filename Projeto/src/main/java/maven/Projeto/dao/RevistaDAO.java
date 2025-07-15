@@ -1,23 +1,19 @@
 package maven.Projeto.dao;
 
-//Bibliotecas
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.*;
 
 import maven.Projeto.model.Revista;
 
 public class RevistaDAO {
 	
-	private static final String CAMINHO = "listaDeObras.json";
-	private static List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
+    private static final String CAMINHO = "listaDeObras.json";
+    private static List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
     public static void cadastrar(Revista novaObra) {
@@ -30,23 +26,37 @@ public class RevistaDAO {
         for (Revista revista : LISTA_DE_OBRAS) {
             if (revista.getCodigo().equals(novaObra.getCodigo())) {
                 System.out
-                        .println("Erro: Já existe uma revista cadastrada com o código \"" + novaObra.getCodigo()
+                        .println("Erro: Já existe uma revista cadastrado com o código \"" + novaObra.getCodigo()
                                 + "\".");
                 return;
             }
         }
-        
-        LISTA_DE_OBRAS.add(novaObra);
-        
-        atualizarJson();
+
+        JsonObject obj = GSON.toJsonTree(novaObra).getAsJsonObject();
+        obj.addProperty("tipo", "Revista");
+
+        JsonArray array = lerJsonArray();
+        array.add(obj);
+        salvarJson(array);
+
+        System.out.println("Revista cadastrado com sucesso!");
     }
     
     public static void excluir(String codigo) {
-        buscarArquivo();
-        boolean excluiu = LISTA_DE_OBRAS.removeIf(revista -> revista.getCodigo().equals(codigo));
-        
-        if (excluiu) {
-            atualizarJson();
+    	 JsonArray array = lerJsonArray();
+         boolean removido = false;
+
+         for (int i = 0; i < array.size(); i++) {
+             JsonObject obj = array.get(i).getAsJsonObject();
+             if ("Revista".equals(obj.get("tipo").getAsString()) &&
+                 codigo.equals(obj.get("codigo").getAsString())) {
+                 array.remove(i);
+                 removido = true;
+                 break;
+             }
+         }
+        if (removido) {
+        	salvarJson(array);
             System.out.println("Revista excluída");
         } else {
             System.out.println("Revista não encontrada");
@@ -54,27 +64,39 @@ public class RevistaDAO {
     }
     
     private static void buscarArquivo() {
-        try {
-            FileReader leitor = new FileReader(CAMINHO);
-            Type tipoLista = new TypeToken<List<Revista>>() {}.getType();
-            
-            LISTA_DE_OBRAS = GSON.fromJson(leitor, tipoLista);
-        } catch (IOException e) {
-            System.out.println("Erro ao adicionar obra no arquivo JSON!");
+    	LISTA_DE_OBRAS = new ArrayList<>();
+        JsonArray array = lerJsonArray();
+
+        for (JsonElement element : array) {
+            JsonObject obj = element.getAsJsonObject();
+            if (obj.has("tipo") && "Revista".equals(obj.get("tipo").getAsString())) {
+                Revista revista = GSON.fromJson(obj, Revista.class);
+                LISTA_DE_OBRAS.add(revista);
+            }
         }
     }
     
-    private static void atualizarJson() {
+    private static JsonArray lerJsonArray() {
+        try (FileReader leitor = new FileReader(CAMINHO)) {
+            JsonElement elem = JsonParser.parseReader(leitor);
+            if (elem.isJsonArray()) {
+                return elem.getAsJsonArray();
+            }
+        } catch (IOException e) {
+      
+        }
+        return new JsonArray();
+    }
+
+    private static void salvarJson(JsonArray array) {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            GSON.toJson(LISTA_DE_OBRAS, escritor);
-            System.out.println("Arquivo JSON atualizado!");
+            GSON.toJson(array, escritor);
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
     public static List<Revista> getRevistas() {
-        buscarArquivo();
+        buscarArquivo(); 
         return LISTA_DE_OBRAS;
     }
-
-}
+}    

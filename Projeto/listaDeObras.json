@@ -46,5 +46,14 @@
     "anoDePublicacao": 2002,
     "tempoDeEmprestimo": 3,
     "emprestado": false
+  },
+  {
+    "codigo": "desisto",
+    "titulo": "Mano",
+    "autor": "disso",
+    "anoDePublicacao": "xau",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
   }
 ]

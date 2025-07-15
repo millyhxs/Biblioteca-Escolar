@@ -5,7 +5,7 @@ public abstract class Obra {
 	protected String codigo;
     protected String titulo;
     protected String autor;
-    protected int anoDePublicacao;
+    protected String anoDePublicacao;
     protected int tempoDeEmprestimo;
     protected boolean emprestado;
     
@@ -14,7 +14,7 @@ public abstract class Obra {
     	
     }
     
-    public Obra(String codigo, String titulo, String autor, int anoDePublicacao) {
+    public Obra(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
@@ -49,12 +49,22 @@ public abstract class Obra {
 		this.autor = autor;
 	}
 	
-	public int getAnoDePublicacao() {
+	public String getAnoDePublicacao() {
 		return anoDePublicacao;
 	}
 	
-	public void setAnoDePublicacao(int anoDePublicacao) {
+	public void setAnoDePublicacao(String anoDePublicacao) {
 		this.anoDePublicacao = anoDePublicacao;
 	}
+
+	public boolean isEmprestado() {
+		return emprestado;
+	}
+
+	public void setEmprestado(boolean emprestado) {
+		this.emprestado = emprestado;
+	}
+	
+	
 	
 }

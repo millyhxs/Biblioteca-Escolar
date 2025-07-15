@@ -7,8 +7,8 @@ public class Artigo extends Obra{
 		this.tempoDeEmprestimo = 2;
 	}
 	
-	public Artigo(String codigo, String titulo, String autor, int anoDePublicacao) {
-		super(codigo, titulo, autor, anoDePublicacao);
+	public Artigo(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
+		super(codigo, titulo, autor, anoDePublicacao, emprestado);
 		this.tempoDeEmprestimo = 2;
 	}
 	

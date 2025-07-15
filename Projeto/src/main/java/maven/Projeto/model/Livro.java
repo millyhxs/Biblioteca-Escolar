@@ -6,8 +6,8 @@ public class Livro extends Obra{
 		this.tempoDeEmprestimo = 7;
 	}
 	
-	public Livro(String codigo, String titulo, String autor, int anoDePublicacao) {
-		super(codigo, titulo, autor, anoDePublicacao);
+	public Livro(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
+		super(codigo, titulo, autor, anoDePublicacao, emprestado);
 		this.tempoDeEmprestimo = 7;
 	}
 	
