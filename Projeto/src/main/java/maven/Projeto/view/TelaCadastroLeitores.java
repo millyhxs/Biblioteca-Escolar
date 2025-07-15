@@ -119,7 +119,7 @@ public class TelaCadastroLeitores extends JFrame {
             int linhaSelecionada = tabela.getSelectedRow();
             
             if (linhaSelecionada == -1) {
-                JOptionPane.showMessageDialog(this, "Selecione uma obra para excluir.");
+                JOptionPane.showMessageDialog(this, "Selecione um leitor para excluir.");
                 return;
             }
             
@@ -140,7 +140,7 @@ public class TelaCadastroLeitores extends JFrame {
 				}
                 
                 atualizarTabela();
-                JOptionPane.showMessageDialog(this, "Leitor excluída com sucesso!");
+                JOptionPane.showMessageDialog(this, "Leitor excluído com sucesso!");
             }
         });
 	}
