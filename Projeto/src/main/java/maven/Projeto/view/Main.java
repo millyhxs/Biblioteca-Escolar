@@ -117,7 +117,7 @@ public class Main {
             livro.setAutor(sc.nextLine());
             
             System.out.println("Ano de publicação:");
-            livro.setAnoDePublicacao(sc.nextInt());
+            livro.setAnoDePublicacao(sc.nextLine());
             
             LivroDAO.cadastrar(livro);
         }
@@ -134,7 +134,7 @@ public class Main {
             artigo.setAutor(sc.nextLine());
             
             System.out.println("Ano de publicação:");
-            artigo.setAnoDePublicacao(sc.nextInt());
+            artigo.setAnoDePublicacao(sc.nextLine());
             
             ArtigoDAO.cadastrar(artigo);
         }
@@ -151,7 +151,7 @@ public class Main {
             revista.setAutor(sc.nextLine());
             
             System.out.println("Ano de publicação:");
-            revista.setAnoDePublicacao(sc.nextInt());
+            revista.setAnoDePublicacao(sc.nextLine());
             
             RevistaDAO.cadastrar(revista);
         }

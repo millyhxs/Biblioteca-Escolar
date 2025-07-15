@@ -13,7 +13,7 @@ import maven.Projeto.model.Artigo;
 public class ArtigoDAO {
 	
     private static final String CAMINHO = "listaDeObras.json";
-    private static List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
+    public static List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
     public static void cadastrar(Artigo novaObra) {
@@ -43,18 +43,18 @@ public class ArtigoDAO {
     }
     
     public static void excluir(String codigo) {
-    	 JsonArray array = lerJsonArray();
-         boolean removido = false;
+    	JsonArray array = lerJsonArray();
+        boolean removido = false;
 
-         for (int i = 0; i < array.size(); i++) {
-             JsonObject obj = array.get(i).getAsJsonObject();
-             if ("Artigo".equals(obj.get("tipo").getAsString()) &&
-                 codigo.equals(obj.get("codigo").getAsString())) {
-                 array.remove(i);
-                 removido = true;
-                 break;
-             }
-         }
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject obj = array.get(i).getAsJsonObject();
+            if ("Artigo".equals(obj.get("tipo").getAsString()) &&
+                codigo.equals(obj.get("codigo").getAsString())) {
+                array.remove(i);
+                removido = true;
+                break;
+            }
+        }
         if (removido) {
         	salvarJson(array);
             System.out.println("Artigo excluído");
@@ -63,7 +63,7 @@ public class ArtigoDAO {
         }
     }
     
-    private static void buscarArquivo() {
+    public static void buscarArquivo() {
     	LISTA_DE_OBRAS = new ArrayList<>();
         JsonArray array = lerJsonArray();
 
@@ -95,8 +95,5 @@ public class ArtigoDAO {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
-    public static List<Artigo> getArtigos() {
-        buscarArquivo(); 
-        return LISTA_DE_OBRAS;
-    }
+    
 }    

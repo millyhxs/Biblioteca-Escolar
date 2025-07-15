@@ -2,58 +2,145 @@
   {
     "codigo": "L001",
     "titulo": "Harry Potter",
-    "autor": "J.K. Rowling",
-    "anoDePublicacao": 2007,
+    "autor": "JK. Rowling",
+    "anoDePublicacao": "2007",
     "tempoDeEmprestimo": 7,
-    "emprestado": false
-  },
-  {
-    "codigo": "L002",
-    "titulo": "Percy Jackson",
-    "autor": "Rick Riordian",
-    "anoDePublicacao": 2010,
-    "tempoDeEmprestimo": 7,
-    "emprestado": false
+    "emprestado": false,
+    "tipo": "Livro"
   },
   {
     "codigo": "A001",
-    "titulo": "TCC de João",
-    "autor": "João",
-    "anoDePublicacao": 2020,
+    "titulo": "TCC de Marcos",
+    "autor": "Marcos",
+    "anoDePublicacao": "2020",
     "tempoDeEmprestimo": 2,
-    "emprestado": false
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "R001",
+    "titulo": "Veja",
+    "autor": "Lucia",
+    "anoDePublicacao": "2001",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
   },
   {
     "codigo": "A002",
     "titulo": "TCC de Lucas",
     "autor": "Lucas",
-    "anoDePublicacao": 2022,
+    "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": false
+    "emprestado": false,
+    "tipo": "Artigo"
   },
   {
-    "codigo": "R001",
-    "titulo": "Veja",
-    "autor": "S/N",
-    "anoDePublicacao": 2000,
-    "tempoDeEmprestimo": 3,
-    "emprestado": false
+    "codigo": "A003",
+    "titulo": "TCC de José",
+    "autor": "José",
+    "anoDePublicacao": "2021",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L002",
+    "titulo": "Percy Jackson",
+    "autor": "Rick Riordian",
+    "anoDePublicacao": "2009",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L003",
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R. Tolkien",
+    "anoDePublicacao": "1954",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L004",
+    "titulo": "Dom Quixote",
+    "autor": "Miguel de Cervantes",
+    "anoDePublicacao": "1605",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L005",
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1949",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L006",
+    "titulo": "A Revolução dos Bichos",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1945",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L007",
+    "titulo": "O Pequeno Príncipe",
+    "autor": "Antoine de Saint-Exupéry",
+    "anoDePublicacao": "1943",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L008",
+    "titulo": "Moby Dick",
+    "autor": "Herman Melville",
+    "anoDePublicacao": "1851",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L009",
+    "titulo": "A Metamorfose",
+    "autor": "Franz Kafka",
+    "anoDePublicacao": "1915",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L010",
+    "titulo": "A Menina que Roubava Livros",
+    "autor": "Markus Zusak",
+    "anoDePublicacao": "2005",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
   },
   {
     "codigo": "R002",
     "titulo": "Capricho",
-    "autor": "S/N",
-    "anoDePublicacao": 2002,
+    "autor": "Monica",
+    "anoDePublicacao": "2004",
     "tempoDeEmprestimo": 3,
-    "emprestado": false
+    "emprestado": false,
+    "tipo": "Revista"
   },
   {
-    "codigo": "desisto",
-    "titulo": "Mano",
-    "autor": "disso",
-    "anoDePublicacao": "xau",
-    "tempoDeEmprestimo": 7,
+    "codigo": "R003",
+    "titulo": "Recreio",
+    "autor": "Jorge",
+    "anoDePublicacao": "2012",
+    "tempoDeEmprestimo": 3,
     "emprestado": false,
-    "tipo": "Livro"
+    "tipo": "Revista"
   }
 ]

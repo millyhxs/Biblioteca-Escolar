@@ -1,5 +1,7 @@
 package maven.Projeto.controller;
 
+import java.util.List;
+
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.RevistaDAO;
@@ -60,11 +62,11 @@ public class ObraController {
 		} 
 	}
 	
-	public static void exclusaoDeDados(String opcao, String codigo) throws CampoVazioException {
+	public static void exclusaoDeDados(String tipo, String codigo) throws CampoVazioException {
 		if (codigo == null || codigo.isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
-		switch (opcao) {
+		switch (tipo) {
         case "Livro":
             LivroDAO.excluir(codigo);
             break;
@@ -79,4 +81,19 @@ public class ObraController {
     }
 		
 	}
+	
+	public static List<Livro> getLivros() {
+        LivroDAO.buscarArquivo(); 
+        return LivroDAO.LISTA_DE_OBRAS;
+    }
+	
+	public static List<Revista> getRevistas() {
+        RevistaDAO.buscarArquivo(); 
+        return RevistaDAO.LISTA_DE_OBRAS;
+    }
+	
+	public static List<Artigo> getArtigos() {
+        ArtigoDAO.buscarArquivo(); 
+        return ArtigoDAO.LISTA_DE_OBRAS;
+    }
 }
