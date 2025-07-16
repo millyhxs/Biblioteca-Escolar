@@ -9,15 +9,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "A001",
-    "titulo": "TCC de Marcos",
-    "autor": "Marcos",
-    "anoDePublicacao": "2020",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "R001",
     "titulo": "Veja",
     "autor": "Lucia",
@@ -25,24 +16,6 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
-  },
-  {
-    "codigo": "A002",
-    "titulo": "TCC de Lucas",
-    "autor": "Lucas",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
-    "codigo": "L002",
-    "titulo": "Percy Jackson",
-    "autor": "Rick Riordian",
-    "anoDePublicacao": "2009",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
   },
   {
     "codigo": "L003",
@@ -108,15 +81,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L010",
-    "titulo": "A Menina que Roubava Livros",
-    "autor": "Markus Zusak",
-    "anoDePublicacao": "2005",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "R002",
     "titulo": "Capricho",
     "autor": "Monica",
@@ -133,5 +97,23 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de Jamily",
+    "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L002",
+    "titulo": "Os Forasteiros",
+    "autor": "Michelle Paver",
+    "anoDePublicacao": "2014",
+    "tempoDeEmprestimo": 0,
+    "emprestado": false,
+    "tipo": "Livro"
   }
 ]

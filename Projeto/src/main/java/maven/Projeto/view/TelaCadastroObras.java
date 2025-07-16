@@ -8,6 +8,8 @@ import maven.Projeto.model.Revista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 import java.awt.*;
 
 public class TelaCadastroObras extends JFrame {
@@ -15,6 +17,7 @@ public class TelaCadastroObras extends JFrame {
     private JTextField codField, tituloField, autorField, anoField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
+    private TableRowSorter<DefaultTableModel> sorter;
     
     public TelaCadastroObras() {
     	setResizable(false);
@@ -56,8 +59,12 @@ public class TelaCadastroObras extends JFrame {
         autorField = criarCampoTexto(340, 100);
         painel.add(autorField);
         
-        painel.add(criarLabel("Ano:", 510, 100));
-        anoField = criarCampoTexto(550, 100);
+        painel.add(criarLabel("Filtrar:", 510, 100));
+        JTextField campoFiltro = criarCampoTexto(550, 100);
+        painel.add(campoFiltro);
+        
+        painel.add(criarLabel("Ano:", 510, 60));
+        anoField = criarCampoTexto(550, 60);
         painel.add(anoField);
         
         JButton excluirBtn = new JButton("Excluir Obra");
@@ -76,8 +83,6 @@ public class TelaCadastroObras extends JFrame {
                 String autor = autorField.getText();
                 String ano = anoField.getText();
                 
-                ObraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
-                
                 for (int i = 0; i < modeloTabela.getRowCount(); i++) {
                     String codigoExistente = (String) modeloTabela.getValueAt(i, 0); 
                     if (codigoExistente.equals(codigo)) {
@@ -88,7 +93,10 @@ public class TelaCadastroObras extends JFrame {
                         return; 
                     }
                 }
+                
+                ObraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
                 atualizarTabela();
+                modeloTabela.fireTableDataChanged();
                 JOptionPane.showMessageDialog(this, "Obra adicionada com sucesso!");
                 
             } catch (CampoVazioException ex) {
@@ -98,11 +106,11 @@ public class TelaCadastroObras extends JFrame {
         
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo"}, 0);
         tabela = new JTable(modeloTabela);
+        sorter = new TableRowSorter<>(modeloTabela);
+        tabela.setRowSorter(sorter);
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 200, 670, 230);
         painel.add(scroll);
-        
-        atualizarTabela();
         
         excluirBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
@@ -133,6 +141,27 @@ public class TelaCadastroObras extends JFrame {
                 JOptionPane.showMessageDialog(this, "Obra excluída com sucesso!");
             }
         });
+        
+        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            
+            private void filtrar() {
+                String texto = campoFiltro.getText().toLowerCase();
+                
+                sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                    public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                        String titulo = entry.getStringValue(1).toLowerCase(); 
+                        String autor = entry.getStringValue(2).toLowerCase();  
+                        String tipo = entry.getStringValue(4).toLowerCase();   
+                        return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
+                    }
+                });
+            }
+        });
+        
+        atualizarTabela();
     }
     
     private JLabel criarLabel(String texto, int x, int y) {
@@ -180,6 +209,7 @@ public class TelaCadastroObras extends JFrame {
                 "Artigo"
             });
         }
+        modeloTabela.fireTableDataChanged();
     }
     
     public static void main(String[] args) {

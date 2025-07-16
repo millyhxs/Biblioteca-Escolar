@@ -33,7 +33,7 @@ public class ArtigoDAO {
         }
 
         JsonObject obj = GSON.toJsonTree(novaObra).getAsJsonObject();
-        obj.addProperty("tipo", "artigo");
+        obj.addProperty("tipo", "Artigo");
 
         JsonArray array = lerJsonArray();
         array.add(obj);
