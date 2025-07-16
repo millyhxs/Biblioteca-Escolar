@@ -9,10 +9,10 @@ import maven.Projeto.model.Funcionario;
 public class FuncionarioController {
 
     public static void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
-        if (id == null || id.isEmpty() || 
-            nome == null || nome.isEmpty() || 
-            senha == null || senha.isEmpty() || 
-            tipo == null || tipo.isEmpty()) {
+        if (id == null || id.trim().isEmpty() || 
+            nome == null || nome.trim().isEmpty() || 
+            senha == null || senha.trim().isEmpty() || 
+            tipo == null || tipo.trim().isEmpty()) {
             throw new CampoVazioException("Todos os campos devem ser preenchidos.");
         }
 

@@ -8,7 +8,10 @@ import maven.Projeto.model.Leitor;
 
 public class LeitoresController {
 	public static void verificacaoDeDados(String tipo, String matricula, String nome, String telefone, String email) throws CampoVazioException{
-		if (matricula == null || matricula.trim().isEmpty()|| nome == null || nome.trim().isEmpty() || telefone == null || telefone.trim().isEmpty() || email == null || email.trim().isEmpty()) {
+		if (matricula == null || matricula.trim().isEmpty()||
+			nome == null || nome.trim().isEmpty() ||
+			telefone == null || telefone.trim().isEmpty() ||
+			email == null || email.trim().isEmpty()) {
 			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
 		}
 		
