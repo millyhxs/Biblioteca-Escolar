@@ -119,7 +119,8 @@ public class LeitorDAO {
         
         for (Leitor leitor : LISTA_DE_USUARIOS) {
             if (leitor.getMatricula().equals(matricula)) {
-                leitor.setNome(novosDados.getNome());
+                leitor.setMatricula(novosDados.getMatricula());
+            	leitor.setNome(novosDados.getNome());
                 leitor.setTipoDeUsuario(novosDados.getTipoDeUsuario());
                 leitor.setTelefone(novosDados.getTelefone());
                 leitor.setEmail(novosDados.getEmail());

@@ -23,7 +23,7 @@ import maven.Projeto.model.Leitor;
 
 public class TelaCadastroLeitores extends JFrame {
 	private JComboBox<String> tipoCombo;
-    private JTextField codField, tituloField, autorField, anoField;
+    private JTextField matriculaField, nomeField, telefoneField, emailField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     
@@ -56,20 +56,20 @@ public class TelaCadastroLeitores extends JFrame {
         painel.add(tipoCombo);
         
         painel.add(criarLabel("Matricula:", 270, 60));
-        codField = criarCampoTexto(340, 60);
-        painel.add(codField);
+        matriculaField = criarCampoTexto(340, 60);
+        painel.add(matriculaField);
         
         painel.add(criarLabel("Nome:", 30, 100));
-        tituloField = criarCampoTexto(100, 100);
-        painel.add(tituloField);
+        nomeField = criarCampoTexto(100, 100);
+        painel.add(nomeField);
         
         painel.add(criarLabel("Telefone:", 270, 100));
-        autorField = criarCampoTexto(340, 100);
-        painel.add(autorField);
+        telefoneField = criarCampoTexto(340, 100);
+        painel.add(telefoneField);
         
         painel.add(criarLabel("Email:", 510, 100));
-        anoField = criarCampoTexto(550, 100);
-        painel.add(anoField);
+        emailField = criarCampoTexto(550, 100);
+        painel.add(emailField);
         
         JButton excluirBtn = new JButton("Excluir Leitor");
         excluirBtn.setBounds(200, 140, 160, 30);
@@ -79,12 +79,16 @@ public class TelaCadastroLeitores extends JFrame {
         adicionarBtn.setBounds(30, 140, 160, 30);
         painel.add(adicionarBtn);
         
+        JButton editarBtn = new JButton("Editar Leitor");
+        editarBtn.setBounds(370, 140, 160, 30);
+        painel.add(editarBtn);
+        
         adicionarBtn.addActionListener(e -> {
             try {
-                String matricula = codField.getText();
-                String nomeTxt = tituloField.getText();
-                String telefone = autorField.getText();
-                String email = anoField.getText();
+                String matricula = matriculaField.getText();
+                String nomeTxt = nomeField.getText();
+                String telefone = telefoneField.getText();
+                String email = emailField.getText();
                 String tipo = (String) tipoCombo.getSelectedItem();
                 
                 LeitoresController.verificacaoDeDados(tipo, matricula, nomeTxt, telefone, email);
@@ -107,8 +111,16 @@ public class TelaCadastroLeitores extends JFrame {
             }
         });
         
-        modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0) {
+        	@Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
         tabela = new JTable(modeloTabela);
+        tabela.setRowSelectionAllowed(true);
+        tabela.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 200, 670, 230);
         painel.add(scroll);
@@ -141,6 +153,30 @@ public class TelaCadastroLeitores extends JFrame {
                 
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor excluído com sucesso!");
+            }
+        });
+        
+        editarBtn.addActionListener(e -> {
+            int linhaSelecionada = tabela.getSelectedRow();
+            
+            if (linhaSelecionada == -1) {
+                JOptionPane.showMessageDialog(this, "Selecione um leitor para editar.");
+                return;
+            }
+            
+            String matriculaAntiga = (String) modeloTabela.getValueAt(linhaSelecionada, 0);
+            String matricula = matriculaField.getText();
+            String nome = nomeField.getText();
+            String telefone = telefoneField.getText();
+            String email = emailField.getText();
+            String tipo = (String) tipoCombo.getSelectedItem();
+            
+            try {
+                LeitoresController.editarUsuario(matriculaAntiga, matricula, nome, tipo, telefone, email);
+                atualizarTabela();
+                JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso!");
+            } catch (CampoVazioException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 	}

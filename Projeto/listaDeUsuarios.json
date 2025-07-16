@@ -3,8 +3,8 @@
     "nome": "Hélder",
     "matricula": "232323",
     "tipoDeUsuario": "Aluno",
-    "telefone": "83981026189",
-    "email": "helder.chris05@gmail.com"
+    "telefone": "43545353",
+    "email": "helder.chris@gmail.com"
   },
   {
     "nome": "Millena",
@@ -14,17 +14,17 @@
     "email": "millyhxs@gmail.com"
   },
   {
-    "nome": "Robson",
-    "matricula": "2029023",
-    "tipoDeUsuario": "Professor",
-    "telefone": "99923894",
-    "email": "rob@gmail.com"
-  },
-  {
     "nome": "Lucas Eduardo",
     "matricula": "019232",
     "tipoDeUsuario": "Servidor",
     "telefone": "321312",
     "email": "lukeedu@gmail.com"
+  },
+  {
+    "nome": "Lucio",
+    "matricula": "232424",
+    "tipoDeUsuario": "Professor",
+    "telefone": "98379428",
+    "email": "luc@gmail.com"
   }
 ]

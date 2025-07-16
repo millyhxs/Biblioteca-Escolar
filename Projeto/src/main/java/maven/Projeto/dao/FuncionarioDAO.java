@@ -16,6 +16,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import maven.Projeto.model.Funcionario;
+import maven.Projeto.model.Leitor;
 
 public class FuncionarioDAO {
 	private static final String CAMINHO = "listaDeFuncionarios.json";
@@ -39,14 +40,41 @@ public class FuncionarioDAO {
         LISTA_DE_FUNCIONARIOS.add(novoServidor);
         atualizarJson();
     }
+    
+    public static void editarUsuario(String id, Funcionario novosDados) {
+        buscarArquivo();
+        
+        if (LISTA_DE_FUNCIONARIOS == null) {
+        	LISTA_DE_FUNCIONARIOS = new ArrayList<>();
+        }
+        
+        boolean encontrou = false;
+        
+        for (Funcionario funcionario : LISTA_DE_FUNCIONARIOS) {
+            if (funcionario.getId().equals(id)) {
+            	funcionario.setId(novosDados.getId());
+            	funcionario.setNome(novosDados.getNome());
+            	funcionario.setSenha(novosDados.getSenha());
+                funcionario.setTipo(novosDados.getTipo());
+            	encontrou = true;
+                break;
+            }
+        } if (encontrou) {
+            atualizarJson();
+            System.out.println("Funcionario atualizado com sucesso.");
+        } else {
+            System.out.println("Funcionario com id \"" + id + "\" não encontrado.");
+        }
+    }
+    
     public static void excluir(String matricula) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
         
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Aluno".equals(obj.get("tipoDeUsuario").getAsString()) &&
-                matricula.equals(obj.get("matricula").getAsString())) {
+            if ("Administrador".equals(obj.get("tipo").getAsString()) &&
+                matricula.equals(obj.get("id").getAsString())) {
                 array.remove(i);
                 removido = true;
                 break;
@@ -55,8 +83,8 @@ public class FuncionarioDAO {
         
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Professor".equals(obj.get("tipoDeUsuario").getAsString()) &&
-                matricula.equals(obj.get("matricula").getAsString())) {
+            if ("Estagiário".equals(obj.get("tipo").getAsString()) &&
+                matricula.equals(obj.get("id").getAsString())) {
                 array.remove(i);
                 removido = true;
                 break;
@@ -65,8 +93,8 @@ public class FuncionarioDAO {
         
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Servidor".equals(obj.get("tipoDeUsuario").getAsString()) &&
-                matricula.equals(obj.get("matricula").getAsString())) {
+            if ("Bibliotecário".equals(obj.get("tipo").getAsString()) &&
+                matricula.equals(obj.get("id").getAsString())) {
                 array.remove(i);
                 removido = true;
                 break;
