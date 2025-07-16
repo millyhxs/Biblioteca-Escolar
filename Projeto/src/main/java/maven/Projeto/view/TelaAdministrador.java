@@ -1,6 +1,9 @@
 package maven.Projeto.view;
 
 import javax.swing.*;
+
+import maven.Projeto.controller.FuncionarioController;
+
 import java.awt.*;
 
 public class TelaAdministrador extends JFrame {
@@ -57,6 +60,17 @@ public class TelaAdministrador extends JFrame {
         btnFuncionarios.setFocusPainted(false);
         painel.add(btnFuncionarios);
         btnLeitores.addActionListener(e -> new TelaCadastroFuncionarios().setVisible(true));
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Ação que será executada quando a janela for fechada
+                System.out.println("Janela foi fechada!");
+                
+                // Exemplo: deslogar funcionário ativo
+                FuncionarioController.logoOffFuncionario();
+            }
+        });
     }
     
     public static void main(String[] args) {

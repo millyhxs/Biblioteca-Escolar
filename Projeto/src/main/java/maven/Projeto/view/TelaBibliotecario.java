@@ -2,7 +2,7 @@ package maven.Projeto.view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class TelaBibliotecario {
 
@@ -44,5 +44,4 @@ public class TelaBibliotecario {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

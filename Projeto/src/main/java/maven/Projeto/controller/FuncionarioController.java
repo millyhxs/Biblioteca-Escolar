@@ -5,6 +5,7 @@ import java.util.List;
 import maven.Projeto.dao.FuncionarioDAO;
 import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
 import maven.Projeto.model.Funcionario;
 import maven.Projeto.model.Leitor;
 
@@ -54,6 +55,28 @@ public class FuncionarioController {
         novoFuncionario.setSenha(senha);
         
         FuncionarioDAO.editarUsuario(idAntigo, novoFuncionario);
+    }
+    
+    public static Funcionario autenticarFuncionario(String id, String senha) throws CampoVazioException, FuncionarioNaoEncontradoException {
+        if (id == null || id.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
+            throw new CampoVazioException("ID e senha devem ser preenchidos.");
+        }
+        
+        Funcionario funcionario = FuncionarioDAO.buscarPorIdESenha(id, senha);
+        
+        if (funcionario == null) {
+            throw new FuncionarioNaoEncontradoException("ID ou senha inválidos.");
+        }
+        
+        return funcionario;
+    }
+    
+    public static Funcionario BuscaFuncionarioAtivado() {
+    	return FuncionarioDAO.buscarFuncionarioAtivo();
+    }
+    
+    public static void logoOffFuncionario() {
+    	FuncionarioDAO.deslogarFuncionarioAtivo();
     }
     
     public static List<Funcionario> getFuncionarios() {

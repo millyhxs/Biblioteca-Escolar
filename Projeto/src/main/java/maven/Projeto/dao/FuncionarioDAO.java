@@ -143,13 +143,15 @@ public class FuncionarioDAO {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
-
+    
     public static Funcionario buscarPorIdESenha(String id, String senha) {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS != null) {
             for (Funcionario funcionario : LISTA_DE_FUNCIONARIOS) {
                 if (funcionario.getId().equals(id) && funcionario.getSenha().equals(senha)) {
+                	funcionario.setAtivo(true);
+                    atualizarJson();
                     return funcionario;
                 }
             }
@@ -157,5 +159,37 @@ public class FuncionarioDAO {
         return null;
     }
     
+    public static Funcionario buscarFuncionarioAtivo() {
+        buscarArquivo();
+        
+        if (LISTA_DE_FUNCIONARIOS != null) {
+            for (Funcionario funcionario : LISTA_DE_FUNCIONARIOS) {
+                if (funcionario.isAtivo()) {
+                    return funcionario;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static void deslogarFuncionarioAtivo() {
+        try (FileReader reader = new FileReader(CAMINHO)) {
+            JsonArray array = JsonParser.parseReader(reader).getAsJsonArray();
+            
+            for (JsonElement elem : array) {
+                JsonObject obj = elem.getAsJsonObject();
+                if (obj.has("ativo") && obj.get("ativo").getAsBoolean()) {
+                    obj.addProperty("ativo", false);
+                }
+            }
+            
+            try (FileWriter writer = new FileWriter(CAMINHO)) {
+                new GsonBuilder().setPrettyPrinting().create().toJson(array, writer);
+            }
+            
+        } catch (IOException e) {
+            System.out.println("Erro ao deslogar funcionário: " + e.getMessage());
+        }
+    }
     
 }
