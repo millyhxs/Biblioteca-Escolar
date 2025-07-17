@@ -3,21 +3,47 @@ package maven.Projeto.view;
 import java.util.Scanner;
 
 import maven.Projeto.dao.LivroDAO;
+import maven.Projeto.controller.EmprestimoController;
 import maven.Projeto.controller.ObraController;
 import maven.Projeto.dao.ArtigoDAO;
+import maven.Projeto.dao.EmprestimoDAO;
 import maven.Projeto.dao.FuncionarioDAO;
 import maven.Projeto.dao.RevistaDAO;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Artigo;
+import maven.Projeto.model.Emprestimo;
 import maven.Projeto.model.Revista;
 import maven.Projeto.model.Funcionario;
 import maven.Projeto.model.Leitor;
 
 public class Main {
     public static void main(String[] args) throws CampoVazioException {
-    	menuCadastroUsuarios();
+    	menuCadastrarEmprestimos();
+    }
+    
+    public static void menuCadastrarEmprestimos() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("O que você deseja fazer?\n1 - Cadastrar emprestimo");
+        int op = sc.nextInt();
+        sc.nextLine();
+        
+        if (op == 1) {
+        	Emprestimo emprestimo = new Emprestimo(7);
+        	System.out.println("Código da Obra:");
+            emprestimo.setCodigoObra(sc.nextLine());
+            
+            System.out.println("Matricula do Usuário:");
+            emprestimo.setMatriculaUsuario(sc.nextLine());
+            
+            System.out.println("Responsável pelo cadastro do emprestimo:");
+            emprestimo.setResponsavel(sc.nextLine());
+            
+            EmprestimoDAO.cadastrar(emprestimo);
+            
+        }
+        sc.close();
     }
     
     public static void menuCadastroFuncionarios() {

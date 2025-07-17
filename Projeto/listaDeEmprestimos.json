@@ -1,0 +1,10 @@
+[
+  {
+    "codigoObra": "L001",
+    "matriculaUsuario": "03831",
+    "responsavel": "Lucas",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "17/07/2025",
+    "dataDevolucaoPrevista": "24/07/2025"
+  }
+]

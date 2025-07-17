@@ -18,7 +18,32 @@ public class Emprestimo{
         this.dataDevolucaoPrevista = dataEmprestimo.plusDays(diasEmprestimo);
         this.responsavel = responsavel;
     }
+	
+	public Emprestimo(int diasEmprestimo) {
+		this.dataEmprestimo = LocalDate.now();
+        this.dataDevolucaoPrevista = dataEmprestimo.plusDays(diasEmprestimo);
+        this.taxaDaMulta = 2.5f;
+	}
+	
+	public void setCodigoObra(String codigoObra) {
+		this.codigoObra = codigoObra;
+	}
 
+	public void setMatriculaUsuario(String matriculaUsuario) {
+		this.matriculaUsuario = matriculaUsuario;
+	}
+
+	public void setTaxaDaMulta(float taxaDaMulta) {
+		this.taxaDaMulta = taxaDaMulta;
+	}
+
+	public void setDataEmprestimo(LocalDate dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
+	}
+
+	public void setDataDevolucaoPrevista(LocalDate dataDevolucaoPrevista) {
+		this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+	}
 
 	public String getCodigoObra() {
 		return codigoObra;
