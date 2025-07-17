@@ -6,5 +6,13 @@
     "taxaDaMulta": 2.5,
     "dataEmprestimo": "17/07/2025",
     "dataDevolucaoPrevista": "24/07/2025"
+  },
+  {
+    "codigoObra": "L004",
+    "matriculaUsuario": "123456",
+    "responsavel": "Robson",
+    "taxaDaMulta": 0.0,
+    "dataEmprestimo": "17/07/2025",
+    "dataDevolucaoPrevista": "24/07/2025"
   }
 ]

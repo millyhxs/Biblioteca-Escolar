@@ -27,15 +27,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L004",
-    "titulo": "Dom Quixote",
-    "autor": "Miguel de Cervantes",
-    "anoDePublicacao": "1605",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L005",
     "titulo": "1984",
     "autor": "George Orwell",
@@ -114,6 +105,15 @@
     "anoDePublicacao": "2014",
     "tempoDeEmprestimo": 0,
     "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L004",
+    "titulo": "Dom Quixote",
+    "autor": "Miguel de Cervantes",
+    "anoDePublicacao": "1605",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
     "tipo": "Livro"
   }
 ]

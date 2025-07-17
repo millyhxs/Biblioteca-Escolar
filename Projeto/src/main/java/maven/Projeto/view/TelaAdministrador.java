@@ -10,24 +10,24 @@ public class TelaAdministrador extends JFrame {
 
     public TelaAdministrador() {
         setTitle("Painel do Administrador");
-        setSize(500, 400);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
+        setResizable(false);
         
         JPanel painel = new JPanel() {
-            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                setBackground(new Color(45, 45, 45));
+                setBackground(new Color(40, 40, 40));
             }
         };
         painel.setLayout(null);
         add(painel);
         
         JLabel titulo = new JLabel("Área do Administrador", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 26));
+        titulo.setFont(new Font("Serif", Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
-        titulo.setBounds(0, 30, 500, 40);
+        titulo.setBounds(0, 20, 400, 30);
         painel.add(titulo);
         
         Font fonteBtn = new Font("SansSerif", Font.BOLD, 16);
