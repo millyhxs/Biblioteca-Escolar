@@ -3,6 +3,7 @@ package maven.Projeto.view;
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
+import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
 import javax.swing.*;
@@ -104,6 +105,8 @@ public class LoginTela extends JFrame {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             } catch (FuncionarioNaoEncontradoException ex) {
                 JOptionPane.showMessageDialog(this, "Nenhum funcionário foi encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } catch (ValorNuloException ex) {
+                JOptionPane.showMessageDialog(this, "Usuario nulo.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });     
         

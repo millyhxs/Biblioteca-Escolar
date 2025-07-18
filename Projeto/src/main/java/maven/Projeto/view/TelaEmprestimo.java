@@ -1,8 +1,13 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.EmprestimoController;
+import maven.Projeto.controller.FuncionarioController;
+import maven.Projeto.controller.LeitoresController;
 import maven.Projeto.controller.ObraController;
 import maven.Projeto.dao.EmprestimoDAO;
+import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
+import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.*;
 
 import javax.swing.*;
@@ -15,14 +20,14 @@ import java.util.List;
 public class TelaEmprestimo extends JFrame {
     private JTable tabela;
     private DefaultTableModel modeloTabela;
-
+    
     public TelaEmprestimo() {
         setTitle("Tela de Empréstimo");
         setSize(800, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
+        
         JPanel painel = new JPanel(null) {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -30,26 +35,25 @@ public class TelaEmprestimo extends JFrame {
             }
         };
         getContentPane().add(painel);
-
+        
         JLabel titulo = new JLabel("Empréstimos de Obras", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 24));
         titulo.setForeground(Color.WHITE);
         titulo.setBounds(0, 10, 800, 30);
         painel.add(titulo);
-
+        
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0);
         tabela = new JTable(modeloTabela) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
+        
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                           boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+                
                 String status = (String) table.getValueAt(row, 5);
                 switch (status) {
                     case "Disponível":
@@ -72,60 +76,86 @@ public class TelaEmprestimo extends JFrame {
                 return c;
             }
         });
-
+        	
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 60, 730, 330);
         painel.add(scroll);
-
+        
         JButton emprestarBtn = new JButton("Realizar Empréstimo");
         emprestarBtn.setBounds(30, 410, 200, 30);
         painel.add(emprestarBtn);
-
+        
         emprestarBtn.addActionListener(e -> {
             int linha = tabela.getSelectedRow();
             if (linha == -1) {
                 JOptionPane.showMessageDialog(this, "Selecione uma obra.");
                 return;
             }
-
-            String codigo = (String) tabela.getValueAt(linha, 0);
+            
+            String codigo = (String) tabela.getValueAt(linha, 0); 
             String status = (String) tabela.getValueAt(linha, 5);
-
+            
             if (!status.equals("Disponível")) {
                 JOptionPane.showMessageDialog(this, "A obra selecionada não está disponível para empréstimo.");
                 return;
             }
-
+            
             String matricula = JOptionPane.showInputDialog("Digite a matrícula do usuário:");
-            String responsavel = JOptionPane.showInputDialog("Digite o nome do responsável:");
-
             try {
-                EmprestimoController.registrarEmprestimo(codigo, matricula, 7, responsavel);
+				LeitoresController.verificarMatriculaExistente(matricula);
+			} catch (MatriculaNaoEncontradaException ex) {
+				JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+				return;
+			} catch (CampoVazioException ex) {				
+				JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+			}
+            
+            try {
+                Funcionario responsavel = FuncionarioController.BuscaFuncionarioAtivado();
+            	String tipo = (String) tabela.getValueAt(linha, 4);
+            	
+            	int diasDeEmprestimo = 0;
+            	switch (tipo) {
+    			case "Livro":
+    				diasDeEmprestimo = 7; 
+    				break;
+    			case "Artigo":
+    				diasDeEmprestimo = 2;
+    				break;
+    			case "Revista":
+    				diasDeEmprestimo = 3;
+    				break;
+    			default:
+    				break;
+    			}
+				EmprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
                 JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso.");
                 atualizarTabela();
-            } catch (Exception ex) {
+            } catch (CampoVazioException ex) {
+                JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+            } catch (ValorNuloException ex) {
                 JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
             }
         });
-
+        
         atualizarTabela();
     }
-
+    
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         List<Emprestimo> emprestimos = EmprestimoDAO.getEmprestimos();
-
+        
         addObrasComStatus(ObraController.getLivros(), "Livro", emprestimos);
         addObrasComStatus(ObraController.getRevistas(), "Revista", emprestimos);
         addObrasComStatus(ObraController.getArtigos(), "Artigo", emprestimos);
-
+        
         modeloTabela.fireTableDataChanged();
     }
-
+    
     private void addObrasComStatus(List<? extends Obra> obras, String tipo, List<Emprestimo> emprestimos) {
         for (Obra obra : obras) {
             String status = "Disponível";
-
+            
             for (Emprestimo emp : emprestimos) {
                 if (emp.getCodigoObra().equals(obra.getCodigo())) {
                     if (LocalDate.now().isAfter(emp.getDataDevolucaoPrevista())) {
@@ -136,7 +166,7 @@ public class TelaEmprestimo extends JFrame {
                     break;
                 }
             }
-
+            
             modeloTabela.addRow(new Object[]{
                 obra.getCodigo(),
                 obra.getTitulo(),

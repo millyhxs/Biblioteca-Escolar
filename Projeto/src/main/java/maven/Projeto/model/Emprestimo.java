@@ -17,6 +17,7 @@ public class Emprestimo{
         this.dataEmprestimo = LocalDate.now();
         this.dataDevolucaoPrevista = dataEmprestimo.plusDays(diasEmprestimo);
         this.responsavel = responsavel;
+        this.taxaDaMulta = 2.5f;
     }
 	
 	public Emprestimo(int diasEmprestimo) {

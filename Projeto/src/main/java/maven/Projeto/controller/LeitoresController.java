@@ -4,6 +4,7 @@ import java.util.List;
 
 import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
 public class LeitoresController {
@@ -59,6 +60,17 @@ public class LeitoresController {
         LeitorDAO.editarUsuario(matriculaAntiga, novoLeitor);
     }
 	
+	public static void verificarMatriculaExistente(String matricula) throws MatriculaNaoEncontradaException, CampoVazioException {
+		if (matricula == null || matricula.trim().isEmpty()) {
+			throw new CampoVazioException("Preencha todos os campos");
+		}
+		
+		boolean existe = LeitorDAO.verificarMatricula(matricula);		
+		
+	    if (!existe) {
+	        throw new MatriculaNaoEncontradaException("Usuário não encontrado com essa matrícula.");
+	    }
+	}
 	
 	public static List<Leitor> getLeitores() {
         LeitorDAO.buscarArquivo(); 

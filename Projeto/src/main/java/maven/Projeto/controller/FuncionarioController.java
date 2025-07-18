@@ -6,6 +6,7 @@ import maven.Projeto.dao.FuncionarioDAO;
 import maven.Projeto.dao.LeitorDAO;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
+import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 import maven.Projeto.model.Leitor;
 
@@ -71,8 +72,13 @@ public class FuncionarioController {
         return funcionario;
     }
     
-    public static Funcionario BuscaFuncionarioAtivado() {
-    	return FuncionarioDAO.buscarFuncionarioAtivo();
+    public static Funcionario BuscaFuncionarioAtivado() throws ValorNuloException {
+    	Funcionario funcionario = FuncionarioDAO.buscarFuncionarioAtivo();
+    	
+    	if (funcionario.isAtivo() == false) {
+    		throw new ValorNuloException("O valor está nulo");
+    	}
+    	return funcionario;
     }
     
     public static void logoOffFuncionario() {

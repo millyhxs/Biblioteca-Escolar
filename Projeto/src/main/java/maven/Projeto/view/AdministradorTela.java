@@ -59,15 +59,13 @@ public class AdministradorTela extends JFrame {
         btnFuncionarios.setForeground(corTextoBotao);
         btnFuncionarios.setFocusPainted(false);
         painel.add(btnFuncionarios);
-        btnLeitores.addActionListener(e -> new TelaCadastroFuncionarios().setVisible(true));
+        btnFuncionarios.addActionListener(e -> new TelaCadastroFuncionarios().setVisible(true));
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                // Ação que será executada quando a janela for fechada
                 System.out.println("Janela foi fechada!");
                 
-                // Exemplo: deslogar funcionário ativo
                 FuncionarioController.logoOffFuncionario();
             }
         });

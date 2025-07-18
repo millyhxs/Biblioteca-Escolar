@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
 public class LeitorDAO {
@@ -37,11 +38,11 @@ public class LeitorDAO {
         
         JsonObject obj = GSON.toJsonTree(novoUsuario).getAsJsonObject();
         
-
+        
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
-
+        
         System.out.println("Leitor cadastrado com sucesso!");
     }
     
@@ -154,5 +155,15 @@ public class LeitorDAO {
             System.out.println("Erro ao escrever no arquivo JSON!");
         }
     }
-  
+    
+    public static boolean verificarMatricula(String matricula) {
+    	buscarArquivo();
+    	
+    	for (Leitor usuario : LISTA_DE_USUARIOS) {
+            if (usuario.getMatricula().equals(matricula)) {
+                return true;
+            }
+        }
+    	return false;
+    }
 }

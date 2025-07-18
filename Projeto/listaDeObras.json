@@ -45,33 +45,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L007",
-    "titulo": "O Pequeno Príncipe",
-    "autor": "Antoine de Saint-Exupéry",
-    "anoDePublicacao": "1943",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L009",
-    "titulo": "A Metamorfose",
-    "autor": "Franz Kafka",
-    "anoDePublicacao": "1915",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "R002",
-    "titulo": "Capricho",
-    "autor": "Monica",
-    "anoDePublicacao": "2004",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
     "codigo": "R003",
     "titulo": "Recreio",
     "autor": "Jorge",
@@ -79,15 +52,6 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
-  },
-  {
-    "codigo": "A001",
-    "titulo": "TCC de Jamily",
-    "autor": "Jamily",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
   },
   {
     "codigo": "L002",
@@ -115,5 +79,41 @@
     "tempoDeEmprestimo": 7,
     "emprestado": true,
     "tipo": "Livro"
+  },
+  {
+    "codigo": "L007",
+    "titulo": "O Pequeno Príncipe",
+    "autor": "Antoine de Saint-Exupéry",
+    "anoDePublicacao": "1943",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de Jamily",
+    "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L009",
+    "titulo": "A Metamorfose",
+    "autor": "Franz Kafka",
+    "anoDePublicacao": "1915",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Capricho",
+    "autor": "Monica",
+    "anoDePublicacao": "2004",
+    "tempoDeEmprestimo": 3,
+    "emprestado": true,
+    "tipo": "Revista"
   }
 ]
