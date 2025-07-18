@@ -19,7 +19,7 @@ public class TelaBibliotecario extends JFrame {
             }
         };
         painel.setLayout(null);
-        add(painel);
+        getContentPane().add(painel);
 
         JLabel titulo = new JLabel("Área do Bibliotecário", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 22));
@@ -33,18 +33,18 @@ public class TelaBibliotecario extends JFrame {
         int larguraBtn = 200;
         int xCentral = (400 - larguraBtn) / 2;
 
-        JButton btnEmprestimos = new JButton("Gerenciar Empréstimos");
-        btnEmprestimos.setBounds(xCentral, 80, larguraBtn, 40);
-        btnEmprestimos.setFont(fonteBtn);
+        JButton btnEmprestimos = new JButton("Empréstimos");
+        btnEmprestimos.setBounds(xCentral, 100, larguraBtn, 40);
+        btnEmprestimos.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnEmprestimos.setBackground(corBotao);
         btnEmprestimos.setForeground(corTexto);
         btnEmprestimos.setFocusPainted(false);
         painel.add(btnEmprestimos);
         btnEmprestimos.addActionListener(e -> new TelaEmprestimo().setVisible(true));
 
-        JButton btnDevolucoes = new JButton("Gerenciar Devoluções");
-        btnDevolucoes.setBounds(xCentral, 140, larguraBtn, 40);
-        btnDevolucoes.setFont(fonteBtn);
+        JButton btnDevolucoes = new JButton("Devoluções");
+        btnDevolucoes.setBounds(xCentral, 150, larguraBtn, 40);
+        btnDevolucoes.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnDevolucoes.setBackground(corBotao);
         btnDevolucoes.setForeground(corTexto);
         btnDevolucoes.setFocusPainted(false);
@@ -53,7 +53,7 @@ public class TelaBibliotecario extends JFrame {
 
         JButton btnRelatorios = new JButton("Relatórios");
         btnRelatorios.setBounds(xCentral, 200, larguraBtn, 40);
-        btnRelatorios.setFont(fonteBtn);
+        btnRelatorios.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnRelatorios.setBackground(corBotao);
         btnRelatorios.setForeground(corTexto);
         btnRelatorios.setFocusPainted(false);

@@ -12,17 +12,17 @@ import javax.swing.table.TableRowSorter;
 
 import java.awt.*;
 
-public class TelaCadastroObras extends JFrame {
+public class CadastroObrasTela extends JFrame {
     private JComboBox<String> tipoCombo;
-    private JTextField codField, tituloField, autorField, anoField;
+    private JTextField codField, tituloField, autorField, anoField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private TableRowSorter<DefaultTableModel> sorter;
     
-    public TelaCadastroObras() {
+    public CadastroObrasTela() {
     	setResizable(false);
         setTitle("Cadastro de Obras");
-        setSize(740, 500);
+        setSize(740, 560);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -59,21 +59,21 @@ public class TelaCadastroObras extends JFrame {
         autorField = criarCampoTexto(340, 100);
         painel.add(autorField);
         
-        painel.add(criarLabel("Filtrar:", 510, 100));
-        JTextField campoFiltro = criarCampoTexto(550, 100);
-        painel.add(campoFiltro);
-        
         painel.add(criarLabel("Ano:", 510, 60));
         anoField = criarCampoTexto(550, 60);
         painel.add(anoField);
         
-        JButton excluirBtn = new JButton("Excluir Obra");
-        excluirBtn.setBounds(200, 140, 160, 30);
+        JButton excluirBtn = new JButton("Excluir item");
+        excluirBtn.setBounds(380, 150, 160, 30);
         painel.add(excluirBtn);
         
-        JButton adicionarBtn = new JButton("Adicionar Obra");
-        adicionarBtn.setBounds(30, 140, 160, 30);
+        JButton adicionarBtn = new JButton("Adicionar item");
+        adicionarBtn.setBounds(200, 150, 160, 30);
         painel.add(adicionarBtn);
+        
+        painel.add(criarLabel("Filtrar:", 30, 200));
+        campoFiltro = criarCampoTexto(90, 200);
+        painel.add(campoFiltro);
         
         adicionarBtn.addActionListener(e -> {
             try {
@@ -87,7 +87,7 @@ public class TelaCadastroObras extends JFrame {
                     String codigoExistente = (String) modeloTabela.getValueAt(i, 0); 
                     if (codigoExistente.equals(codigo)) {
                         JOptionPane.showMessageDialog(this,
-                            "Já existe uma obra com esse código.",
+                            "Já existe um item com esse código.",
                             "Código Duplicado",
                             JOptionPane.WARNING_MESSAGE);
                         return; 
@@ -97,7 +97,7 @@ public class TelaCadastroObras extends JFrame {
                 ObraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
                 atualizarTabela();
                 modeloTabela.fireTableDataChanged();
-                JOptionPane.showMessageDialog(this, "Obra adicionada com sucesso!");
+                JOptionPane.showMessageDialog(this, "Item adicionado com sucesso!");
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -109,14 +109,14 @@ public class TelaCadastroObras extends JFrame {
         sorter = new TableRowSorter<>(modeloTabela);
         tabela.setRowSorter(sorter);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 200, 670, 230);
+        scroll.setBounds(30, 235, 670, 230);
         painel.add(scroll);
         
         excluirBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
             if (linhaSelecionada == -1) {
-                JOptionPane.showMessageDialog(this, "Selecione uma obra para excluir.");
+                JOptionPane.showMessageDialog(this, "Selecione um item para excluir.");
                 return;
             }
             
@@ -125,7 +125,7 @@ public class TelaCadastroObras extends JFrame {
             
             int confirm = JOptionPane.showConfirmDialog(
                 this,
-                "Tem certeza que deseja excluir essa obra?",
+                "Tem certeza que deseja excluir esse item?",
                 "Confirmar Exclusão",
                 JOptionPane.YES_NO_OPTION
             );
@@ -138,7 +138,7 @@ public class TelaCadastroObras extends JFrame {
 				}
                 
                 atualizarTabela();
-                JOptionPane.showMessageDialog(this, "Obra excluída com sucesso!");
+                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
             }
         });
         
@@ -162,7 +162,16 @@ public class TelaCadastroObras extends JFrame {
         });
         
         atualizarTabela();
+        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
+        btnVoltar.setBounds(230, 480, 250, 30);
+        painel.add(btnVoltar);
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new AdministradorTela().setVisible(true);
+        });
     }
+    
     
     private JLabel criarLabel(String texto, int x, int y) {
         JLabel label = new JLabel(texto);
@@ -213,6 +222,6 @@ public class TelaCadastroObras extends JFrame {
     }
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaCadastroObras().setVisible(true));
+        SwingUtilities.invokeLater(() -> new CadastroObrasTela().setVisible(true));
     }
 }

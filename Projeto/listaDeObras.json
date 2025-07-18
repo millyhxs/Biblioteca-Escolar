@@ -54,15 +54,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L008",
-    "titulo": "Moby Dick",
-    "autor": "Herman Melville",
-    "anoDePublicacao": "1851",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L009",
     "titulo": "A Metamorfose",
     "autor": "Franz Kafka",
@@ -112,6 +103,15 @@
     "titulo": "Dom Quixote",
     "autor": "Miguel de Cervantes",
     "anoDePublicacao": "1605",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L008",
+    "titulo": "Moby Dick",
+    "autor": "Herman Melville",
+    "anoDePublicacao": "1851",
     "tempoDeEmprestimo": 7,
     "emprestado": true,
     "tipo": "Livro"

@@ -8,9 +8,9 @@ import maven.Projeto.model.Funcionario;
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaLogin extends JFrame {
+public class LoginTela extends JFrame {
 	
-    public TelaLogin() {
+    public LoginTela() {
         setTitle("Login | H² Biblioteca");
         setSize(420, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +84,7 @@ public class TelaLogin extends JFrame {
                     
                     switch (nivel) {
                         case "Administrador":
-                            new TelaAdministrador().setVisible(true);
+                            new AdministradorTela().setVisible(true);
                             break;
                         case "Bibliotecário":
                             new TelaBibliotecario().setVisible(true);
@@ -118,6 +118,6 @@ public class TelaLogin extends JFrame {
     }
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaLogin().setVisible(true));
+        SwingUtilities.invokeLater(() -> new LoginTela().setVisible(true));
     }
 }
