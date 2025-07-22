@@ -36,15 +36,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L006",
-    "titulo": "A Revolução dos Bichos",
-    "autor": "George Orwell",
-    "anoDePublicacao": "1945",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "R003",
     "titulo": "Recreio",
     "autor": "Jorge",
@@ -90,13 +81,13 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "A001",
-    "titulo": "TCC de Jamily",
-    "autor": "Jamily",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
+    "codigo": "L006",
+    "titulo": "A Revolução dos Bichos",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1945",
+    "tempoDeEmprestimo": 7,
     "emprestado": true,
-    "tipo": "Artigo"
+    "tipo": "Livro"
   },
   {
     "codigo": "L009",
@@ -104,7 +95,7 @@
     "autor": "Franz Kafka",
     "anoDePublicacao": "1915",
     "tempoDeEmprestimo": 7,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Livro"
   },
   {
@@ -113,7 +104,16 @@
     "autor": "Monica",
     "anoDePublicacao": "2004",
     "tempoDeEmprestimo": 3,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Revista"
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de Jamily",
+    "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
   }
 ]

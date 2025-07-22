@@ -1,16 +1,10 @@
 package maven.Projeto.controller;
 
-import maven.Projeto.dao.ArtigoDAO;
-import maven.Projeto.dao.EmprestimoDAO;
-import maven.Projeto.dao.LivroDAO;
-import maven.Projeto.dao.RevistaDAO;
+import maven.Projeto.dao.*;
 import maven.Projeto.excepctions.CampoVazioException;
-import maven.Projeto.model.Artigo;
-import maven.Projeto.model.Emprestavel;
-import maven.Projeto.model.Emprestimo;
-import maven.Projeto.model.Livro;
-import maven.Projeto.model.Revista;
-
+import maven.Projeto.model.*;
+import java.time.LocalDate;
+import java.util.UUID;
 public class EmprestimoController {
 
     public static void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
@@ -47,6 +41,39 @@ public class EmprestimoController {
             return;
         }
 
+        Emprestimo emprestimoEncontrado = null;
+
+        for (Emprestimo e : EmprestimoDAO.getEmprestimos()) {
+            if (e.getCodigoObra().equals(codigoObra)) {
+                emprestimoEncontrado = e;
+                break;
+            }
+        }
+
+        if (emprestimoEncontrado == null) {
+            System.out.println("Empréstimo não encontrado.");
+            return;
+        }
+
+        LocalDate dataDevolucao = LocalDate.now();
+        if (dataDevolucao.isAfter(emprestimoEncontrado.getDataDevolucaoPrevista())) {
+            long diasAtraso = java.time.temporal.ChronoUnit.DAYS.between(
+                    emprestimoEncontrado.getDataDevolucaoPrevista(), dataDevolucao);
+            float valorMulta = diasAtraso * emprestimoEncontrado.getTaxaDaMulta();
+
+            PagamentoMulta pagamento = new PagamentoMulta(
+            	    0,
+            	    emprestimoEncontrado.getMatriculaUsuario(),
+            	    valorMulta,
+            	    dataDevolucao,
+            	    "Pendente"
+            	);
+
+
+            MultaDAO.registrarPagamento(pagamento);
+            System.out.println("Multa registrada: R$" + valorMulta);
+        }
+
         if (!obra.devolver()) {
             System.out.println("A obra já está disponível.");
             return;
@@ -57,6 +84,7 @@ public class EmprestimoController {
 
         System.out.println("Devolução registrada com sucesso.");
     }
+
 
     private static Emprestavel buscarObraPorCodigo(String codigoObra) {
         LivroDAO.buscarArquivo();

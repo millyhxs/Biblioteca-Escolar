@@ -6,9 +6,9 @@ import maven.Projeto.controller.FuncionarioController;
 
 import java.awt.*;
 
-public class TelaBibliotecario extends JFrame {
+public class BibliotecarioTela extends JFrame {
 	
-    public TelaBibliotecario() {
+    public BibliotecarioTela() {
         setTitle("Painel do Bibliotecário");
         setSize(400, 320);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,19 +43,11 @@ public class TelaBibliotecario extends JFrame {
         btnEmprestimos.setForeground(corTexto);
         btnEmprestimos.setFocusPainted(false);
         painel.add(btnEmprestimos);
-        btnEmprestimos.addActionListener(e -> new TelaEmprestimo().setVisible(true));
-        
-        JButton btnDevolucoes = new JButton("Devoluções");
-        btnDevolucoes.setBounds(xCentral, 150, larguraBtn, 40);
-        btnDevolucoes.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnDevolucoes.setBackground(corBotao);
-        btnDevolucoes.setForeground(corTexto);
-        btnDevolucoes.setFocusPainted(false);
-        painel.add(btnDevolucoes);
-        btnDevolucoes.addActionListener(e -> new TelaDevolucao().setVisible(true));
+        btnEmprestimos.addActionListener(e -> new EmprestimoTela().setVisible(true));
+       
         
         JButton btnRelatorios = new JButton("Relatórios");
-        btnRelatorios.setBounds(xCentral, 200, larguraBtn, 40);
+        btnRelatorios.setBounds(xCentral, 150, larguraBtn, 40);
         btnRelatorios.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnRelatorios.setBackground(corBotao);
         btnRelatorios.setForeground(corTexto);
@@ -74,6 +66,6 @@ public class TelaBibliotecario extends JFrame {
     }
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaBibliotecario().setVisible(true));
+        SwingUtilities.invokeLater(() -> new BibliotecarioTela().setVisible(true));
     }
 }

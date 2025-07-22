@@ -19,5 +19,12 @@
     "nome": "João",
     "tipo": "Estagiário",
     "ativo": false
+  },
+  {
+    "id": "010203",
+    "senha": "teste",
+    "nome": "Cassia",
+    "tipo": "Administrador",
+    "ativo": false
   }
 ]

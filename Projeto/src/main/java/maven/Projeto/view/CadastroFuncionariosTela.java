@@ -1,8 +1,6 @@
 package maven.Projeto.view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -13,17 +11,17 @@ import maven.Projeto.controller.LeitoresController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Funcionario;
 
-public class TelaCadastroFuncionarios extends JFrame {
+public class CadastroFuncionariosTela extends JFrame {
     private JComboBox<String> nivelCombo;
     private JTextField idField, nomeField;
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     
-    public TelaCadastroFuncionarios() {
+    public CadastroFuncionariosTela() {
         setResizable(false);
         setTitle("Cadastro de Funcionários");
-        setSize(740, 500);
+        setSize(740, 560);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -43,33 +41,33 @@ public class TelaCadastroFuncionarios extends JFrame {
         painel.add(titulo);
         
         painel.add(criarLabel("ID:", 30, 60));
-        idField = criarCampoTexto(100, 60);
+        idField = criarCampoTexto(90, 60);
         painel.add(idField);
         
-        painel.add(criarLabel("Nome:", 270, 60));
-        nomeField = criarCampoTexto(340, 60);
+        painel.add(criarLabel("Nome:", 260, 60));
+        nomeField = criarCampoTexto(330, 60);
         painel.add(nomeField);
         
-        painel.add(criarLabel("Senha:", 30, 100));
+        painel.add(criarLabel("Senha:", 500, 60));
         senhaField = new JPasswordField();
-        senhaField.setBounds(100, 100, 150, 25);
+        senhaField.setBounds(550, 60, 150, 25);
         painel.add(senhaField);
         
-        painel.add(criarLabel("Nível:", 270, 100));
+        painel.add(criarLabel("Nível:", 260, 100));
         nivelCombo = new JComboBox<>(new String[]{"Administrador", "Bibliotecário", "Estagiário"});
-        nivelCombo.setBounds(340, 100, 150, 25);
+        nivelCombo.setBounds(330, 100, 150, 25);
         painel.add(nivelCombo);
         
         JButton adicionarBtn = new JButton("Adicionar Funcionário");
-        adicionarBtn.setBounds(30, 140, 200, 30);
+        adicionarBtn.setBounds(110, 150, 160, 30);
         painel.add(adicionarBtn);
         
         JButton excluirBtn = new JButton("Excluir Funcionário");
-        excluirBtn.setBounds(250, 140, 200, 30);
+        excluirBtn.setBounds(470, 150, 160, 30);
         painel.add(excluirBtn);
         
         JButton editarBtn = new JButton("Editar Funcionário");
-        editarBtn.setBounds(470, 140, 200, 30);
+        editarBtn.setBounds(290, 150, 160, 30);
         painel.add(editarBtn);
         
         modeloTabela = new DefaultTableModel(new String[]{"ID", "Nome", "Nível de Acesso"}, 0) {
@@ -80,9 +78,10 @@ public class TelaCadastroFuncionarios extends JFrame {
         };
         tabela = new JTable(modeloTabela);
         tabela.setRowSelectionAllowed(true);
+        tabela.setAutoCreateRowSorter(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 200, 670, 230);
+        scroll.setBounds(30, 200, 665, 270);
         painel.add(scroll);
         
         atualizarTabela();
@@ -155,6 +154,14 @@ public class TelaCadastroFuncionarios extends JFrame {
             }
         });
         atualizarTabela();
+        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
+        btnVoltar.setBounds(230, 480, 250, 30);
+        painel.add(btnVoltar);
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new AdministradorTela().setVisible(true);
+        });
 	}
     
     private JLabel criarLabel(String texto, int x, int y) {
@@ -183,6 +190,6 @@ public class TelaCadastroFuncionarios extends JFrame {
     }
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaCadastroFuncionarios().setVisible(true));
+        SwingUtilities.invokeLater(() -> new CadastroFuncionariosTela().setVisible(true));
     }
 }

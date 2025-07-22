@@ -50,7 +50,7 @@ public class AdministradorTela extends JFrame {
         btnLeitores.setForeground(corTextoBotao);
         btnLeitores.setFocusPainted(false);
         painel.add(btnLeitores);
-        btnLeitores.addActionListener(e -> new TelaCadastroLeitores().setVisible(true));
+        btnLeitores.addActionListener(e -> new CadastroLeitoresTela().setVisible(true));
         
         JButton btnFuncionarios = new JButton("Cadastrar Funcionários");
         btnFuncionarios.setBounds(100, 200, 200, 40);
@@ -59,7 +59,7 @@ public class AdministradorTela extends JFrame {
         btnFuncionarios.setForeground(corTextoBotao);
         btnFuncionarios.setFocusPainted(false);
         painel.add(btnFuncionarios);
-        btnFuncionarios.addActionListener(e -> new TelaCadastroFuncionarios().setVisible(true));
+        btnFuncionarios.addActionListener(e -> new CadastroFuncionariosTela().setVisible(true));
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

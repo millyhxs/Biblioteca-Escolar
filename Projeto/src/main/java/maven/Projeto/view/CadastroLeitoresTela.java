@@ -1,36 +1,24 @@
 package maven.Projeto.view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
+import javax.swing.table.*;
 
 import maven.Projeto.controller.LeitoresController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Leitor;
 
-public class TelaCadastroLeitores extends JFrame {
+public class CadastroLeitoresTela extends JFrame {
 	private JComboBox<String> tipoCombo;
     private JTextField matriculaField, nomeField, telefoneField, emailField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     
-	public TelaCadastroLeitores() {
+	public CadastroLeitoresTela() {
 		setResizable(false);
         setTitle("Cadastro de Leitores");
-		setSize(740, 500);
+		setSize(740, 560);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 		
@@ -67,20 +55,20 @@ public class TelaCadastroLeitores extends JFrame {
         telefoneField = criarCampoTexto(340, 100);
         painel.add(telefoneField);
         
-        painel.add(criarLabel("Email:", 510, 100));
-        emailField = criarCampoTexto(550, 100);
+        painel.add(criarLabel("Email:", 510, 60));
+        emailField = criarCampoTexto(550, 60);
         painel.add(emailField);
         
         JButton excluirBtn = new JButton("Excluir Leitor");
-        excluirBtn.setBounds(200, 140, 160, 30);
+        excluirBtn.setBounds(470, 150, 160, 30);
         painel.add(excluirBtn);
         
         JButton adicionarBtn = new JButton("Adicionar Leitor");
-        adicionarBtn.setBounds(30, 140, 160, 30);
+        adicionarBtn.setBounds(110, 150, 160, 30);
         painel.add(adicionarBtn);
         
         JButton editarBtn = new JButton("Editar Leitor");
-        editarBtn.setBounds(370, 140, 160, 30);
+        editarBtn.setBounds(290, 150, 160, 30);
         painel.add(editarBtn);
         
         adicionarBtn.addActionListener(e -> {
@@ -119,10 +107,11 @@ public class TelaCadastroLeitores extends JFrame {
         };
         
         tabela = new JTable(modeloTabela);
+        tabela.setAutoCreateRowSorter(true);
         tabela.setRowSelectionAllowed(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 200, 670, 230);
+        scroll.setBounds(30, 200, 670, 270);
         painel.add(scroll);
         
         atualizarTabela();
@@ -178,6 +167,16 @@ public class TelaCadastroLeitores extends JFrame {
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
+        
+        });
+        
+        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
+        btnVoltar.setBounds(230, 480, 250, 30);
+        painel.add(btnVoltar);
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new AdministradorTela().setVisible(true);
         });
 	}
 	
@@ -210,7 +209,7 @@ public class TelaCadastroLeitores extends JFrame {
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-            new TelaCadastroLeitores().setVisible(true);
+            new CadastroLeitoresTela().setVisible(true);
 		});
 	}
 }

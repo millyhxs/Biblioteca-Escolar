@@ -88,7 +88,7 @@ public class LoginTela extends JFrame {
                             new AdministradorTela().setVisible(true);
                             break;
                         case "Bibliotecário":
-                            new TelaBibliotecario().setVisible(true);
+                            new BibliotecarioTela().setVisible(true);
                             break;
                         case "Estagiário":
                             new TelaEstagiario().setVisible(true);

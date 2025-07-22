@@ -26,5 +26,19 @@
     "tipoDeUsuario": "Professor",
     "telefone": "98379428",
     "email": "luc@gmail.com"
+  },
+  {
+    "nome": "Rita",
+    "matricula": "181920",
+    "tipoDeUsuario": "Professor",
+    "telefone": "996254586",
+    "email": "ritinha@gmail.com"
+  },
+  {
+    "nome": "Catiana",
+    "matricula": "885656",
+    "tipoDeUsuario": "Servidor",
+    "telefone": "998452365",
+    "email": "cats@gmail.com"
   }
 ]
