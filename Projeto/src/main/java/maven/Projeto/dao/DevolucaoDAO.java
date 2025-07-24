@@ -34,7 +34,6 @@ public class DevolucaoDAO {
     }
     
     public static void registrarDevolucao(Devolucao devolucao) {
-    	System.out.println("Chamando registrarDevolucao() com: " + devolucao);
         LISTA_DEVOLUCOES.add(devolucao);
         atualizarJson();
     }
@@ -57,8 +56,6 @@ public class DevolucaoDAO {
     private static void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DEVOLUCOES, escritor);
-            System.out.println("Salvando em: " + new File(CAMINHO).getAbsolutePath());
-            System.out.println("Conteúdo salvo: " + GSON.toJson(LISTA_DEVOLUCOES));
         } catch (IOException e) {
             System.out.println("Erro ao salvar devoluções: " + e.getMessage());
         }
