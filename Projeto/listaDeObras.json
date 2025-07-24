@@ -9,15 +9,6 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "L005",
-    "titulo": "1984",
-    "autor": "George Orwell",
-    "anoDePublicacao": "1949",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "R003",
     "titulo": "Recreio",
     "autor": "Jorge",
@@ -115,5 +106,14 @@
     "tempoDeEmprestimo": 2,
     "emprestado": false,
     "tipo": "Artigo"
+  },
+  {
+    "codigo": "L005",
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1949",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
   }
 ]

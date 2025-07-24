@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class Devolucao {
 	private String codigoObra;
     private String matriculaUsuario;
-    private LocalDate dataDevolucao;
+    private String dataDevolucao;
  
-    public Devolucao(String codigoObra, String matriculaUsuario, LocalDate dataDevolucao) {
+    public Devolucao(String codigoObra, String matriculaUsuario, String dataDevolucao) {
         this.codigoObra = codigoObra;
         this.matriculaUsuario = matriculaUsuario;
         this.dataDevolucao = dataDevolucao;
@@ -36,11 +36,11 @@ public class Devolucao {
 		this.matriculaUsuario = matriculaUsuario;
 	}
 	
-	public LocalDate getDataDevolucao() {
+	public String getDataDevolucao() {
 		return dataDevolucao;
 	}
 	
-	public void setDataDevolucao(LocalDate dataDevolucao) {
+	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}       
    
