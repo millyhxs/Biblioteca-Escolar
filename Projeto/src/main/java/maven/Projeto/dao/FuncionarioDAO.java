@@ -61,7 +61,6 @@ public class FuncionarioDAO {
             }
         } if (encontrou) {
             atualizarJson();
-            System.out.println("Funcionario atualizado com sucesso.");
         } else {
             System.out.println("Funcionario com id \"" + id + "\" não encontrado.");
         }
@@ -102,7 +101,6 @@ public class FuncionarioDAO {
         }
         if (removido) {
         	salvarJson(array);
-            System.out.println("Leitor excluído");
         } else {
             System.out.println("Leitor não encontrado");
         }
@@ -119,7 +117,6 @@ public class FuncionarioDAO {
     private static void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)){
     		GSON.toJson(LISTA_DE_FUNCIONARIOS, escritor);
-            System.out.println("JSON de Servidores atualizado com sucesso!");
     	} catch (IOException e) {
     		System.out.println("Erro ao escrever no arquivo JSON.");
     	}

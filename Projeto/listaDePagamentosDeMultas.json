@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 2,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 3,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 4,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 5,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 6,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 7,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 8,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 9,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 10,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 11,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 12,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "24/07/2025",
+    "metodoDoPagamento": "Dinheiro"
+  }
+]

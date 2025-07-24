@@ -31,15 +31,14 @@ public class ArtigoDAO {
                 return;
             }
         }
-
+        
         JsonObject obj = GSON.toJsonTree(novaObra).getAsJsonObject();
         obj.addProperty("tipo", "Artigo");
-
+        
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
-
-        System.out.println("Artigo cadastrado com sucesso!");
+        
     }
     
     public static void excluir(String codigo) {
@@ -57,7 +56,6 @@ public class ArtigoDAO {
         }
         if (removido) {
         	salvarJson(array);
-            System.out.println("Artigo excluído");
         } else {
             System.out.println("Artigo não encontrado");
         }

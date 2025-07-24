@@ -1,14 +1,5 @@
 [
   {
-    "codigo": "L004",
-    "titulo": "Dom Quixote",
-    "autor": "Miguel de Cervantes",
-    "anoDePublicacao": "1605",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L007",
     "titulo": "O Pequeno Príncipe",
     "autor": "Antoine de Saint-Exupéry",
@@ -63,6 +54,15 @@
     "tipo": "Livro"
   },
   {
+    "codigo": "L002",
+    "titulo": "Os Forasteiros",
+    "autor": "Michelle Paver",
+    "anoDePublicacao": "2014",
+    "tempoDeEmprestimo": 0,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
     "codigo": "R002",
     "titulo": "Capricho",
     "autor": "Monica",
@@ -72,20 +72,20 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "L005",
-    "titulo": "1984",
-    "autor": "George Orwell",
-    "anoDePublicacao": "1949",
+    "codigo": "L004",
+    "titulo": "Dom Quixote",
+    "autor": "Miguel de Cervantes",
+    "anoDePublicacao": "1605",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
   },
   {
-    "codigo": "L002",
-    "titulo": "Os Forasteiros",
-    "autor": "Michelle Paver",
-    "anoDePublicacao": "2014",
-    "tempoDeEmprestimo": 0,
+    "codigo": "L005",
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1949",
+    "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
   },

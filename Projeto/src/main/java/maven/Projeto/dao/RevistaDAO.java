@@ -31,15 +31,13 @@ public class RevistaDAO {
                 return;
             }
         }
-
+        
         JsonObject obj = GSON.toJsonTree(novaObra).getAsJsonObject();
         obj.addProperty("tipo", "Revista");
-
+        
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
-
-        System.out.println("Revista cadastrado com sucesso!");
     }
     
     public static void excluir(String codigo) {
@@ -57,7 +55,6 @@ public class RevistaDAO {
         }
         if (removido) {
         	salvarJson(array);
-            System.out.println("Revista excluída");
         } else {
             System.out.println("Revista não encontrada");
         }

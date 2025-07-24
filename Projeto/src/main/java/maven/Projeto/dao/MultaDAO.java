@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class MultaDAO {
-    private static final String CAMINHO = "pagamentosDeMultas.json";
+    private static final String CAMINHO = "listaDePagamentosDeMultas.json";
     private static List<PagamentoMulta> LISTA_DE_PAGAMENTOS = new ArrayList<>();
     private static int contadorId = 1;
     

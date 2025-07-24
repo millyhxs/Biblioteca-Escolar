@@ -67,7 +67,6 @@ public class EmprestimoDAO {
     private static void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_EMPRESTIMOS, escritor);
-            System.out.println("Lista de empréstimos atualizada com sucesso.");
         } catch (IOException e) {
             System.out.println("Erro ao salvar lista de empréstimos.");
         }
@@ -83,7 +82,6 @@ public class EmprestimoDAO {
         boolean excluiu = LISTA_DE_EMPRESTIMOS.removeIf(e -> e.getCodigoObra().equals(codigoObra));
         if (excluiu) {
             atualizarJson();
-            System.out.println("Empréstimo removido.");
         } else {
             System.out.println("Código não encontrado nos empréstimos.");
         }

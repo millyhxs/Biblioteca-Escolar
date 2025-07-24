@@ -31,15 +31,14 @@ public class LivroDAO {
                 return;
             }
         }
-
+        
         JsonObject obj = GSON.toJsonTree(novaObra).getAsJsonObject();
         obj.addProperty("tipo", "Livro");
-
+        
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
-
-        System.out.println("Livro cadastrado com sucesso!");
+        
     }
     
     public static void excluir(String codigo) {
@@ -57,7 +56,6 @@ public class LivroDAO {
         }
         if (removido) {
         	salvarJson(array);
-            System.out.println("Livro excluído");
         } else {
             System.out.println("Livro não encontrado");
         }

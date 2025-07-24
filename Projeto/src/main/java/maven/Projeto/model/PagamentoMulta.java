@@ -6,23 +6,23 @@ public class PagamentoMulta {
     private int id;
     private String matriculaUsuario;
     private float valor;
-    private LocalDate data;
-    private String status;
+    private LocalDate dataDePagamento;
+    private String metodoDoPagamento;
 
-    public PagamentoMulta(int id, String matriculaUsuario, float valor, LocalDate data, String status) {
+    public PagamentoMulta(int id, String matriculaUsuario, float valor, LocalDate dataDePagamento, String metodoDoPagamento) {
         this.id = id;
         this.matriculaUsuario = matriculaUsuario;
         this.valor = valor;
-        this.data = data;
-        this.status = status;
+        this.dataDePagamento = dataDePagamento;
+        this.metodoDoPagamento = metodoDoPagamento;
     }
     
     
-    public PagamentoMulta(String matriculaUsuario, float valor, LocalDate data, String status) {
+    public PagamentoMulta(String matriculaUsuario, float valor, LocalDate dataDePagamento, String status) {
         this.matriculaUsuario = matriculaUsuario;
         this.valor = valor;
-        this.data = data;
-        this.status = status;
+        this.dataDePagamento = dataDePagamento;
+        this.metodoDoPagamento = status;
     }
     
     public int getId() {
@@ -41,11 +41,15 @@ public class PagamentoMulta {
         return valor;
     }
     
-    public LocalDate getData() {
-        return data;
+    public void setValor(float valor) {
+    	this.valor = valor;
     }
     
-    public String getStatus() {
-        return status;
+    public LocalDate getDataDePagamento() {
+        return dataDePagamento;
+    }
+    
+    public String getMetodoDoPagamento() {
+        return metodoDoPagamento;
     }
 }

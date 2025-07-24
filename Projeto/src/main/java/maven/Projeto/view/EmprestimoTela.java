@@ -131,6 +131,7 @@ public class EmprestimoTela extends JFrame {
     
     private void emprestar() {
         int linha = tabela.getSelectedRow();
+        
         if (linha == -1) {
             JOptionPane.showMessageDialog(this, "Selecione uma obra.");
             return;
@@ -145,6 +146,7 @@ public class EmprestimoTela extends JFrame {
         }
         
         String matricula = JOptionPane.showInputDialog("Digite a matrícula do usuário:");
+        
         try {
 			LeitoresController.verificarMatriculaExistente(matricula);
 		} catch (MatriculaNaoEncontradaException | CampoVazioException ex) {
@@ -153,7 +155,8 @@ public class EmprestimoTela extends JFrame {
 		}
         
         try {
-            Funcionario responsavel = FuncionarioController.BuscaFuncionarioAtivado();
+            
+        	Funcionario responsavel = FuncionarioController.BuscaFuncionarioAtivado();
         	String tipo = (String) tabela.getValueAt(linha, 4);
         	
         	int diasDeEmprestimo = 0;
@@ -170,9 +173,13 @@ public class EmprestimoTela extends JFrame {
 			default:
 				break;
 			}
-			EmprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
-            JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso.");
+			
+        	EmprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
+            
+        	JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso.");
+            
             atualizarTabela();
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
         }

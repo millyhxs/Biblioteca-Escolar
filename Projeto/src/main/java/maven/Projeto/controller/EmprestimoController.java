@@ -6,7 +6,7 @@ import maven.Projeto.model.*;
 import java.time.LocalDate;
 import java.util.UUID;
 public class EmprestimoController {
-
+	
     public static void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
         if (codigoObra == null || codigoObra.trim().isEmpty() ||
             matriculaUsuario == null || matriculaUsuario.trim().isEmpty() ||
@@ -14,35 +14,35 @@ public class EmprestimoController {
             throw new CampoVazioException("Todos os campos devem ser preenchidos.");
         }
         Emprestavel obra = buscarObraPorCodigo(codigoObra);
-
+        
         if (obra == null) {
             System.out.println("Obra com o código " + codigoObra + " não encontrada.");
             return;
         }
-
+        
         if (!obra.emprestar()) {
             System.out.println("Esta obra já está emprestada.");
             return;
         }
-
+        
         atualizarObra(obra);
-
+        
         Emprestimo emprestimo = new Emprestimo(codigoObra, matriculaUsuario, diasDeEmprestimo, responsavel);
         EmprestimoDAO.cadastrar(emprestimo);
-
+        
         System.out.println("Empréstimo registrado com sucesso!");
     }
-
+    
     public static void devolverObra(String codigoObra) {
         Emprestavel obra = buscarObraPorCodigo(codigoObra);
-
+        
         if (obra == null) {
             System.out.println("Obra não encontrada.");
             return;
         }
-
+        
         Emprestimo emprestimoEncontrado = null;
-
+        
         for (Emprestimo e : EmprestimoDAO.getEmprestimos()) {
             if (e.getCodigoObra().equals(codigoObra)) {
                 emprestimoEncontrado = e;
