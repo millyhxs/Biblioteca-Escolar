@@ -14,7 +14,7 @@ public class MultaDAO {
     private static final String CAMINHO = "pagamentosDeMultas.json";
     private static List<PagamentoMulta> LISTA_DE_PAGAMENTOS = new ArrayList<>();
     private static int contadorId = 1;
-
+    
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
                 @Override
@@ -31,23 +31,23 @@ public class MultaDAO {
             })
             .setPrettyPrinting()
             .create();
-
+    
     static {
         carregarPagamentos();
     }
-
+    
     public static void registrarPagamento(PagamentoMulta pagamento) {
         carregarPagamentos();
         pagamento.setId(contadorId++);
         LISTA_DE_PAGAMENTOS.add(pagamento);
         atualizarJson();
     }
-
+    
     public static List<PagamentoMulta> getTodosPagamentos() {
         carregarPagamentos();
         return LISTA_DE_PAGAMENTOS;
     }
-
+    
     public static List<PagamentoMulta> getPagamentosPorUsuario(String matricula) {
         List<PagamentoMulta> resultado = new ArrayList<>();
         for (PagamentoMulta p : LISTA_DE_PAGAMENTOS) {
@@ -57,7 +57,7 @@ public class MultaDAO {
         }
         return resultado;
     }
-
+    
     private static void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_PAGAMENTOS, escritor);
@@ -66,25 +66,25 @@ public class MultaDAO {
             System.out.println("Erro ao salvar pagamentos de multa: " + e.getMessage());
         }
     }
-
+    
     private static void carregarPagamentos() {
         File arquivo = new File(CAMINHO);
         if (!arquivo.exists()) {
             LISTA_DE_PAGAMENTOS = new ArrayList<>();
             return;
         }
-
+        
         try (FileReader leitor = new FileReader(arquivo)) {
             Type tipoLista = new TypeToken<List<PagamentoMulta>>() {}.getType();
             LISTA_DE_PAGAMENTOS = GSON.fromJson(leitor, tipoLista);
             if (LISTA_DE_PAGAMENTOS == null) LISTA_DE_PAGAMENTOS = new ArrayList<>();
-
+            
             for (PagamentoMulta p : LISTA_DE_PAGAMENTOS) {
                 if (p.getId() >= contadorId) {
                     contadorId = p.getId() + 1;
                 }
             }
-
+            
         } catch (IOException e) {
             System.out.println("Erro ao carregar pagamentos de multa: " + e.getMessage());
             LISTA_DE_PAGAMENTOS = new ArrayList<>();

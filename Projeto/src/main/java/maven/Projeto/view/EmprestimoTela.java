@@ -1,6 +1,7 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.*;
+import maven.Projeto.dao.DevolucaoDAO;
 import maven.Projeto.dao.EmprestimoDAO;
 import maven.Projeto.dao.MultaDAO;
 import maven.Projeto.excepctions.*;
@@ -56,7 +57,7 @@ public class EmprestimoTela extends JFrame {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 
                 c.setForeground(Color.BLACK);
-
+                
                 if (column == 5 && value instanceof String) {
                     String status = ((String) value).toLowerCase();
                     switch (status) {
@@ -71,9 +72,9 @@ public class EmprestimoTela extends JFrame {
                             break;
                     }
                 }
-
+                
                 c.setBackground(isSelected ? tabela.getSelectionBackground() : Color.WHITE);
-
+                
                 return c;
             }
         });
@@ -94,33 +95,33 @@ public class EmprestimoTela extends JFrame {
         painelPagamento.setBounds(480, 370, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
         painelPagamento.setBackground(new Color(60, 60, 60));
-
+        
         JLabel metodoLabel = new JLabel("Método:");
         metodoLabel.setForeground(Color.WHITE);
         metodoLabel.setBounds(20, 30, 100, 25);
         painelPagamento.add(metodoLabel);
-
+        
         metodoPagamentoBox = new JComboBox<>(new String[]{"PIX", "Dinheiro", "Cartão"});
         metodoPagamentoBox.setBounds(100, 30, 150, 25);
         painelPagamento.add(metodoPagamentoBox);
-
+        
         valorMultaLabel = new JLabel("Multa: R$ 0.00");
         valorMultaLabel.setForeground(Color.WHITE);
         valorMultaLabel.setBounds(20, 60, 200, 25);
         painelPagamento.add(valorMultaLabel);
-
+        
         confirmarPagamentoBtn = new JButton("Confirmar Pagamento");
         confirmarPagamentoBtn.setBounds(100, 100, 180, 30);
         painelPagamento.add(confirmarPagamentoBtn);
         painelPagamento.setVisible(false);
-
+        
         painel.add(painelPagamento);
         
         emprestarBtn.addActionListener(e -> emprestar());
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
-
-
+        
+        
         atualizarTabela();
     }
         
@@ -172,49 +173,66 @@ public class EmprestimoTela extends JFrame {
                 JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
             }
         }
+    	
     	private void prepararDevolucao() {
     		int linha = tabela.getSelectedRow();
-            if (linha == -1) {
-                JOptionPane.showMessageDialog(this, "Selecione uma obra.");
-                return;
-            }
-
-            String codigo = (String) tabela.getValueAt(linha, 0);
-            emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
-                    .filter(e -> e.getCodigoObra().equals(codigo))
-                    .findFirst().orElse(null);
-
-            if (emprestimoSelecionado == null) {
-                JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
-                return;
-            }
-
- 
-            float multa = emprestimoSelecionado.getTaxaDaMulta();
-
-            if (multa > 0) {
-                valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", multa));
-                painelPagamento.setVisible(true);
-            } else {
+    	    if (linha == -1) {
+    	        JOptionPane.showMessageDialog(this, "Selecione uma obra.");
+    	        return;
+    	    }
+    	    
+    	    String status = (String) tabela.getValueAt(linha, 5);
+    	    String codigo = (String) tabela.getValueAt(linha, 0);
+    	    
+    	    emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
+    	            .filter(e -> e.getCodigoObra().equals(codigo))
+    	            .findFirst().orElse(null);
+    	    	
+    	    if (emprestimoSelecionado == null) {
+    	        JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
+    	        return;
+    	    }
+    	    
+    	    if (status.equalsIgnoreCase("Em atraso")) {
+    	        float multa = emprestimoSelecionado.getTaxaDaMulta();
+    	        if (multa > 0) {
+    	            valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", multa));
+    	            painelPagamento.setVisible(true);
+    	        } else {
+    	            EmprestimoController.devolverObra(codigo);
+    	            atualizarTabela();
+    	        }
+    	    } else {
+    	    	painelPagamento.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Devolução concluída.");
+                Devolucao devolucao = new Devolucao(emprestimoSelecionado.getCodigoObra(), emprestimoSelecionado.getMatriculaUsuario(), LocalDate.now());
+                DevolucaoDAO.registrarDevolucao(devolucao);
                 EmprestimoController.devolverObra(codigo);
-                JOptionPane.showMessageDialog(this, "Devolução sem multa registrada com sucesso.");
                 atualizarTabela();
-            }
+    	    }
         }
-
+    	
         private void registrarPagamento() {
-            if (emprestimoSelecionado == null) return;
-
+            if (emprestimoSelecionado == null) { 
+            	return;
+            }
+            
             PagamentoMulta pagamento = new PagamentoMulta(
             	    emprestimoSelecionado.getMatriculaUsuario(),
             	    emprestimoSelecionado.getTaxaDaMulta(),
             	    LocalDate.now(),
             	    metodoPagamentoBox.getSelectedItem().toString()
             	);
-            
             MultaDAO.registrarPagamento(pagamento);
+            
+            Devolucao devolucao = new Devolucao(
+                    emprestimoSelecionado.getCodigoObra(),
+                    emprestimoSelecionado.getMatriculaUsuario(),
+                    LocalDate.now()
+                );
+            DevolucaoDAO.registrarDevolucao(devolucao);
             EmprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
-
+            
             painelPagamento.setVisible(false);
             JOptionPane.showMessageDialog(this, "Pagamento registrado e devolução concluída.");
             atualizarTabela();
@@ -255,7 +273,7 @@ public class EmprestimoTela extends JFrame {
             });
         }
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new EmprestimoTela().setVisible(true));
     }

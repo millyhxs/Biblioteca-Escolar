@@ -1,14 +1,5 @@
 [
   {
-    "codigo": "L001",
-    "titulo": "Harry Potter",
-    "autor": "JK. Rowling",
-    "anoDePublicacao": "2007",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "R001",
     "titulo": "Veja",
     "autor": "Lucia",
@@ -16,15 +7,6 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
-  },
-  {
-    "codigo": "L003",
-    "titulo": "O Senhor dos Anéis",
-    "autor": "J.R.R. Tolkien",
-    "anoDePublicacao": "1954",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
   },
   {
     "codigo": "L005",
@@ -59,16 +41,7 @@
     "autor": "Miguel de Cervantes",
     "anoDePublicacao": "1605",
     "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L008",
-    "titulo": "Moby Dick",
-    "autor": "Herman Melville",
-    "anoDePublicacao": "1851",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Livro"
   },
   {
@@ -77,7 +50,16 @@
     "autor": "Antoine de Saint-Exupéry",
     "anoDePublicacao": "1943",
     "tempoDeEmprestimo": 7,
-    "emprestado": true,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L009",
+    "titulo": "A Metamorfose",
+    "autor": "Franz Kafka",
+    "anoDePublicacao": "1915",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
     "tipo": "Livro"
   },
   {
@@ -86,14 +68,32 @@
     "autor": "George Orwell",
     "anoDePublicacao": "1945",
     "tempoDeEmprestimo": 7,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Livro"
   },
   {
-    "codigo": "L009",
-    "titulo": "A Metamorfose",
-    "autor": "Franz Kafka",
-    "anoDePublicacao": "1915",
+    "codigo": "L003",
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R. Tolkien",
+    "anoDePublicacao": "1954",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L008",
+    "titulo": "Moby Dick",
+    "autor": "Herman Melville",
+    "anoDePublicacao": "1851",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L001",
+    "titulo": "Harry Potter",
+    "autor": "JK. Rowling",
+    "anoDePublicacao": "2007",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
@@ -113,7 +113,7 @@
     "autor": "Jamily",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
   }
 ]

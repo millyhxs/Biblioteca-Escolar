@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "data": "23/07/2025",
+    "status": "PIX"
+  },
+  {
+    "id": 2,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "data": "23/07/2025",
+    "status": "PIX"
+  },
+  {
+    "id": 3,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "data": "23/07/2025",
+    "status": "PIX"
+  }
+]

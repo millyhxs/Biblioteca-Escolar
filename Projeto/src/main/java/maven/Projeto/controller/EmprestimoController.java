@@ -49,18 +49,18 @@ public class EmprestimoController {
                 break;
             }
         }
-
+        
         if (emprestimoEncontrado == null) {
             System.out.println("Empréstimo não encontrado.");
             return;
-        }
-
+        }	
+        
         LocalDate dataDevolucao = LocalDate.now();
         if (dataDevolucao.isAfter(emprestimoEncontrado.getDataDevolucaoPrevista())) {
             long diasAtraso = java.time.temporal.ChronoUnit.DAYS.between(
                     emprestimoEncontrado.getDataDevolucaoPrevista(), dataDevolucao);
             float valorMulta = diasAtraso * emprestimoEncontrado.getTaxaDaMulta();
-
+            
             PagamentoMulta pagamento = new PagamentoMulta(
             	    0,
             	    emprestimoEncontrado.getMatriculaUsuario(),
@@ -68,24 +68,24 @@ public class EmprestimoController {
             	    dataDevolucao,
             	    "Pendente"
             	);
-
-
+            	
+            	
             MultaDAO.registrarPagamento(pagamento);
             System.out.println("Multa registrada: R$" + valorMulta);
         }
-
+        
         if (!obra.devolver()) {
             System.out.println("A obra já está disponível.");
             return;
         }
-
+        
         atualizarObra(obra);
         EmprestimoDAO.excluirPorCodigo(codigoObra);
-
+        
         System.out.println("Devolução registrada com sucesso.");
     }
-
-
+    
+    
     private static Emprestavel buscarObraPorCodigo(String codigoObra) {
         LivroDAO.buscarArquivo();
         for (Livro livro : LivroDAO.LISTA_DE_OBRAS) {
@@ -93,24 +93,24 @@ public class EmprestimoController {
                 return livro;
             }
         }
-
+        
         RevistaDAO.buscarArquivo();
         for (Revista revista : RevistaDAO.LISTA_DE_OBRAS) {
             if (revista.getCodigo().equals(codigoObra)) {
                 return revista;
             }
         }
-
+        
         ArtigoDAO.buscarArquivo();
         for (Artigo artigo : ArtigoDAO.LISTA_DE_OBRAS) {
             if (artigo.getCodigo().equals(codigoObra)) {
                 return artigo;
             }
         }
-
+        
         return null;
     }
-
+    
     private static void atualizarObra(Emprestavel obra) {
         if (obra instanceof Livro) {
             LivroDAO.excluir(((Livro) obra).getCodigo());
