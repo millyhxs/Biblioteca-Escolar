@@ -4,7 +4,7 @@
     "senha": "23323",
     "nome": "Lucas",
     "tipo": "Bibliotecário",
-    "ativo": true
+    "ativo": false
   },
   {
     "id": "000",

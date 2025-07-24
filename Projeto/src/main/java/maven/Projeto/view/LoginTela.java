@@ -91,7 +91,7 @@ public class LoginTela extends JFrame {
                             new BibliotecarioTela().setVisible(true);
                             break;
                         case "Estagiário":
-                            new TelaEstagiario().setVisible(true);
+                            new EstagiarioTela().setVisible(true);
                             break;
                         default:
                             JOptionPane.showMessageDialog(this, "Nível de acesso inválido.");

@@ -53,7 +53,7 @@ public class BibliotecarioTela extends JFrame {
         btnRelatorios.setForeground(corTexto);
         btnRelatorios.setFocusPainted(false);
         painel.add(btnRelatorios);
-        btnRelatorios.addActionListener(e -> new TelaRelatorios().setVisible(true));
+        btnRelatorios.addActionListener(e -> new RelatorioTela().setVisible(true));
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

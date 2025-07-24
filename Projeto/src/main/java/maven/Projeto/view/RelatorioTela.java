@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class TelaEstagiario {
+public class RelatorioTela {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class TelaEstagiario {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaEstagiario window = new TelaEstagiario();
+					RelatorioTela window = new RelatorioTela();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class TelaEstagiario {
 	/**
 	 * Create the application.
 	 */
-	public TelaEstagiario() {
+	public RelatorioTela() {
 		initialize();
 	}
 
