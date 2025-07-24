@@ -16,7 +16,7 @@ public class PagamentoMulta {
         this.data = data;
         this.status = status;
     }
-
+    
     
     public PagamentoMulta(String matriculaUsuario, float valor, LocalDate data, String status) {
         this.matriculaUsuario = matriculaUsuario;
@@ -24,27 +24,27 @@ public class PagamentoMulta {
         this.data = data;
         this.status = status;
     }
-
+    
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getMatriculaUsuario() {
         return matriculaUsuario;
     }
-
+    
     public float getValor() {
         return valor;
     }
-
+    
     public LocalDate getData() {
         return data;
     }
-
+    
     public String getStatus() {
         return status;
     }

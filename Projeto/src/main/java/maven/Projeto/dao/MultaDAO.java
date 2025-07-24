@@ -37,15 +37,18 @@ public class MultaDAO {
     }
     
     public static void registrarPagamento(PagamentoMulta pagamento) {
-        carregarPagamentos();
-        pagamento.setId(contadorId++);
-        LISTA_DE_PAGAMENTOS.add(pagamento);
-        atualizarJson();
+        if (!LISTA_DE_PAGAMENTOS.contains(pagamento)) {
+            if (pagamento.getId() == 0) {
+                pagamento.setId(contadorId++);
+            }
+            
+            LISTA_DE_PAGAMENTOS.add(pagamento);
+            atualizarJson();
+        }
     }
     
     public static List<PagamentoMulta> getTodosPagamentos() {
-        carregarPagamentos();
-        return LISTA_DE_PAGAMENTOS;
+        return new ArrayList<>(LISTA_DE_PAGAMENTOS); 
     }
     
     public static List<PagamentoMulta> getPagamentosPorUsuario(String matricula) {

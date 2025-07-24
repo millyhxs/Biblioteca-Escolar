@@ -61,16 +61,6 @@ public class EmprestimoController {
                     emprestimoEncontrado.getDataDevolucaoPrevista(), dataDevolucao);
             float valorMulta = diasAtraso * emprestimoEncontrado.getTaxaDaMulta();
             
-            PagamentoMulta pagamento = new PagamentoMulta(
-            	    0,
-            	    emprestimoEncontrado.getMatriculaUsuario(),
-            	    valorMulta,
-            	    dataDevolucao,
-            	    "Pendente"
-            	);
-            	
-            	
-            MultaDAO.registrarPagamento(pagamento);
             System.out.println("Multa registrada: R$" + valorMulta);
         }
         
