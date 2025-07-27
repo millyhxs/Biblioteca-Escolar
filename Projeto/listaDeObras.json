@@ -1,50 +1,5 @@
 [
   {
-    "codigo": "L007",
-    "titulo": "O Pequeno Príncipe",
-    "autor": "Antoine de Saint-Exupéry",
-    "anoDePublicacao": "1943",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L009",
-    "titulo": "A Metamorfose",
-    "autor": "Franz Kafka",
-    "anoDePublicacao": "1915",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L006",
-    "titulo": "A Revolução dos Bichos",
-    "autor": "George Orwell",
-    "anoDePublicacao": "1945",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L003",
-    "titulo": "O Senhor dos Anéis",
-    "autor": "J.R.R. Tolkien",
-    "anoDePublicacao": "1954",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L008",
-    "titulo": "Moby Dick",
-    "autor": "Herman Melville",
-    "anoDePublicacao": "1851",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L002",
     "titulo": "Os Forasteiros",
     "autor": "Michelle Paver",
@@ -63,10 +18,82 @@
     "tipo": "Livro"
   },
   {
+    "codigo": "R003",
+    "titulo": "Recreio",
+    "autor": "Jorge",
+    "anoDePublicacao": "2012",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "L001",
+    "titulo": "Harry Potter",
+    "autor": "JK. Rowling",
+    "anoDePublicacao": "2007",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Capricho",
+    "autor": "Monica",
+    "anoDePublicacao": "2004",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
     "codigo": "L005",
     "titulo": "1984",
     "autor": "George Orwell",
     "anoDePublicacao": "1949",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L007",
+    "titulo": "O Pequeno Príncipe",
+    "autor": "Antoine de Saint-Exupéry",
+    "anoDePublicacao": "1943",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L006",
+    "titulo": "A Revolução dos Bichos",
+    "autor": "George Orwell",
+    "anoDePublicacao": "1945",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L008",
+    "titulo": "Moby Dick",
+    "autor": "Herman Melville",
+    "anoDePublicacao": "1851",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L003",
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R. Tolkien",
+    "anoDePublicacao": "1954",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L009",
+    "titulo": "A Metamorfose",
+    "autor": "Franz Kafka",
+    "anoDePublicacao": "1915",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
@@ -81,39 +108,12 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "R003",
-    "titulo": "Recreio",
-    "autor": "Jorge",
-    "anoDePublicacao": "2012",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "R002",
-    "titulo": "Capricho",
-    "autor": "Monica",
-    "anoDePublicacao": "2004",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "L001",
-    "titulo": "Harry Potter",
-    "autor": "JK. Rowling",
-    "anoDePublicacao": "2007",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "A001",
     "titulo": "TCC de Jamily",
     "autor": "Jamily",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
   }
 ]

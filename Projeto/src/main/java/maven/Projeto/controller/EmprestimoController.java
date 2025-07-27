@@ -4,7 +4,8 @@ import maven.Projeto.dao.*;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.*;
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 public class EmprestimoController {
 	
     public static void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
@@ -112,5 +113,13 @@ public class EmprestimoController {
             ArtigoDAO.excluir(((Artigo) obra).getCodigo());
             ArtigoDAO.cadastrar((Artigo) obra);
         }
+    }
+    
+    public static List<Emprestimo> getEmprestimos() {
+    	EmprestimoDAO.buscarArquivo();
+        if (EmprestimoDAO.LISTA_DE_EMPRESTIMOS == null) {
+        	EmprestimoDAO.LISTA_DE_EMPRESTIMOS = new ArrayList<>();
+        }
+        return EmprestimoDAO.LISTA_DE_EMPRESTIMOS;
     }
 }

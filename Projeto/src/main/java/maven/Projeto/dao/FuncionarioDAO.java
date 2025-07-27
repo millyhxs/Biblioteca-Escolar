@@ -16,7 +16,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import maven.Projeto.model.Funcionario;
-import maven.Projeto.model.Leitor;
 
 public class FuncionarioDAO {
 	private static final String CAMINHO = "listaDeFuncionarios.json";

@@ -1,18 +1,1 @@
-[
-  {
-    "codigoObra": "L001",
-    "matriculaUsuario": "123456",
-    "responsavel": "Lucas",
-    "taxaDaMulta": 2.5,
-    "dataEmprestimo": "27/07/2025",
-    "dataDevolucaoPrevista": "03/08/2025"
-  },
-  {
-    "codigoObra": "A001",
-    "matriculaUsuario": "123456",
-    "responsavel": "Lucas",
-    "taxaDaMulta": 2.5,
-    "dataEmprestimo": "27/07/2025",
-    "dataDevolucaoPrevista": "29/07/2025"
-  }
-]
+[]

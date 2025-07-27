@@ -14,7 +14,7 @@ import java.util.*;
 public class EmprestimoDAO {
 	
     private static final String CAMINHO = "listaDeEmprestimos.json";
-    private static List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
+    public static List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
     private static final Gson GSON = new GsonBuilder()
     	    .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
     	        @Override
@@ -51,7 +51,7 @@ public class EmprestimoDAO {
         return LISTA_DE_EMPRESTIMOS;
     }
     
-    private static void buscarArquivo() {
+    public static void buscarArquivo() {
         try (FileReader leitor = new FileReader(CAMINHO)) {
             Type tipoLista = new TypeToken<List<Emprestimo>>() {}.getType();
             LISTA_DE_EMPRESTIMOS = GSON.fromJson(leitor, tipoLista);
@@ -93,7 +93,6 @@ public class EmprestimoDAO {
         LocalDate dataAtual = LocalDate.now();
         
         long diasPassados = ChronoUnit.DAYS.between(dataEmprestimo, dataAtual);
-        
         if (diasPassados > diasPermitidos) {
             long diasAtraso = diasPassados - diasPermitidos;
             float multaPorDia = emprestimo.getTaxaDaMulta(); // continua sendo a taxa fixa por dia

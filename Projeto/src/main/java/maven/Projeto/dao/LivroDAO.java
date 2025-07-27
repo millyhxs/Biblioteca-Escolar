@@ -1,6 +1,5 @@
 package maven.Projeto.dao;
 
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class LivroDAO {
     public static void buscarArquivo() {
     	LISTA_DE_OBRAS = new ArrayList<>();
         JsonArray array = lerJsonArray();
-
+        
         for (JsonElement element : array) {
             JsonObject obj = element.getAsJsonObject();
             if (obj.has("tipo") && "Livro".equals(obj.get("tipo").getAsString())) {

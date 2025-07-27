@@ -22,6 +22,7 @@ public class EmprestimoTela extends JFrame {
     private JComboBox<String> metodoPagamentoBox;
     private JButton confirmarPagamentoBtn;
     private Emprestimo emprestimoSelecionado;
+    int diasPermitidos;
     
     LocalDate data = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -194,7 +195,7 @@ public class EmprestimoTela extends JFrame {
 		String status = (String) tabela.getValueAt(linha, 5);
 		String codigo = (String) tabela.getValueAt(linha, 0);
 		
-		emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
+		emprestimoSelecionado = EmprestimoController.getEmprestimos().stream()
 		        .filter(e -> e.getCodigoObra().equals(codigo))
 		        .findFirst().orElse(null);
 		
@@ -203,18 +204,32 @@ public class EmprestimoTela extends JFrame {
 		    return;
 		}
 		
-		if (status.equalsIgnoreCase("Em atraso")) {
-		    int diasPermitidos = 2; 
-		    float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
-		    
-		    if (valorMulta > 0) {
-		    	
-		        valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
-		        painelPagamento.setVisible(true);
-		    } else {
-		        EmprestimoController.devolverObra(codigo);
-		        atualizarTabela();
-		    }
+		if (status.trim().equalsIgnoreCase("Em atraso")) {
+			linha = tabela.getSelectedRow();
+	        String tipo = (String) tabela.getValueAt(linha, 4);
+	        
+	        if (tipo.equals("Livro") ) {
+	        	Livro livro = new Livro();
+	        	diasPermitidos = livro.getTempoEmprestimo();
+	        }
+	        else if (tipo.equals("Artigo") ) {
+	        	Artigo artigo = new Artigo();
+	        	diasPermitidos = artigo.getTempoEmprestimo();
+	        } 
+	        else if (tipo.equals("Revista") ) {
+	        	Revista revista = new Revista();
+	        	diasPermitidos = revista.getTempoEmprestimo();	
+	        }
+	        
+	        float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+	        
+	        if (valorMulta > 0f) {
+	        	valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
+	        	painelPagamento.setVisible(true);
+	        } else {
+	        	EmprestimoController.devolverObra(codigo);
+	        	atualizarTabela();
+	        }
 		    
 		} else {
 		    painelPagamento.setVisible(false);
@@ -237,10 +252,26 @@ public class EmprestimoTela extends JFrame {
         if (emprestimoSelecionado == null) { 
         	return;
         }
+
+        int linha = tabela.getSelectedRow();
+        String tipo = (String) tabela.getValueAt(linha, 4);
         
+        if (tipo.equals("Livro") ) {
+        	Livro livro = new Livro();
+        	diasPermitidos = livro.getTempoEmprestimo();
+        }
+        else if (tipo.equals("Artigo") ) {
+        	Artigo artigo = new Artigo();
+        	diasPermitidos = artigo.getTempoEmprestimo();
+        } 
+        else if (tipo.equals("Revista") ) {
+        	Revista revista = new Revista();
+        	diasPermitidos = revista.getTempoEmprestimo();	
+        }
+        float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
         PagamentoMulta pagamento = new PagamentoMulta(
         	    emprestimoSelecionado.getMatriculaUsuario(),
-        	    emprestimoSelecionado.getTaxaDaMulta(),
+        	    valorMulta,
         	    LocalDate.now(),
         	    metodoPagamentoBox.getSelectedItem().toString()
         	);

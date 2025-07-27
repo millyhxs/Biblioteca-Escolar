@@ -188,5 +188,40 @@
     "codigoObra": "A001",
     "matriculaUsuario": "232323",
     "dataDevolucao": "26/07/2025"
+  },
+  {
+    "codigoObra": "A001",
+    "matriculaUsuario": "123456",
+    "dataDevolucao": "27/07/2025"
+  },
+  {
+    "codigoObra": "R001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "27/07/2025"
+  },
+  {
+    "codigoObra": "R001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "27/07/2025"
+  },
+  {
+    "codigoObra": "R001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "30/07/2025"
+  },
+  {
+    "codigoObra": "R001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "27/07/2025"
+  },
+  {
+    "codigoObra": "A001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "01/08/2025"
+  },
+  {
+    "codigoObra": "A001",
+    "matriculaUsuario": "232323",
+    "dataDevolucao": "05/08/2025"
   }
 ]

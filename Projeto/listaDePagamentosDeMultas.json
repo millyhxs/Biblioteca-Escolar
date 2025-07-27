@@ -110,5 +110,26 @@
     "valor": 2.5,
     "dataDePagamento": "26/07/2025",
     "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 17,
+    "matriculaUsuario": "232323",
+    "valor": 12.5,
+    "dataDePagamento": "30/07/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 18,
+    "matriculaUsuario": "232323",
+    "valor": 7.5,
+    "dataDePagamento": "01/08/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 19,
+    "matriculaUsuario": "232323",
+    "valor": 5.0,
+    "dataDePagamento": "05/08/2025",
+    "metodoDoPagamento": "Cartão"
   }
 ]
