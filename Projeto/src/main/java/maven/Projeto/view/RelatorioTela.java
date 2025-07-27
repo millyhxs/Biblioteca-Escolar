@@ -1,48 +1,59 @@
 package maven.Projeto.view;
 
-import java.awt.EventQueue;
+import maven.Projeto.util.RelatoriosPDF;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.function.Consumer;
 
-public class RelatorioTela {
+public class RelatorioTela extends JFrame {
 
-	private JFrame frame;
+    public RelatorioTela() {
+        setTitle("Relatórios Gerenciais");
+        setSize(400, 320);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatorioTela window = new RelatorioTela();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        JPanel painel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                setBackground(new Color(40, 40, 40));
+            }
+        };
+        painel.setLayout(null);
+        getContentPane().add(painel);
 
-	/**
-	 * Create the application.
-	 */
-	public RelatorioTela() {
-		initialize();
-	}
+        JLabel titulo = new JLabel("Gerar Relatórios", SwingConstants.CENTER);
+        titulo.setFont(new Font("Serif", Font.BOLD, 22));
+        titulo.setForeground(Color.WHITE);
+        titulo.setBounds(0, 20, 400, 30);
+        painel.add(titulo);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        int larguraBtn = 250;
+        int alturaBtn = 40;
+        int xCentral = (400 - larguraBtn) / 2;
+        int yInicial = 80;
+        int espacamento = 50;
 
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
+        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarEmprestimosMes());
+        criarBotao(painel, "Obras mais emprestadas", xCentral, yInicial + espacamento, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarObrasMaisEmprestadas());
+        criarBotao(painel, "Usuários com mais atrasos", xCentral, yInicial + espacamento * 2, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarUsuariosComMaisAtrasos());
+    }
 
+    private void criarBotao(JPanel painel, String texto, int x, int y, int largura, int altura, Consumer<ActionEvent> acao) {
+        JButton botao = new JButton(texto);
+        botao.setBounds(x, y, largura, altura);
+        botao.setFont(new Font("SansSerif", Font.BOLD, 14));
+        botao.setBackground(new Color(23, 162, 184));
+        botao.setForeground(Color.WHITE);
+        botao.setFocusPainted(false);
+        botao.addActionListener(acao::accept);
+        painel.add(botao);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new RelatorioTela().setVisible(true));
+    }
 }

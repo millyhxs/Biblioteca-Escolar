@@ -45,15 +45,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L001",
-    "titulo": "Harry Potter",
-    "autor": "JK. Rowling",
-    "anoDePublicacao": "2007",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L002",
     "titulo": "Os Forasteiros",
     "autor": "Michelle Paver",
@@ -108,12 +99,21 @@
     "tipo": "Revista"
   },
   {
+    "codigo": "L001",
+    "titulo": "Harry Potter",
+    "autor": "JK. Rowling",
+    "anoDePublicacao": "2007",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
     "codigo": "A001",
     "titulo": "TCC de Jamily",
     "autor": "Jamily",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": false,
+    "emprestado": true,
     "tipo": "Artigo"
   }
 ]
