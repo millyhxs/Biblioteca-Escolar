@@ -1,7 +1,5 @@
 package maven.Projeto.model;
 
-import java.time.LocalDate;
-
 public class Devolucao {
 	private String codigoObra;
     private String matriculaUsuario;
