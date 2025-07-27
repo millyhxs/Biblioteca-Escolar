@@ -82,5 +82,33 @@
     "valor": 2.5,
     "dataDePagamento": "24/07/2025",
     "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 13,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "26/07/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 14,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "26/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 15,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "26/07/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 16,
+    "matriculaUsuario": "232323",
+    "valor": 2.5,
+    "dataDePagamento": "26/07/2025",
+    "metodoDoPagamento": "PIX"
   }
 ]

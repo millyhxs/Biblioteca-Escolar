@@ -63,15 +63,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "R002",
-    "titulo": "Capricho",
-    "autor": "Monica",
-    "anoDePublicacao": "2004",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
     "codigo": "L004",
     "titulo": "Dom Quixote",
     "autor": "Miguel de Cervantes",
@@ -90,15 +81,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "A001",
-    "titulo": "TCC de Jamily",
-    "autor": "Jamily",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "R001",
     "titulo": "Veja",
     "autor": "Lucia",
@@ -115,5 +97,23 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Capricho",
+    "autor": "Monica",
+    "anoDePublicacao": "2004",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de Jamily",
+    "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
   }
 ]

@@ -74,10 +74,8 @@ public class LoginTela extends JFrame {
             String senha = new String(senhaField.getPassword());
             
             try {
-                // Tenta autenticar (isso já deve ativar o funcionário)
                 FuncionarioController.autenticarFuncionario(id, senha);
                 
-                // Após autenticação bem-sucedida, busca o funcionário ativado
                 Funcionario funcionario = FuncionarioController.BuscaFuncionarioAtivado();
                 
                 if (funcionario != null) {

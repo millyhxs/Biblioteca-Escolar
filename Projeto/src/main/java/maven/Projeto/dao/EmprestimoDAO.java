@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class EmprestimoDAO {
@@ -87,18 +88,19 @@ public class EmprestimoDAO {
         }
     }
     
-    public static void verificarMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
+    public static float verificarMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
         LocalDate dataEmprestimo = emprestimo.getDataEmprestimo();
         LocalDate dataAtual = LocalDate.now();
         
-        long diasPassados = java.time.temporal.ChronoUnit.DAYS.between(dataEmprestimo, dataAtual);
+        long diasPassados = ChronoUnit.DAYS.between(dataEmprestimo, dataAtual);
         
         if (diasPassados > diasPermitidos) {
             long diasAtraso = diasPassados - diasPermitidos;
-            float multaPorDia = emprestimo.getTaxaDaMulta();
-            emprestimo.setTaxaDaMulta(diasAtraso * multaPorDia);
+            float multaPorDia = emprestimo.getTaxaDaMulta(); // continua sendo a taxa fixa por dia
+            float valorMulta = diasAtraso * multaPorDia;
+            return valorMulta;
         } else {
-            emprestimo.setTaxaDaMulta(0f); 
+            return 0f; // Sem multa
         }
     }
 }

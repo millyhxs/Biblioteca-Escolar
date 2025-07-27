@@ -125,7 +125,6 @@ public class EmprestimoTela extends JFrame {
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
         
-        
         atualizarTabela();
     }
     
@@ -187,41 +186,51 @@ public class EmprestimoTela extends JFrame {
 	
 	private void prepararDevolucao() {
 		int linha = tabela.getSelectedRow();
-	    if (linha == -1) {
-	        JOptionPane.showMessageDialog(this, "Selecione uma obra.");
-	        return;
-	    }
-	    
-	    String status = (String) tabela.getValueAt(linha, 5);
-	    String codigo = (String) tabela.getValueAt(linha, 0);
-	    
-	    emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
-	            .filter(e -> e.getCodigoObra().equals(codigo))
-	            .findFirst().orElse(null);
-	    	
-	    if (emprestimoSelecionado == null) {
-	        JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
-	        return;
-	    }
-	    
-	    if (status.equalsIgnoreCase("Em atraso")) {
-	        float multa = emprestimoSelecionado.getTaxaDaMulta();
-	        if (multa > 0) {
-	            valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", multa));
-	            painelPagamento.setVisible(true);
-	        } else {
-	            EmprestimoController.devolverObra(codigo);
-	            atualizarTabela();
-	        }
-	    } else {
-	    	painelPagamento.setVisible(false);
-            JOptionPane.showMessageDialog(this, "Devolução concluída.");
-            
-            Devolucao devolucao = new Devolucao(emprestimoSelecionado.getCodigoObra(), emprestimoSelecionado.getMatriculaUsuario(), dataFormatada);
-            DevolucaoDAO.registrarDevolucao(devolucao);
-            EmprestimoController.devolverObra(codigo);
-            atualizarTabela();
-	    }
+		if (linha == -1) {
+		    JOptionPane.showMessageDialog(this, "Selecione uma obra.");
+		    return;
+		}
+		
+		String status = (String) tabela.getValueAt(linha, 5);
+		String codigo = (String) tabela.getValueAt(linha, 0);
+		
+		emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
+		        .filter(e -> e.getCodigoObra().equals(codigo))
+		        .findFirst().orElse(null);
+		
+		if (emprestimoSelecionado == null) {
+		    JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
+		    return;
+		}
+		
+		if (status.equalsIgnoreCase("Em atraso")) {
+		    int diasPermitidos = 2; 
+		    float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+		    
+		    if (valorMulta > 0) {
+		    	
+		        valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
+		        painelPagamento.setVisible(true);
+		    } else {
+		        EmprestimoController.devolverObra(codigo);
+		        atualizarTabela();
+		    }
+		    
+		} else {
+		    painelPagamento.setVisible(false);
+		    JOptionPane.showMessageDialog(this, "Devolução concluída.");
+		    
+		    String dataFormatada = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		    Devolucao devolucao = new Devolucao(
+		            emprestimoSelecionado.getCodigoObra(),
+		            emprestimoSelecionado.getMatriculaUsuario(),
+		            dataFormatada
+		    );
+		    
+		    DevolucaoDAO.registrarDevolucao(devolucao);
+		    EmprestimoController.devolverObra(codigo);
+		    atualizarTabela();
+		}
     }
 	
     private void registrarPagamento() {
