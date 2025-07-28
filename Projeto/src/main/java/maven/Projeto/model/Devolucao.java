@@ -1,18 +1,22 @@
 package maven.Projeto.model;
 
+import java.time.LocalDate;
+
 public class Devolucao {
 	private String codigoObra;
     private String matriculaUsuario;
-    private String dataDevolucao;
+    private LocalDate dataDevolucao;
+    private LocalDate dataEmprestimo;
  
-    public Devolucao(String codigoObra, String matriculaUsuario, String dataDevolucao) {
+    public Devolucao(String codigoObra, String matriculaUsuario, LocalDate localDate, LocalDate localDate2) {
         this.codigoObra = codigoObra;
         this.matriculaUsuario = matriculaUsuario;
-        this.dataDevolucao = dataDevolucao;
+        this.dataDevolucao = localDate;
+        this.dataEmprestimo = localDate2;
         
     }
     
-    public Devolucao() {
+    public Devolucao(String string, String string2, String dataFormatada) {
     	
     }
     
@@ -33,14 +37,24 @@ public class Devolucao {
 	public void setMatriculaUsuario(String matriculaUsuario) {
 		this.matriculaUsuario = matriculaUsuario;
 	}
-	
-	public String getDataDevolucao() {
+
+	public LocalDate getDataDevolucao() {
 		return dataDevolucao;
 	}
-	
-	public void setDataDevolucao(String dataDevolucao) {
+
+	public void setDataDevolucao(LocalDate dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
-	}       
+	}
+
+	public LocalDate getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+	public void setDataEmprestimo(LocalDate dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
+	}
+	
+
    
 }
 

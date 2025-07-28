@@ -1,16 +1,22 @@
 package maven.Projeto.util;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
-import maven.Projeto.controller.EmprestimoController;
 import maven.Projeto.controller.MultaDevolucaoController;
-import maven.Projeto.model.Emprestimo;
+import maven.Projeto.controller.ObraController;
+import maven.Projeto.dao.DevolucaoDAO;
+import maven.Projeto.model.Devolucao;
+import maven.Projeto.model.Obra;
 import maven.Projeto.model.PagamentoMulta;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
@@ -34,21 +40,21 @@ public class RelatoriosPDF {
             
             doc.add(new Paragraph("Relatório: Empréstimos do Mês", TITULO));
             doc.add(new Paragraph(" "));
-            EmprestimoController emprestimoController = new EmprestimoController();
-            List<Emprestimo> emprestimos = emprestimoController.getEmprestimos();
+            DevolucaoDAO dao = new DevolucaoDAO();
+            List<Devolucao> devolucoes = dao.getTodasDevolucoes();
             int mesAtual = LocalDate.now().getMonthValue();
             int anoAtual = LocalDate.now().getYear();
             
-            PdfPTable tabela = new PdfPTable(3);
+            PdfPTable tabela = new PdfPTable(4);
             tabela.setWidthPercentage(100);
-            adicionarCabecalho(tabela, "Código", "Usuário", "Data Empréstimo", "Data Devolução");
+            adicionarCabecalho(tabela, "Código do livro", "Usuário", "Data Empréstimo", "Data Devolução");
             
-            for (Emprestimo e : emprestimos) {
-                if (e.getDataEmprestimo().getMonthValue() == mesAtual && e.getDataEmprestimo().getYear() == anoAtual) {
-                    tabela.addCell(new PdfPCell(new Phrase(e.getCodigoObra(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(e.getMatriculaUsuario(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(e.getDataEmprestimo().toString(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(e.getDataDevolucaoPrevista().toString(), TEXTO)));
+            for (Devolucao d : devolucoes) {
+                if (d.getDataEmprestimo().getMonthValue() == mesAtual && d.getDataEmprestimo().getYear() == anoAtual) {
+                    tabela.addCell(new PdfPCell(new Phrase(d.getCodigoObra(), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(d.getMatriculaUsuario(), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(d.getDataEmprestimo().toString(), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(d.getDataDevolucao().toString(), TEXTO)));
                 }
             }
             
@@ -75,9 +81,69 @@ public class RelatoriosPDF {
     }
     
     //Obras mais emprestadas
-    public Object gerarObrasMaisEmprestadas() {
-		return null;
-	}
+    public void gerarObrasMaisEmprestadas() {
+        Document document = new Document();
+        try {
+            Gson gson = new Gson();
+            Type tipoLista = new TypeToken<List<Devolucao>>() {}.getType();
+            FileReader leitor = new FileReader("listaDeDevolucoes.json");
+            List<Devolucao> devolucoes = gson.fromJson(leitor, tipoLista);
+
+            Map<String, Integer> contador = new HashMap<>();
+            for (Devolucao d : devolucoes) {
+                String codigo = d.getCodigoObra();
+                contador.put(codigo, contador.getOrDefault(codigo, 0) + 1);
+            }
+
+            // Ordena do mais emprestado para o menos
+            List<Map.Entry<String, Integer>> listaOrdenada = new ArrayList<>(contador.entrySet());
+            listaOrdenada.sort((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()));
+
+            PdfWriter.getInstance(document, new FileOutputStream("relatorio_obras_mais_emprestadas.pdf"));
+            document.open();
+
+            Paragraph titulo = new Paragraph("Obras Mais Emprestadas\n\n", TITULO);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            document.add(titulo);
+
+            PdfPTable tabela = new PdfPTable(3);
+            tabela.setWidths(new int[]{2, 5, 2});
+            tabela.setWidthPercentage(100);
+
+            tabela.addCell(new PdfPCell(new Phrase("Código", CABECALHO)));
+            tabela.addCell(new PdfPCell(new Phrase("Título da Obra", CABECALHO)));
+            tabela.addCell(new PdfPCell(new Phrase("Qtd. Empréstimos", CABECALHO)));
+
+            for (Map.Entry<String, Integer> entrada : listaOrdenada) {
+                String codigo = entrada.getKey();
+                String tituloObra = buscarTituloDaObra(codigo);
+                
+                tabela.addCell(codigo);
+                tabela.addCell(tituloObra);
+                tabela.addCell(String.valueOf(entrada.getValue()));
+            }
+
+            document.add(tabela);
+            JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório: " + e.getMessage());
+        } finally {
+            document.close();
+            try {
+                File pdfFile = new File("relatorio_obras_mais_emprestadas.pdf");
+                if (pdfFile.exists()) {
+                    Desktop.getDesktop().open(pdfFile);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Arquivo PDF não encontrado.");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
+            }
+        }
+    }
+
     
     // Usuários com mais atrasos
     public void gerarUsuariosComMaisAtrasos() {
@@ -152,5 +218,25 @@ public class RelatoriosPDF {
             tabela.addCell(cell);
         }
     }
+    private String buscarTituloDaObra(String codigo) {
+    	ObraController obraController = new ObraController();
+        for (Obra o : obraController.getLivros()) {
+            if (o.getCodigo().equals(codigo)) {
+                return o.getTitulo();
+            }
+        }
+        for (Obra o : obraController.getRevistas()) {
+            if (o.getCodigo().equals(codigo)) {
+                return o.getTitulo();
+            }
+        }
+        for (Obra o : obraController.getArtigos()) {
+            if (o.getCodigo().equals(codigo)) {
+                return o.getTitulo();
+            }
+        }
+        return "Título não encontrado";
+    }
+
     
 }

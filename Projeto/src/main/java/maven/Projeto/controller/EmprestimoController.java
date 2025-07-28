@@ -75,11 +75,21 @@ public class EmprestimoController {
             return;
         }
         
-        atualizarObra(obra);
-        emprestimoDAO.excluirPorCodigo(codigoObra);
-        
-        System.out.println("Devolução registrada com sucesso.");
-    }
+        Devolucao devolucao = new Devolucao(
+                emprestimoEncontrado.getCodigoObra(),
+                emprestimoEncontrado.getMatriculaUsuario(),
+                emprestimoEncontrado.getDataEmprestimo(), 
+                LocalDate.now()
+            );
+
+            DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
+            devolucaoDAO.registrarDevolucao(devolucao);
+
+            atualizarObra(obra);
+            emprestimoDAO.excluirPorCodigo(codigoObra);
+
+            System.out.println("Devolução registrada com sucesso.");
+        }
     
     
     private Emprestavel buscarObraPorCodigo(String codigoObra) {
