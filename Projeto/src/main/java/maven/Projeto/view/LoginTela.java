@@ -10,6 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginTela extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8807194293603135254L;
 	FuncionarioController funcionarioController = new FuncionarioController();
     public LoginTela() {
         setTitle("Login | H² Biblioteca");
@@ -18,7 +22,12 @@ public class LoginTela extends JFrame {
         setLocationRelativeTo(null);
         
         JPanel painel = new JPanel() {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -8121900001994564248L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(45, 45, 45));
             }

@@ -9,8 +9,10 @@ import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
 public class FuncionarioController {
-	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
+	
+	private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    
+	public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
         if (id == null || id.trim().isEmpty() || 
             nome == null || nome.trim().isEmpty() || 
             senha == null || senha.trim().isEmpty() || 
@@ -85,6 +87,6 @@ public class FuncionarioController {
     
     public List<Funcionario> getFuncionarios() {
     	funcionarioDAO.buscarArquivo(); 
-        return funcionarioDAO.LISTA_DE_FUNCIONARIOS;
+        return funcionarioDAO.getLISTA_DE_FUNCIONARIOS();
     }
 }

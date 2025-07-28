@@ -22,9 +22,9 @@ public class LivroDAO extends DAO{
 	
 	/** Lista de livros carregados do arquivo JSON. 
      */
-    public List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
+	private List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
 	
-    /**
+	/**
      * Cadastra um novo livro na lista de obras e salva no arquivo JSON.
      * Verifica se já existe um livro com o mesmo código antes de cadastrar.
      *
@@ -92,4 +92,12 @@ public class LivroDAO extends DAO{
             }
         }
     }   
+    
+    public List<Livro> getLISTA_DE_OBRAS() {
+		return LISTA_DE_OBRAS;
+	}
+    
+	public void setLISTA_DE_OBRAS(List<Livro> lISTA_DE_OBRAS) {
+		LISTA_DE_OBRAS = lISTA_DE_OBRAS;
+	}
 }

@@ -23,7 +23,7 @@ public class Livro extends Obra implements Emprestavel{
      */
 	public Livro(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
 		super(codigo, titulo, autor, anoDePublicacao, emprestado);
-		this.tempoDeEmprestimo = 7;
+		this.setTempoDeEmprestimo(7);
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Livro extends Obra implements Emprestavel{
      * O tempo de empréstimo é definido como 7 dias.
      */
 	public Livro() {
-		this.tempoDeEmprestimo = 7;
+		this.setTempoDeEmprestimo(7);
 	}
 	
 	/**

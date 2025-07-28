@@ -19,11 +19,11 @@ public class Leitor {
      * telefone | Telefone do Leitor.
      * email | Email do Leitor.
      */
-	protected String nome;
-	protected String matricula;
-	protected String tipoDeUsuario;
-	protected String telefone;
-	protected String email;
+	private String nome;
+	private String matricula;
+	private String tipoDeUsuario;
+	private String telefone;
+	private String email;
 	
 	/**
      * Construtor com parâmetros para criação de um leitor.

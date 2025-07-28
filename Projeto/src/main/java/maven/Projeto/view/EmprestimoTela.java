@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 
 public class EmprestimoTela extends JFrame {
     
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2740513108303069203L;
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
@@ -40,7 +44,12 @@ public class EmprestimoTela extends JFrame {
         setResizable(false);
         
         JPanel painel = new JPanel(null) {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 7150161965554806235L;
+			
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(40, 40, 40));
             }
@@ -54,14 +63,24 @@ public class EmprestimoTela extends JFrame {
         painel.add(titulo);
         
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0){
-            public boolean isCellEditable(int row, int column) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 7064388783696092988L;
+
+			public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
         tabela = new JTable(modeloTabela);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -1595664890445679868L;
+
+			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 

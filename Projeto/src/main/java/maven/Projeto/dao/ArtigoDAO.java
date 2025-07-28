@@ -19,9 +19,9 @@ public class ArtigoDAO extends DAO{
 	}
 	/** Lista de "Arquivos" carregados do arquivo JSON. 
      */
-    public List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
-    
-    /**
+    private List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
+
+	/**
      * Cadastra um novo arquivo na lista de obras e salva no arquivo JSON.
      * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
      *
@@ -91,4 +91,13 @@ public class ArtigoDAO extends DAO{
             }
         }
     } 
+    
+    public List<Artigo> getLISTA_DE_OBRAS() {
+		return LISTA_DE_OBRAS;
+	}
+    
+	public void setLISTA_DE_OBRAS(List<Artigo> lISTA_DE_OBRAS) {
+		LISTA_DE_OBRAS = lISTA_DE_OBRAS;
+	}
+	
 }    

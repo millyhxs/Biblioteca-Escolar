@@ -7,7 +7,12 @@ import maven.Projeto.controller.FuncionarioController;
 import java.awt.*;
 
 public class BibliotecarioTela extends JFrame {
-    public BibliotecarioTela() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8350761075553799383L;
+
+	public BibliotecarioTela() {
         setTitle("Painel do Bibliotecário");
         setSize(400, 320);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,7 +20,12 @@ public class BibliotecarioTela extends JFrame {
         setResizable(false);
         
         JPanel painel = new JPanel() {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 5075502080637725843L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(40, 40, 40));
             }

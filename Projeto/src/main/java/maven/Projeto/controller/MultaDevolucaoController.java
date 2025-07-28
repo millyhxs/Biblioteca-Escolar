@@ -8,8 +8,8 @@ import maven.Projeto.model.Devolucao;
 import maven.Projeto.model.PagamentoMulta;
 
 public class MultaDevolucaoController {
-	MultaDAO multaDAO = new MultaDAO();
-	DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
+	private MultaDAO multaDAO = new MultaDAO();
+	private DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
 	
 	public void registroDePagamento(PagamentoMulta pagamento) {
 		multaDAO.registrarPagamento(pagamento);

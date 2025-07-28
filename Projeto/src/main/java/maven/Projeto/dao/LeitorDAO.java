@@ -18,9 +18,9 @@ public class LeitorDAO extends DAO{
 		super("listaDeUsuarios.json");
 	}
     
-    public List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
+    private List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
     
-    public void cadastrar(Leitor novoUsuario) {
+	public void cadastrar(Leitor novoUsuario) {
         buscarArquivo();
         
         if (LISTA_DE_USUARIOS == null) {
@@ -144,4 +144,13 @@ public class LeitorDAO extends DAO{
         }
     	return false;
     }
+    
+    
+    public List<Leitor> getLISTA_DE_USUARIOS() {
+		return LISTA_DE_USUARIOS;
+	}
+    
+	public void setLISTA_DE_USUARIOS(List<Leitor> lISTA_DE_USUARIOS) {
+		LISTA_DE_USUARIOS = lISTA_DE_USUARIOS;
+	}
 }

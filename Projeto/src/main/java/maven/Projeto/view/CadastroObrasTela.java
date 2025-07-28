@@ -13,7 +13,11 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class CadastroObrasTela extends JFrame {
-    private JComboBox<String> tipoCombo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7860411679376119792L;
+	private JComboBox<String> tipoCombo;
     private JTextField codField, tituloField, autorField, anoField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
@@ -28,7 +32,12 @@ public class CadastroObrasTela extends JFrame {
         setLocationRelativeTo(null);
         
         JPanel painel = new JPanel(null) {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -2049954589829299812L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(45, 45, 45));
             }

@@ -8,7 +8,7 @@ import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
 public class LeitoresController {
-	LeitorDAO leitorDAO = new LeitorDAO();
+	private LeitorDAO leitorDAO = new LeitorDAO();
 	public void verificacaoDeDados(String tipo, String matricula, String nome, String telefone, String email) throws CampoVazioException{
 		if (matricula == null || matricula.trim().isEmpty()||
 			nome == null || nome.trim().isEmpty() ||
@@ -75,6 +75,6 @@ public class LeitoresController {
 	
 	public List<Leitor> getLeitores() {
         leitorDAO.buscarArquivo(); 
-        return leitorDAO.LISTA_DE_USUARIOS;
+        return leitorDAO.getLISTA_DE_USUARIOS();
     }
 }

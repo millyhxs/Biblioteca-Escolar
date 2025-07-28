@@ -19,10 +19,10 @@ public class Funcionario {
      * ativo | Estado de atividade.
      */
 	private String id;
-    private String senha;
-    private String nome;
-    private String tipo;
-    private boolean ativo;
+	private String senha;
+	private String nome;
+	private String tipo;
+	private boolean ativo;
 	
     /**
      * Construtor com parâmetros para criação de um funcionário completo.

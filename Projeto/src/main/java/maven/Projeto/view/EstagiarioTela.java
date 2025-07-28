@@ -13,7 +13,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EstagiarioTela extends JFrame {
-    private JTable tabela;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1143581939582089287L;
+	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
     private JLabel valorMultaLabel;
@@ -37,7 +41,12 @@ public class EstagiarioTela extends JFrame {
         setResizable(false);
         
         JPanel painel = new JPanel(null) {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 2509288756281624314L;
+			
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(40, 40, 40));
             }
@@ -51,7 +60,12 @@ public class EstagiarioTela extends JFrame {
         painel.add(titulo);
         
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0) {
-            public boolean isCellEditable(int row, int column) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -6426250182220130365L;
+			
+			public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
@@ -59,7 +73,12 @@ public class EstagiarioTela extends JFrame {
         tabela = new JTable(modeloTabela);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -2787758373329218192L;
+			
+			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 c.setForeground(Color.BLACK);

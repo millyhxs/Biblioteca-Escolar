@@ -12,9 +12,9 @@ import maven.Projeto.model.Revista;
 
 public class ObraController {
 	
-	LivroDAO livroDAO = new LivroDAO();
-	ArtigoDAO artigoDAO = new ArtigoDAO();
-	RevistaDAO revistaDAO = new RevistaDAO();
+	private LivroDAO livroDAO = new LivroDAO();
+	private ArtigoDAO artigoDAO = new ArtigoDAO();
+	private RevistaDAO revistaDAO = new RevistaDAO();
 	
 	public void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
 		if (codigo == null || codigo.trim().isEmpty()||
@@ -93,18 +93,18 @@ public class ObraController {
 	public List<Livro> getLivros() {
         LivroDAO livroDAO = new LivroDAO();
 		livroDAO.buscarArquivo(); 
-        return livroDAO.LISTA_DE_OBRAS;
+        return livroDAO.getLISTA_DE_OBRAS();
     }
 	
 	public List<Revista> getRevistas() {
         RevistaDAO revistaDAO = new RevistaDAO();
 		revistaDAO.buscarArquivo(); 
-        return revistaDAO.LISTA_DE_OBRAS;
+        return revistaDAO.getLISTA_DE_OBRAS();
     }
 	
 	public List<Artigo> getArtigos() {
         ArtigoDAO artigoDAO = new ArtigoDAO();
 		artigoDAO.buscarArquivo(); 
-        return artigoDAO.LISTA_DE_OBRAS;
+        return artigoDAO.getLISTA_DE_OBRAS();
     }
 }

@@ -8,7 +8,12 @@ import java.awt.*;
 
 public class AdministradorTela extends JFrame {
 	
-    public AdministradorTela() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3123822800837998866L;
+
+	public AdministradorTela() {
         setTitle("Painel do Administrador");
         setSize(400, 320);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,7 +21,12 @@ public class AdministradorTela extends JFrame {
         setResizable(false);
         
         JPanel painel = new JPanel() {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -6812232095475454565L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(40, 40, 40));
             }

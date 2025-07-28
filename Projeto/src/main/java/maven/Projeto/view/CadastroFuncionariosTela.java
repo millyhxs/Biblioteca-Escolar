@@ -9,6 +9,7 @@ import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Funcionario;
 
+@SuppressWarnings("serial")
 public class CadastroFuncionariosTela extends JFrame {
     private JComboBox<String> nivelCombo;
     private JTextField idField, nomeField;
@@ -16,7 +17,7 @@ public class CadastroFuncionariosTela extends JFrame {
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
     FuncionarioController funcionarioController = new FuncionarioController();
-
+    
     
     public CadastroFuncionariosTela() {
         setResizable(false);
@@ -26,7 +27,12 @@ public class CadastroFuncionariosTela extends JFrame {
         setLocationRelativeTo(null);
         
         JPanel painel = new JPanel(null) {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1439219301304304992L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(45, 45, 45));
             }

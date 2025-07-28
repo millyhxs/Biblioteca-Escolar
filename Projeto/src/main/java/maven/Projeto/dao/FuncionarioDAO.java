@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -23,9 +22,9 @@ public class FuncionarioDAO extends DAO{
 		
 	}
 	
-    public List<Funcionario> LISTA_DE_FUNCIONARIOS = new ArrayList<>();
+    private List<Funcionario> LISTA_DE_FUNCIONARIOS = new ArrayList<>();
     
-    public void cadastrar(Funcionario novoServidor) {
+	public void cadastrar(Funcionario novoServidor) {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS == null) {
@@ -172,4 +171,12 @@ public class FuncionarioDAO extends DAO{
         }
     }
     
+    public List<Funcionario> getLISTA_DE_FUNCIONARIOS() {
+		return LISTA_DE_FUNCIONARIOS;
+	}
+    
+	public void setLISTA_DE_FUNCIONARIOS(List<Funcionario> lISTA_DE_FUNCIONARIOS) {
+		LISTA_DE_FUNCIONARIOS = lISTA_DE_FUNCIONARIOS;
+	}
+	
 }

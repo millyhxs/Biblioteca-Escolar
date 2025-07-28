@@ -10,6 +10,10 @@ import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Leitor;
 
 public class CadastroLeitoresTela extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7156802021149027047L;
 	private JComboBox<String> tipoCombo;
     private JTextField matriculaField, nomeField, telefoneField, emailField;
     private JTable tabela;
@@ -24,7 +28,12 @@ public class CadastroLeitoresTela extends JFrame {
         setLocationRelativeTo(null);
 		
 		JPanel painel = new JPanel(null) {
-            protected void paintComponent(Graphics g) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -564995400446272329L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(45, 45, 45));
             }
@@ -102,7 +111,12 @@ public class CadastroLeitoresTela extends JFrame {
         });
         
         modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0) {
-        	@Override
+        	/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6839186715585930198L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }

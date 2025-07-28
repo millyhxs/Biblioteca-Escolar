@@ -12,10 +12,9 @@ public class RevistaDAO extends DAO{
 	}
     
 	
-	public List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
+	private List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
     
-    
-    public void cadastrar(Revista novaObra) {
+	public void cadastrar(Revista novaObra) {
         
         buscarArquivo();
         
@@ -70,5 +69,13 @@ public class RevistaDAO extends DAO{
             }
         }
     }
+    
+    public List<Revista> getLISTA_DE_OBRAS() {
+		return LISTA_DE_OBRAS;
+	}
+    
+	public void setLISTA_DE_OBRAS(List<Revista> lISTA_DE_OBRAS) {
+		LISTA_DE_OBRAS = lISTA_DE_OBRAS;
+	}
     
 }    

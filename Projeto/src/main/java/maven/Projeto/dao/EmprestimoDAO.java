@@ -17,9 +17,9 @@ public class EmprestimoDAO extends DAO{
 		super("listaDeEmprestimos.json");
 	}
     
-    public List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
+    private List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
     
-    private final Gson GSON = new GsonBuilder()
+	private final Gson GSON = new GsonBuilder()
     	    .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
     	        @Override
     	        public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
@@ -106,4 +106,14 @@ public class EmprestimoDAO extends DAO{
             return 0f; // Sem multa
         }
     }
+    
+    
+    public List<Emprestimo> getLISTA_DE_EMPRESTIMOS() {
+		return LISTA_DE_EMPRESTIMOS;
+	}
+    
+	public void setLISTA_DE_EMPRESTIMOS(List<Emprestimo> lISTA_DE_EMPRESTIMOS) {
+		LISTA_DE_EMPRESTIMOS = lISTA_DE_EMPRESTIMOS;
+	}
+	
 }

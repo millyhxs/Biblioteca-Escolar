@@ -7,10 +7,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 public class EmprestimoController {
-    static LivroDAO livroDAO = new LivroDAO();
-	static ArtigoDAO artigoDAO = new ArtigoDAO();
-    static RevistaDAO revistaDAO = new RevistaDAO();
-    EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+	private LivroDAO livroDAO = new LivroDAO();
+	private ArtigoDAO artigoDAO = new ArtigoDAO();
+	private RevistaDAO revistaDAO = new RevistaDAO();
+	private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
     
     public void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
         if (codigoObra == null || codigoObra.trim().isEmpty() ||
@@ -80,35 +80,34 @@ public class EmprestimoController {
                 emprestimoEncontrado.getMatriculaUsuario(),
                 emprestimoEncontrado.getDataEmprestimo(), 
                 LocalDate.now()
-            );
-
-            DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
-            devolucaoDAO.registrarDevolucao(devolucao);
-
-            atualizarObra(obra);
-            emprestimoDAO.excluirPorCodigo(codigoObra);
-
-            System.out.println("Devolução registrada com sucesso.");
-        }
-    
+        );
+        
+        DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
+        devolucaoDAO.registrarDevolucao(devolucao);
+        
+        atualizarObra(obra);
+        emprestimoDAO.excluirPorCodigo(codigoObra);
+        
+        System.out.println("Devolução registrada com sucesso.");    
+    }
     
     private Emprestavel buscarObraPorCodigo(String codigoObra) {
 		livroDAO.buscarArquivo();
-        for (Livro livro : livroDAO.LISTA_DE_OBRAS) {
+        for (Livro livro : livroDAO.getLISTA_DE_OBRAS()) {
             if (livro.getCodigo().equals(codigoObra)) {
                 return livro;
             }
         }
         
 		revistaDAO.buscarArquivo();
-        for (Revista revista : revistaDAO.LISTA_DE_OBRAS) {
+        for (Revista revista : revistaDAO.getLISTA_DE_OBRAS()) {
             if (revista.getCodigo().equals(codigoObra)) {
                 return revista;
             }
         }
         
 		artigoDAO.buscarArquivo();
-        for (Artigo artigo : artigoDAO.LISTA_DE_OBRAS) {
+        for (Artigo artigo : artigoDAO.getLISTA_DE_OBRAS()) {
             if (artigo.getCodigo().equals(codigoObra)) {
                 return artigo;
             }
@@ -136,9 +135,9 @@ public class EmprestimoController {
     
     public List<Emprestimo> getEmprestimos() {
     	emprestimoDAO.buscarArquivo();
-        if (emprestimoDAO.LISTA_DE_EMPRESTIMOS == null) {
-        	emprestimoDAO.LISTA_DE_EMPRESTIMOS = new ArrayList<>();
+        if (emprestimoDAO.getLISTA_DE_EMPRESTIMOS() == null) {
+        	emprestimoDAO.setLISTA_DE_EMPRESTIMOS(new ArrayList<>());
         }
-        return emprestimoDAO.LISTA_DE_EMPRESTIMOS;
+        return emprestimoDAO.getLISTA_DE_EMPRESTIMOS();
     }
 }

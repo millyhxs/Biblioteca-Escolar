@@ -23,7 +23,7 @@ public class Revista extends Obra implements Emprestavel{
      */
 	public Revista(String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) {
 		super(codigo, titulo, autor, anoDePublicacao, emprestado);
-		this.tempoDeEmprestimo = 3;
+		this.setTempoDeEmprestimo(3);
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Revista extends Obra implements Emprestavel{
      * O tempo de empréstimo é definido como 3 dias.
      */
 	public Revista() {
-		this.tempoDeEmprestimo = 3;
+		this.setTempoDeEmprestimo(3);
 	}
 	
 	/**

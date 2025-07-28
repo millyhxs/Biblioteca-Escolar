@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
 public class RelatorioTela extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2402584122525090331L;
 	RelatoriosPDF relatoriosPDF = new RelatoriosPDF();
     public RelatorioTela() {
         setTitle("Relatórios Gerenciais");

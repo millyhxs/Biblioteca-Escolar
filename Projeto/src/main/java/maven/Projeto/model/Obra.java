@@ -18,12 +18,12 @@ public abstract class Obra {
      * anoDePublicacao | Ano da publicação.
      * emprestado | Estado inicial de empréstimo.
      */
-	protected String codigo;
-    protected String titulo;
-    protected String autor;
-    protected String anoDePublicacao;
-    protected int tempoDeEmprestimo;
-    protected boolean emprestado;
+	private String codigo;
+	private String titulo;
+	private String autor;
+	private String anoDePublicacao;
+	private int tempoDeEmprestimo;
+	protected boolean emprestado;
     
     /**
      * Construtor que inicializa os dados principais da obra.
@@ -94,6 +94,14 @@ public abstract class Obra {
 	
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
+	}
+
+	public int getTempoDeEmprestimo() {
+		return tempoDeEmprestimo;
+	}
+
+	public void setTempoDeEmprestimo(int tempoDeEmprestimo) {
+		this.tempoDeEmprestimo = tempoDeEmprestimo;
 	}
 	
 }
