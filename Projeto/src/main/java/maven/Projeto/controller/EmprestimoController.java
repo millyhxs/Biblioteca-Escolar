@@ -120,6 +120,10 @@ public class EmprestimoController {
         }
     }
     
+    public float verificarMulta(Emprestimo emprestimo, int diasPermitidos) {
+        return emprestimoDAO.calcularMultaParaEmprestimo(emprestimo, diasPermitidos);
+    }
+    
     public List<Emprestimo> getEmprestimos() {
     	emprestimoDAO.buscarArquivo();
         if (emprestimoDAO.LISTA_DE_EMPRESTIMOS == null) {

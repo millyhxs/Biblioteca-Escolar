@@ -1,9 +1,6 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.*;
-import maven.Projeto.dao.DevolucaoDAO;
-import maven.Projeto.dao.EmprestimoDAO;
-import maven.Projeto.dao.MultaDAO;
 import maven.Projeto.excepctions.*;
 import maven.Projeto.model.*;
 
@@ -15,24 +12,25 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EmprestimoTela extends JFrame {
-    private JTable tabela;
+    
+	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
     private JLabel valorMultaLabel;
     private JComboBox<String> metodoPagamentoBox;
     private JButton confirmarPagamentoBtn;
+    
     private Emprestimo emprestimoSelecionado;
-    private ObraController obraController;
-    private LeitoresController leitores;
-    private int diasPermitidos;
+    private ObraController obraController = new ObraController();
+    private LeitoresController leitores = new LeitoresController();
+    private FuncionarioController funcionarioController = new FuncionarioController();
+    private EmprestimoController emprestimoController = new EmprestimoController();
+    private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
+    
     private LocalDate data = LocalDate.now();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private String dataFormatada = data.format(formatter);
-    private FuncionarioController funcionarioController = new FuncionarioController();
-    private DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
-    EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
-    EmprestimoController emprestimoController = new EmprestimoController();
-    
+    private int diasPermitidos;
     
     public EmprestimoTela() {
         setTitle("Tela de Empréstimo");
@@ -226,7 +224,7 @@ public class EmprestimoTela extends JFrame {
 	        	Revista revista = new Revista();
 	        	diasPermitidos = revista.getTempoEmprestimo();	
 	        }
-	        float valorMulta = emprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+	        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
 	        
 	        if (valorMulta > 0f) {
 	        	valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
@@ -247,7 +245,7 @@ public class EmprestimoTela extends JFrame {
 		            dataFormatada
 		    );
 		    
-			devolucaoDAO.registrarDevolucao(devolucao);
+			multaDevolucaoController.registroDeDevolucao(devolucao);
 		    emprestimoController.devolverObra(codigo);
 		    atualizarTabela();
 		}
@@ -273,18 +271,17 @@ public class EmprestimoTela extends JFrame {
         	Revista revista = new Revista();
         	diasPermitidos = revista.getTempoEmprestimo();	
         }
-        float valorMulta = emprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
         PagamentoMulta pagamento = new PagamentoMulta(
         	    emprestimoSelecionado.getMatriculaUsuario(),
         	    valorMulta,
         	    LocalDate.now(),
         	    metodoPagamentoBox.getSelectedItem().toString()
         	);
-        MultaDAO multaDAO = new MultaDAO();
-		multaDAO.registrarPagamento(pagamento);
+		multaDevolucaoController.registroDePagamento(pagamento);
         
         Devolucao devolucao = new Devolucao( emprestimoSelecionado.getCodigoObra(), emprestimoSelecionado.getMatriculaUsuario(), dataFormatada);
-        devolucaoDAO.registrarDevolucao(devolucao);
+        multaDevolucaoController.registroDeDevolucao(devolucao);
         emprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
         
         painelPagamento.setVisible(false);

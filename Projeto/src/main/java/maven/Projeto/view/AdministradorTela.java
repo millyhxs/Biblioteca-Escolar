@@ -7,7 +7,7 @@ import maven.Projeto.controller.FuncionarioController;
 import java.awt.*;
 
 public class AdministradorTela extends JFrame {
-
+	
     public AdministradorTela() {
         setTitle("Painel do Administrador");
         setSize(400, 320);

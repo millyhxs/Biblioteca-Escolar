@@ -92,7 +92,7 @@ public class EmprestimoDAO extends DAO{
         }
     }
     
-    public float verificarMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
+    public float calcularMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
         LocalDate dataEmprestimo = emprestimo.getDataEmprestimo();
         LocalDate dataAtual = LocalDate.now();
         
