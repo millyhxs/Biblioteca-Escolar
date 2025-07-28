@@ -1,5 +1,7 @@
 package maven.Projeto.controller;
 
+import java.util.List;
+
 import maven.Projeto.dao.DevolucaoDAO;
 import maven.Projeto.dao.MultaDAO;
 import maven.Projeto.model.Devolucao;
@@ -16,5 +18,9 @@ public class MultaDevolucaoController {
 	public void registroDeDevolucao(Devolucao devolucao) {
 		devolucaoDAO.registrarDevolucao(devolucao);
 	}
+	
+	public List<PagamentoMulta> listarTodosPagamentos() {
+        return multaDAO.getTodosPagamentos();
+    }
 	
 }

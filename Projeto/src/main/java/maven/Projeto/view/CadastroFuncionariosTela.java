@@ -3,11 +3,9 @@ package maven.Projeto.view;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import maven.Projeto.controller.FuncionarioController;
-import maven.Projeto.controller.LeitoresController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Funcionario;
 

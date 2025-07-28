@@ -15,7 +15,7 @@ public class RelatorioTela extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
+        
         JPanel painel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -24,25 +24,24 @@ public class RelatorioTela extends JFrame {
         };
         painel.setLayout(null);
         getContentPane().add(painel);
-
+        
         JLabel titulo = new JLabel("Gerar Relatórios", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
         titulo.setBounds(0, 20, 400, 30);
         painel.add(titulo);
-
+        
         int larguraBtn = 250;
         int alturaBtn = 40;
         int xCentral = (400 - larguraBtn) / 2;
         int yInicial = 80;
         int espacamento = 50;
-
-        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarEmprestimosMes());
         
+        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarEmprestimosMes());
         criarBotao(painel, "Obras mais emprestadas", xCentral, yInicial + espacamento, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarObrasMaisEmprestadas());
         criarBotao(painel, "Usuários com mais atrasos", xCentral, yInicial + espacamento * 2, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarUsuariosComMaisAtrasos());
     }
-
+    
     private void criarBotao(JPanel painel, String texto, int x, int y, int largura, int altura, Consumer<ActionEvent> acao) {
         JButton botao = new JButton(texto);
         botao.setBounds(x, y, largura, altura);
@@ -53,7 +52,7 @@ public class RelatorioTela extends JFrame {
         botao.addActionListener(acao::accept);
         painel.add(botao);
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new RelatorioTela().setVisible(true));
     }

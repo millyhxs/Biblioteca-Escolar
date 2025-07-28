@@ -117,15 +117,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "A002",
-    "titulo": "TCC de Hélder",
-    "autor": "Hélder",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "A003",
     "titulo": "TCC de Clara",
     "autor": "Clara",
@@ -150,6 +141,33 @@
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
     "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L011",
+    "titulo": "Sherlock Holmes",
+    "autor": "Arthur Connan D\u0027oyle",
+    "anoDePublicacao": "1800",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R004",
+    "titulo": "Forbes",
+    "autor": "Arthur ",
+    "anoDePublicacao": "2025",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "A002",
+    "titulo": "TCC de Hélder",
+    "autor": "Hélder",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
     "tipo": "Artigo"
   },
   {

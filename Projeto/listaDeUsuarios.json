@@ -40,5 +40,12 @@
     "tipoDeUsuario": "Servidor",
     "telefone": "998452365",
     "email": "cats@gmail.com"
+  },
+  {
+    "nome": "Pedro",
+    "matricula": "909909",
+    "tipoDeUsuario": "Aluno",
+    "telefone": "83978901234",
+    "email": "pedrin@hotmail.com"
   }
 ]

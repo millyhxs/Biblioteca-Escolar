@@ -4,8 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
 import maven.Projeto.controller.EmprestimoController;
-import maven.Projeto.dao.EmprestimoDAO;
-import maven.Projeto.dao.MultaDAO;
+import maven.Projeto.controller.MultaDevolucaoController;
 import maven.Projeto.model.Emprestimo;
 import maven.Projeto.model.PagamentoMulta;
 
@@ -77,14 +76,13 @@ public class RelatoriosPDF {
     
     //Obras mais emprestadas
     public Object gerarObrasMaisEmprestadas() {
-		// TODO Auto-generated method stub
 		return null;
 	}
     
     // Usuários com mais atrasos
     public void gerarUsuariosComMaisAtrasos() {
-    	MultaDAO multaDAO = new MultaDAO();
-        List<PagamentoMulta> pagamentos = multaDAO.getTodosPagamentos();
+    	MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
+        List<PagamentoMulta> pagamentos = multaDevolucaoController.listarTodosPagamentos();
         
         if (pagamentos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum pagamento de multa registrado.");

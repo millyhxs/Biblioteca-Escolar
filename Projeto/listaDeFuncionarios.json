@@ -21,17 +21,24 @@
     "ativo": false
   },
   {
-    "id": "010203",
-    "senha": "teste",
-    "nome": "Cassia",
-    "tipo": "Administrador",
-    "ativo": false
-  },
-  {
     "id": "5454",
     "senha": "5454",
     "nome": "Pedro",
     "tipo": "Administrador",
+    "ativo": false
+  },
+  {
+    "id": "9999",
+    "senha": "0000",
+    "nome": "Paulo",
+    "tipo": "Estagiário",
+    "ativo": false
+  },
+  {
+    "id": "888884",
+    "senha": "0000",
+    "nome": "Jorge",
+    "tipo": "Bibliotecário",
     "ativo": false
   }
 ]
