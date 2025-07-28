@@ -27,15 +27,6 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "L001",
-    "titulo": "Harry Potter",
-    "autor": "JK. Rowling",
-    "anoDePublicacao": "2007",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "R002",
     "titulo": "Capricho",
     "autor": "Monica",
@@ -111,6 +102,60 @@
     "codigo": "A001",
     "titulo": "TCC de Jamily",
     "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L012",
+    "titulo": "Duna",
+    "autor": "Frank Herbert",
+    "anoDePublicacao": "2010",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "A002",
+    "titulo": "TCC de Hélder",
+    "autor": "Hélder",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A003",
+    "titulo": "TCC de Clara",
+    "autor": "Clara",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A004",
+    "titulo": "TCC de Augusto",
+    "autor": "Augusto",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A005",
+    "titulo": "TCC de Matheus",
+    "autor": "Matheus",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A006",
+    "titulo": "TCC de Millena",
+    "autor": "Millena",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
     "emprestado": false,

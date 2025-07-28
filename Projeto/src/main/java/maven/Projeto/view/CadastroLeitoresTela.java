@@ -14,6 +14,7 @@ public class CadastroLeitoresTela extends JFrame {
     private JTextField matriculaField, nomeField, telefoneField, emailField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
+    LeitoresController leitoresController = new LeitoresController();
     
 	public CadastroLeitoresTela() {
 		setResizable(false);
@@ -79,7 +80,8 @@ public class CadastroLeitoresTela extends JFrame {
                 String email = emailField.getText();
                 String tipo = (String) tipoCombo.getSelectedItem();
                 
-                LeitoresController.verificacaoDeDados(tipo, matricula, nomeTxt, telefone, email);
+                
+				leitoresController.verificacaoDeDados(tipo, matricula, nomeTxt, telefone, email);
                 
                 for (int i = 0; i < modeloTabela.getRowCount(); i++) {
                     String matriculaExistente = (String) modeloTabela.getValueAt(i, 0); 
@@ -135,7 +137,7 @@ public class CadastroLeitoresTela extends JFrame {
             
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-					LeitoresController.exclusaoDeDados(matricula);
+					leitoresController.exclusaoDeDados(matricula);
 				} catch (CampoVazioException e1) {
 					JOptionPane.showMessageDialog(this, "Matrícula e Tipo inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
@@ -161,7 +163,7 @@ public class CadastroLeitoresTela extends JFrame {
             String tipo = (String) tipoCombo.getSelectedItem();
             
             try {
-                LeitoresController.editarUsuario(matriculaAntiga, matricula, nome, tipo, telefone, email);
+                leitoresController.editarUsuario(matriculaAntiga, matricula, nome, tipo, telefone, email);
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso!");
             } catch (CampoVazioException ex) {
@@ -196,7 +198,7 @@ public class CadastroLeitoresTela extends JFrame {
 	private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         
-        for (Leitor leitor : LeitoresController.getLeitores()) {
+        for (Leitor leitor : leitoresController.getLeitores()) {
             modeloTabela.addRow(new Object[]{
             	leitor.getMatricula(),
             	leitor.getNome(),

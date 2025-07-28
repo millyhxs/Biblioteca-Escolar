@@ -22,11 +22,17 @@ public class EmprestimoTela extends JFrame {
     private JComboBox<String> metodoPagamentoBox;
     private JButton confirmarPagamentoBtn;
     private Emprestimo emprestimoSelecionado;
-    int diasPermitidos;
+    private ObraController obraController;
+    private LeitoresController leitores;
+    private int diasPermitidos;
+    private LocalDate data = LocalDate.now();
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private String dataFormatada = data.format(formatter);
+    private FuncionarioController funcionarioController = new FuncionarioController();
+    private DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
+    EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+    EmprestimoController emprestimoController = new EmprestimoController();
     
-    LocalDate data = LocalDate.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    String dataFormatada = data.format(formatter);
     
     public EmprestimoTela() {
         setTitle("Tela de Empréstimo");
@@ -148,7 +154,7 @@ public class EmprestimoTela extends JFrame {
         String matricula = JOptionPane.showInputDialog("Digite a matrícula do usuário:");
         
         try {
-			LeitoresController.verificarMatriculaExistente(matricula);
+			leitores.verificarMatriculaExistente(matricula);
 		} catch (MatriculaNaoEncontradaException | CampoVazioException ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
             return;
@@ -156,7 +162,7 @@ public class EmprestimoTela extends JFrame {
         
         try {
             
-        	Funcionario responsavel = FuncionarioController.BuscaFuncionarioAtivado();
+        	Funcionario responsavel = funcionarioController.BuscaFuncionarioAtivado();
         	String tipo = (String) tabela.getValueAt(linha, 4);
         	
         	int diasDeEmprestimo = 0;
@@ -174,7 +180,7 @@ public class EmprestimoTela extends JFrame {
 				break;
 			}
 			
-        	EmprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
+        	emprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
             
         	JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso.");
             
@@ -195,7 +201,7 @@ public class EmprestimoTela extends JFrame {
 		String status = (String) tabela.getValueAt(linha, 5);
 		String codigo = (String) tabela.getValueAt(linha, 0);
 		
-		emprestimoSelecionado = EmprestimoController.getEmprestimos().stream()
+		emprestimoSelecionado = emprestimoController.getEmprestimos().stream()
 		        .filter(e -> e.getCodigoObra().equals(codigo))
 		        .findFirst().orElse(null);
 		
@@ -220,14 +226,13 @@ public class EmprestimoTela extends JFrame {
 	        	Revista revista = new Revista();
 	        	diasPermitidos = revista.getTempoEmprestimo();	
 	        }
-	        
-	        float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+	        float valorMulta = emprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
 	        
 	        if (valorMulta > 0f) {
 	        	valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
 	        	painelPagamento.setVisible(true);
 	        } else {
-	        	EmprestimoController.devolverObra(codigo);
+	        	emprestimoController.devolverObra(codigo);
 	        	atualizarTabela();
 	        }
 		    
@@ -242,8 +247,8 @@ public class EmprestimoTela extends JFrame {
 		            dataFormatada
 		    );
 		    
-		    DevolucaoDAO.registrarDevolucao(devolucao);
-		    EmprestimoController.devolverObra(codigo);
+			devolucaoDAO.registrarDevolucao(devolucao);
+		    emprestimoController.devolverObra(codigo);
 		    atualizarTabela();
 		}
     }
@@ -252,7 +257,7 @@ public class EmprestimoTela extends JFrame {
         if (emprestimoSelecionado == null) { 
         	return;
         }
-
+        
         int linha = tabela.getSelectedRow();
         String tipo = (String) tabela.getValueAt(linha, 4);
         
@@ -268,18 +273,19 @@ public class EmprestimoTela extends JFrame {
         	Revista revista = new Revista();
         	diasPermitidos = revista.getTempoEmprestimo();	
         }
-        float valorMulta = EmprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
+        float valorMulta = emprestimoDAO.verificarMultaParaEmprestimo(emprestimoSelecionado, diasPermitidos);
         PagamentoMulta pagamento = new PagamentoMulta(
         	    emprestimoSelecionado.getMatriculaUsuario(),
         	    valorMulta,
         	    LocalDate.now(),
         	    metodoPagamentoBox.getSelectedItem().toString()
         	);
-        MultaDAO.registrarPagamento(pagamento);
+        MultaDAO multaDAO = new MultaDAO();
+		multaDAO.registrarPagamento(pagamento);
         
         Devolucao devolucao = new Devolucao( emprestimoSelecionado.getCodigoObra(), emprestimoSelecionado.getMatriculaUsuario(), dataFormatada);
-        DevolucaoDAO.registrarDevolucao(devolucao);
-        EmprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
+        devolucaoDAO.registrarDevolucao(devolucao);
+        emprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
         
         painelPagamento.setVisible(false);
         JOptionPane.showMessageDialog(this, "Pagamento registrado e devolução concluída.");
@@ -288,11 +294,11 @@ public class EmprestimoTela extends JFrame {
     
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
-        List<Emprestimo> emprestimos = EmprestimoDAO.getEmprestimos();
+        List<Emprestimo> emprestimos = emprestimoController.getEmprestimos();
         
-        addObrasComStatus(ObraController.getLivros(), "Livro", emprestimos);
-        addObrasComStatus(ObraController.getRevistas(), "Revista", emprestimos);
-        addObrasComStatus(ObraController.getArtigos(), "Artigo", emprestimos);
+        addObrasComStatus(obraController.getLivros(), "Livro", emprestimos);
+        addObrasComStatus(obraController.getRevistas(), "Revista", emprestimos);
+        addObrasComStatus(obraController.getArtigos(), "Artigo", emprestimos);
         
         modeloTabela.fireTableDataChanged();
     }

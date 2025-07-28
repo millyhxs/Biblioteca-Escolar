@@ -1,22 +1,34 @@
 package maven.Projeto.dao;
 
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
 
 import maven.Projeto.model.Artigo;
 
-public class ArtigoDAO {
+/**
+ * Classe responsável pela manipulação dos dados dos Artigos.
+ * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
+ * 
+ * @author
+ */
+public class ArtigoDAO extends DAO{
 	
-    private static final String CAMINHO = "listaDeObras.json";
-    public static List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
-    private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	public ArtigoDAO() {
+		super("listaDeObras.json");
+	}
+	/** Lista de "Arquivos" carregados do arquivo JSON. 
+     */
+    public List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
     
-    public static void cadastrar(Artigo novaObra) {
+    /**
+     * Cadastra um novo arquivo na lista de obras e salva no arquivo JSON.
+     * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
+     *
+     * @param novaObra O novo Arquivo a ser cadastrado.
+     */
+    public void cadastrar(Artigo novaObra) {
+        
         buscarArquivo();
         
         if (LISTA_DE_OBRAS == null) {
@@ -25,9 +37,7 @@ public class ArtigoDAO {
         
         for (Artigo artigo : LISTA_DE_OBRAS) {
             if (artigo.getCodigo().equals(novaObra.getCodigo())) {
-                System.out
-                        .println("Erro: Já existe um artigo cadastrado com o código \"" + novaObra.getCodigo()
-                                + "\".");
+                System.out.println("Erro: Já existe um artigo cadastrado com o código \"" + novaObra.getCodigo() + "\".");
                 return;
             }
         }
@@ -41,10 +51,15 @@ public class ArtigoDAO {
         
     }
     
-    public static void excluir(String codigo) {
+    /**
+     * Exclui um "arquivo" do arquivo JSON com base no seu código.
+     *
+     * @param codigo O código do arquivo a ser excluído.
+     */
+    public void excluir(String codigo) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
-
+        
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
             if ("Artigo".equals(obj.get("tipo").getAsString()) &&
@@ -61,10 +76,13 @@ public class ArtigoDAO {
         }
     }
     
-    public static void buscarArquivo() {
+    /**
+     * Carrega os "Arquivos" do arquivo JSON para a lista em memória.
+     */
+    public void buscarArquivo() {
     	LISTA_DE_OBRAS = new ArrayList<>();
         JsonArray array = lerJsonArray();
-
+        
         for (JsonElement element : array) {
             JsonObject obj = element.getAsJsonObject();
             if (obj.has("tipo") && "Artigo".equals(obj.get("tipo").getAsString())) {
@@ -72,26 +90,5 @@ public class ArtigoDAO {
                 LISTA_DE_OBRAS.add(artigo);
             }
         }
-    }
-    
-    private static JsonArray lerJsonArray() {
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            JsonElement elem = JsonParser.parseReader(leitor);
-            if (elem.isJsonArray()) {
-                return elem.getAsJsonArray();
-            }
-        } catch (IOException e) {
-      
-        }
-        return new JsonArray();
-    }
-
-    private static void salvarJson(JsonArray array) {
-        try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            GSON.toJson(array, escritor);
-        } catch (IOException e) {
-            System.out.println("Erro ao escrever no arquivo JSON!");
-        }
-    }
-    
+    } 
 }    

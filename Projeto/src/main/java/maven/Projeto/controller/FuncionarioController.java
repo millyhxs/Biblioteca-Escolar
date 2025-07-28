@@ -9,8 +9,8 @@ import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
 public class FuncionarioController {
-	
-    public static void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
+	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
         if (id == null || id.trim().isEmpty() || 
             nome == null || nome.trim().isEmpty() || 
             senha == null || senha.trim().isEmpty() || 
@@ -24,18 +24,18 @@ public class FuncionarioController {
         novo.setSenha(senha);
         novo.setTipo(tipo);
         
-        FuncionarioDAO.cadastrar(novo);
+		funcionarioDAO.cadastrar(novo);
     }
     
-    public static void excluirFuncionario(String id) throws CampoVazioException {
+    public void excluirFuncionario(String id) throws CampoVazioException {
         if (id == null || id.isEmpty()) {
             throw new CampoVazioException("Informe o ID do funcionário para excluir.");
         }
         
-        FuncionarioDAO.excluir(id);
+        funcionarioDAO.excluir(id);
     }
     
-    public static void editarFuncionario(String idAntigo, String id, String nome, String tipo, String senha) throws CampoVazioException {
+    public void editarFuncionario(String idAntigo, String id, String nome, String tipo, String senha) throws CampoVazioException {
         // Verificações básicas
         if (idAntigo == null || idAntigo.trim().isEmpty() || id == null || id.trim().isEmpty() || nome == null || nome.trim().isEmpty() || tipo == null || tipo.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
             throw new CampoVazioException("Todos os campos devem ser preenchidos.");
@@ -53,15 +53,15 @@ public class FuncionarioController {
         novoFuncionario.setId(id);
         novoFuncionario.setSenha(senha);
         
-        FuncionarioDAO.editarUsuario(idAntigo, novoFuncionario);
+        funcionarioDAO.editarUsuario(idAntigo, novoFuncionario);
     }
     
-    public static Funcionario autenticarFuncionario(String id, String senha) throws CampoVazioException, FuncionarioNaoEncontradoException {
+    public Funcionario autenticarFuncionario(String id, String senha) throws CampoVazioException, FuncionarioNaoEncontradoException {
         if (id == null || id.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
             throw new CampoVazioException("ID e senha devem ser preenchidos.");
         }
         
-        Funcionario funcionario = FuncionarioDAO.buscarPorIdESenha(id, senha);
+        Funcionario funcionario = funcionarioDAO.buscarPorIdESenha(id, senha);
         
         if (funcionario == null) {
             throw new FuncionarioNaoEncontradoException("ID ou senha inválidos.");
@@ -70,8 +70,8 @@ public class FuncionarioController {
         return funcionario;
     }
     
-    public static Funcionario BuscaFuncionarioAtivado() throws ValorNuloException {
-    	Funcionario funcionario = FuncionarioDAO.buscarFuncionarioAtivo();
+    public Funcionario BuscaFuncionarioAtivado() throws ValorNuloException {
+    	Funcionario funcionario = funcionarioDAO.buscarFuncionarioAtivo();
     	
     	if (funcionario.isAtivo() == false) {
     		throw new ValorNuloException("O valor está nulo");
@@ -79,12 +79,12 @@ public class FuncionarioController {
     	return funcionario;
     }
     
-    public static void logoOffFuncionario() {
-    	FuncionarioDAO.deslogarFuncionarioAtivo();
+    public void logoOffFuncionario() {
+    	funcionarioDAO.deslogarFuncionarioAtivo();
     }
     
-    public static List<Funcionario> getFuncionarios() {
-    	 FuncionarioDAO.buscarArquivo(); 
-         return FuncionarioDAO.LISTA_DE_FUNCIONARIOS;
+    public List<Funcionario> getFuncionarios() {
+    	funcionarioDAO.buscarArquivo(); 
+        return funcionarioDAO.LISTA_DE_FUNCIONARIOS;
     }
 }

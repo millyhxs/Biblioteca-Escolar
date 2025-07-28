@@ -1,22 +1,37 @@
 package maven.Projeto.dao;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.*;
 
 import maven.Projeto.model.Livro;
 
-public class LivroDAO {
+/**
+ * Classe responsável pela manipulação dos dados dos livros.
+ * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
+ * 
+ * @author
+ */
+public class LivroDAO extends DAO{
 	
-    private static final String CAMINHO = "listaDeObras.json";
-    public static List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
-    private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    
-    public static void cadastrar(Livro novaObra) {
-        buscarArquivo();
+	public LivroDAO() {
+		super("listaDeObras.json");
+		// TODO Auto-generated constructor stub
+	}
+	
+	/** Lista de livros carregados do arquivo JSON. 
+     */
+    public List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
+	
+    /**
+     * Cadastra um novo livro na lista de obras e salva no arquivo JSON.
+     * Verifica se já existe um livro com o mesmo código antes de cadastrar.
+     *
+     * @param novaObra O novo livro a ser cadastrado.
+     */
+    public void cadastrar(Livro novaObra) {
+		buscarArquivo();
         
         if (LISTA_DE_OBRAS == null) {
             LISTA_DE_OBRAS = new ArrayList<>();
@@ -24,9 +39,7 @@ public class LivroDAO {
         
         for (Livro livro : LISTA_DE_OBRAS) {
             if (livro.getCodigo().equals(novaObra.getCodigo())) {
-                System.out
-                        .println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo()
-                                + "\".");
+                System.out.println("Erro: Já existe um livro cadastrado com o código \"" + novaObra.getCodigo() + "\".");
                 return;
             }
         }
@@ -37,13 +50,17 @@ public class LivroDAO {
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
-        
     }
     
-    public static void excluir(String codigo) {
-        JsonArray array = lerJsonArray();
+    /**
+     * Exclui um livro do arquivo JSON com base no seu código.
+     *
+     * @param codigo O código do livro a ser excluído.
+     */
+    public void excluir(String codigo) {
+    	JsonArray array = lerJsonArray();
         boolean removido = false;
-
+        
         for (int i = 0; i < array.size(); i++) {
             JsonObject obj = array.get(i).getAsJsonObject();
             if ("Livro".equals(obj.get("tipo").getAsString()) &&
@@ -60,8 +77,11 @@ public class LivroDAO {
         }
     }
     
-    public static void buscarArquivo() {
-    	LISTA_DE_OBRAS = new ArrayList<>();
+    /**
+     * Carrega os livros do arquivo JSON para a lista em memória.
+     */
+    public void buscarArquivo() {
+        LISTA_DE_OBRAS = new ArrayList<>();
         JsonArray array = lerJsonArray();
         
         for (JsonElement element : array) {
@@ -71,26 +91,5 @@ public class LivroDAO {
                 LISTA_DE_OBRAS.add(livro);
             }
         }
-    }
-    
-    private static JsonArray lerJsonArray() {
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            JsonElement elem = JsonParser.parseReader(leitor);
-            if (elem.isJsonArray()) {
-                return elem.getAsJsonArray();
-            }
-        } catch (IOException e) {
-      
-        }
-        return new JsonArray();
-    }
-
-    private static void salvarJson(JsonArray array) {
-        try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            GSON.toJson(array, escritor);
-        } catch (IOException e) {
-            System.out.println("Erro ao escrever no arquivo JSON!");
-        }
-    }
-    
-}    
+    }   
+}

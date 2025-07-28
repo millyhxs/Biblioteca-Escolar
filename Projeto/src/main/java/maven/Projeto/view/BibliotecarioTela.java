@@ -7,7 +7,6 @@ import maven.Projeto.controller.FuncionarioController;
 import java.awt.*;
 
 public class BibliotecarioTela extends JFrame {
-	
     public BibliotecarioTela() {
         setTitle("Painel do Bibliotecário");
         setSize(400, 320);
@@ -59,8 +58,8 @@ public class BibliotecarioTela extends JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Janela foi fechada!");
-                
-                FuncionarioController.logoOffFuncionario();
+            	FuncionarioController funcionarioController = new FuncionarioController();
+                funcionarioController.logoOffFuncionario();
             }
         });
     }

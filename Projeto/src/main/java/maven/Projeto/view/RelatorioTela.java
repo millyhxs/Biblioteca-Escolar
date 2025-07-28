@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
 public class RelatorioTela extends JFrame {
-
+	RelatoriosPDF relatoriosPDF = new RelatoriosPDF();
     public RelatorioTela() {
         setTitle("Relatórios Gerenciais");
         setSize(400, 320);
@@ -37,9 +37,10 @@ public class RelatorioTela extends JFrame {
         int yInicial = 80;
         int espacamento = 50;
 
-        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarEmprestimosMes());
-        criarBotao(painel, "Obras mais emprestadas", xCentral, yInicial + espacamento, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarObrasMaisEmprestadas());
-        criarBotao(painel, "Usuários com mais atrasos", xCentral, yInicial + espacamento * 2, larguraBtn, alturaBtn, e -> RelatoriosPDF.gerarUsuariosComMaisAtrasos());
+        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarEmprestimosMes());
+        
+        criarBotao(painel, "Obras mais emprestadas", xCentral, yInicial + espacamento, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarObrasMaisEmprestadas());
+        criarBotao(painel, "Usuários com mais atrasos", xCentral, yInicial + espacamento * 2, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarUsuariosComMaisAtrasos());
     }
 
     private void criarBotao(JPanel painel, String texto, int x, int y, int largura, int altura, Consumer<ActionEvent> acao) {

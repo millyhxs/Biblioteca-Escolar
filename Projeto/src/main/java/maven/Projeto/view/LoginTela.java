@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginTela extends JFrame {
-	
+	FuncionarioController funcionarioController = new FuncionarioController();
     public LoginTela() {
         setTitle("Login | H² Biblioteca");
         setSize(420, 400);
@@ -74,9 +74,9 @@ public class LoginTela extends JFrame {
             String senha = new String(senhaField.getPassword());
             
             try {
-                FuncionarioController.autenticarFuncionario(id, senha);
+                funcionarioController.autenticarFuncionario(id, senha);
                 
-                Funcionario funcionario = FuncionarioController.BuscaFuncionarioAtivado();
+                Funcionario funcionario = funcionarioController.BuscaFuncionarioAtivado();
                 
                 if (funcionario != null) {
                     String nivel = funcionario.getTipo();
@@ -113,7 +113,7 @@ public class LoginTela extends JFrame {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Janela foi fechada!");
                 
-                FuncionarioController.logoOffFuncionario();
+                funcionarioController.logoOffFuncionario();
             }
         });
     }

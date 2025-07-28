@@ -1,27 +1,26 @@
 package maven.Projeto.dao;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import maven.Projeto.model.Leitor;
 
-public class LeitorDAO {
+public class LeitorDAO extends DAO{
 	
-    private static final String CAMINHO = "listaDeUsuarios.json";
-    public static List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
-    private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    public LeitorDAO() {
+		super("listaDeUsuarios.json");
+	}
     
-    public static void cadastrar(Leitor novoUsuario) {
+    public List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
+    
+    public void cadastrar(Leitor novoUsuario) {
         buscarArquivo();
         
         if (LISTA_DE_USUARIOS == null) {
@@ -45,7 +44,7 @@ public class LeitorDAO {
         System.out.println("Leitor cadastrado com sucesso!");
     }
     
-    public static void excluir(String matricula) {
+    public void excluir(String matricula) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
         
@@ -86,10 +85,10 @@ public class LeitorDAO {
         }
     }
     
-    public static void buscarArquivo() {
+    public void buscarArquivo() {
     	LISTA_DE_USUARIOS = new ArrayList<>();
         JsonArray array = lerJsonArray();
-
+        
         for (JsonElement element : array) {
             JsonObject obj = element.getAsJsonObject();
             if (obj.has("tipoDeUsuario")) {
@@ -99,7 +98,7 @@ public class LeitorDAO {
         }
     }
     
-    private static void atualizarJson() {
+    private void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)){
     		GSON.toJson(LISTA_DE_USUARIOS, escritor);
             System.out.println("JSON de usuários atualizado com sucesso!");
@@ -108,7 +107,7 @@ public class LeitorDAO {
     	}
     }
     
-    public static void editarUsuario(String matricula, Leitor novosDados) {
+    public void editarUsuario(String matricula, Leitor novosDados) {
         buscarArquivo();
         
         if (LISTA_DE_USUARIOS == null) {
@@ -135,27 +134,7 @@ public class LeitorDAO {
         }
     }
     
-    private static JsonArray lerJsonArray() {
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            JsonElement elem = JsonParser.parseReader(leitor);
-            if (elem.isJsonArray()) {
-                return elem.getAsJsonArray();
-            }
-        } catch (IOException e) {
-      
-        }
-        return new JsonArray();
-    }
-    
-    private static void salvarJson(JsonArray array) {
-        try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            GSON.toJson(array, escritor);
-        } catch (IOException e) {
-            System.out.println("Erro ao escrever no arquivo JSON!");
-        }
-    }
-    
-    public static boolean verificarMatricula(String matricula) {
+    public boolean verificarMatricula(String matricula) {
     	buscarArquivo();
     	
     	for (Leitor usuario : LISTA_DE_USUARIOS) {

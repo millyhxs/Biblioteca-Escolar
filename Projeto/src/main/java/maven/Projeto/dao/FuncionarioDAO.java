@@ -17,12 +17,15 @@ import com.google.gson.reflect.TypeToken;
 
 import maven.Projeto.model.Funcionario;
 
-public class FuncionarioDAO {
-	private static final String CAMINHO = "listaDeFuncionarios.json";
-    public static List<Funcionario> LISTA_DE_FUNCIONARIOS = new ArrayList<>();
-    private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+public class FuncionarioDAO extends DAO{
+	public FuncionarioDAO() {
+		super("listaDeFuncionarios.json");
+		
+	}
+	
+    public List<Funcionario> LISTA_DE_FUNCIONARIOS = new ArrayList<>();
     
-    public static void cadastrar(Funcionario novoServidor) {
+    public void cadastrar(Funcionario novoServidor) {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS == null) {
@@ -40,7 +43,7 @@ public class FuncionarioDAO {
         atualizarJson();
     }
     
-    public static void editarUsuario(String id, Funcionario novosDados) {
+    public void editarUsuario(String id, Funcionario novosDados) {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS == null) {
@@ -65,7 +68,7 @@ public class FuncionarioDAO {
         }
     }
     
-    public static void excluir(String matricula) {
+    public void excluir(String matricula) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
         
@@ -104,7 +107,7 @@ public class FuncionarioDAO {
             System.out.println("Leitor não encontrado");
         }
     }
-    public static void buscarArquivo() {
+    public void buscarArquivo() {
         try (FileReader leitor = new FileReader(CAMINHO)) {
             Type tipoLista = new TypeToken<List<Funcionario>>() {}.getType();
             LISTA_DE_FUNCIONARIOS = GSON.fromJson(leitor, tipoLista);
@@ -113,34 +116,15 @@ public class FuncionarioDAO {
         }
     }
     
-    private static void atualizarJson() {
+    private void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)){
     		GSON.toJson(LISTA_DE_FUNCIONARIOS, escritor);
     	} catch (IOException e) {
     		System.out.println("Erro ao escrever no arquivo JSON.");
     	}
     }
-    private static JsonArray lerJsonArray() {
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            JsonElement elem = JsonParser.parseReader(leitor);
-            if (elem.isJsonArray()) {
-                return elem.getAsJsonArray();
-            }
-        } catch (IOException e) {
-      
-        }
-        return new JsonArray();
-    }
     
-    private static void salvarJson(JsonArray array) {
-        try (FileWriter escritor = new FileWriter(CAMINHO)) {
-            GSON.toJson(array, escritor);
-        } catch (IOException e) {
-            System.out.println("Erro ao escrever no arquivo JSON!");
-        }
-    }
-    
-    public static Funcionario buscarPorIdESenha(String id, String senha) {
+    public Funcionario buscarPorIdESenha(String id, String senha) {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS != null) {
@@ -155,7 +139,7 @@ public class FuncionarioDAO {
         return null;
     }
     
-    public static Funcionario buscarFuncionarioAtivo() {
+    public Funcionario buscarFuncionarioAtivo() {
         buscarArquivo();
         
         if (LISTA_DE_FUNCIONARIOS != null) {
@@ -168,7 +152,7 @@ public class FuncionarioDAO {
         return null;
     }
     
-    public static void deslogarFuncionarioAtivo() {
+    public void deslogarFuncionarioAtivo() {
         try (FileReader reader = new FileReader(CAMINHO)) {
             JsonArray array = JsonParser.parseReader(reader).getAsJsonArray();
             

@@ -11,11 +11,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class EmprestimoDAO {
+public class EmprestimoDAO extends DAO{
 	
-    private static final String CAMINHO = "listaDeEmprestimos.json";
-    public static List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
-    private static final Gson GSON = new GsonBuilder()
+    public EmprestimoDAO() {
+		super("listaDeEmprestimos.json");
+	}
+    
+    public List<Emprestimo> LISTA_DE_EMPRESTIMOS = new ArrayList<>();
+    
+    private final Gson GSON = new GsonBuilder()
     	    .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
     	        @Override
     	        public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
@@ -32,7 +36,7 @@ public class EmprestimoDAO {
     	    .setPrettyPrinting()
     	    .create();
     
-    public static void cadastrar(Emprestimo emprestimo) {
+    public void cadastrar(Emprestimo emprestimo) {
         buscarArquivo();
         
         if (LISTA_DE_EMPRESTIMOS == null) {
@@ -43,7 +47,7 @@ public class EmprestimoDAO {
         atualizarJson();
     }
     
-    public static List<Emprestimo> getEmprestimos() {
+    public List<Emprestimo> getEmprestimos() {
         buscarArquivo();
         if (LISTA_DE_EMPRESTIMOS == null) {
             LISTA_DE_EMPRESTIMOS = new ArrayList<>();
@@ -51,7 +55,7 @@ public class EmprestimoDAO {
         return LISTA_DE_EMPRESTIMOS;
     }
     
-    public static void buscarArquivo() {
+    public void buscarArquivo() {
         try (FileReader leitor = new FileReader(CAMINHO)) {
             Type tipoLista = new TypeToken<List<Emprestimo>>() {}.getType();
             LISTA_DE_EMPRESTIMOS = GSON.fromJson(leitor, tipoLista);
@@ -65,7 +69,7 @@ public class EmprestimoDAO {
         }
     }
     
-    private static void atualizarJson() {
+    private void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_EMPRESTIMOS, escritor);
         } catch (IOException e) {
@@ -73,12 +77,12 @@ public class EmprestimoDAO {
         }
     }
     
-    public static void limparTodosOsEmprestimos() {
+    public void limparTodosOsEmprestimos() {
         LISTA_DE_EMPRESTIMOS.clear();
         atualizarJson();
     }
     
-    public static void excluirPorCodigo(String codigoObra) {
+    public void excluirPorCodigo(String codigoObra) {
         buscarArquivo();
         boolean excluiu = LISTA_DE_EMPRESTIMOS.removeIf(e -> e.getCodigoObra().equals(codigoObra));
         if (excluiu) {
@@ -88,7 +92,7 @@ public class EmprestimoDAO {
         }
     }
     
-    public static float verificarMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
+    public float verificarMultaParaEmprestimo(Emprestimo emprestimo, int diasPermitidos) {
         LocalDate dataEmprestimo = emprestimo.getDataEmprestimo();
         LocalDate dataAtual = LocalDate.now();
         

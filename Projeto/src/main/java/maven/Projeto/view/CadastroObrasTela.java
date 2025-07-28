@@ -18,6 +18,7 @@ public class CadastroObrasTela extends JFrame {
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private TableRowSorter<DefaultTableModel> sorter;
+    private ObraController obraController = new ObraController();
     
     public CadastroObrasTela() {
     	setResizable(false);
@@ -94,7 +95,7 @@ public class CadastroObrasTela extends JFrame {
                     }
                 }
                 
-                ObraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
+                obraController.verificacaoDeDados(tipo, codigo, tituloTxt, autor, ano, false);
                 atualizarTabela();
                 modeloTabela.fireTableDataChanged();
                 JOptionPane.showMessageDialog(this, "Item adicionado com sucesso!");
@@ -132,7 +133,7 @@ public class CadastroObrasTela extends JFrame {
             
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-					ObraController.exclusaoDeDados(tipo, codigo);
+					obraController.exclusaoDeDados(tipo, codigo);
 				} catch (CampoVazioException e1) {
 					JOptionPane.showMessageDialog(this, "Código e Tipo inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
@@ -189,7 +190,7 @@ public class CadastroObrasTela extends JFrame {
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         
-        for (Livro livro : ObraController.getLivros()) {
+        for (Livro livro : obraController.getLivros()) {
             modeloTabela.addRow(new Object[]{
                 livro.getCodigo(),
                 livro.getTitulo(),
@@ -199,7 +200,7 @@ public class CadastroObrasTela extends JFrame {
             });
         }
         
-        for (Revista revista : ObraController.getRevistas()) {
+        for (Revista revista : obraController.getRevistas()) {
             modeloTabela.addRow(new Object[]{
                 revista.getCodigo(),
                 revista.getTitulo(),
@@ -209,7 +210,7 @@ public class CadastroObrasTela extends JFrame {
             });
         }
         
-        for (Artigo artigo : ObraController.getArtigos()) {
+        for (Artigo artigo : obraController.getArtigos()) {
             modeloTabela.addRow(new Object[]{
                 artigo.getCodigo(),
                 artigo.getTitulo(),

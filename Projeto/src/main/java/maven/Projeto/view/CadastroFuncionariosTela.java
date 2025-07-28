@@ -16,7 +16,9 @@ public class CadastroFuncionariosTela extends JFrame {
     private JTextField idField, nomeField;
     private JPasswordField senhaField;
     private JTable tabela;
-    private DefaultTableModel modeloTabela;
+    private DefaultTableModel modeloTabela;	
+    FuncionarioController funcionarioController = new FuncionarioController();
+
     
     public CadastroFuncionariosTela() {
         setResizable(false);
@@ -93,7 +95,7 @@ public class CadastroFuncionariosTela extends JFrame {
             String nivel = (String) nivelCombo.getSelectedItem();
             
             try {
-                FuncionarioController.verificarCadastro(id, nome, senha, nivel);
+                funcionarioController.verificarCadastro(id, nome, senha, nivel);
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
             } catch (CampoVazioException ex) {
@@ -119,7 +121,7 @@ public class CadastroFuncionariosTela extends JFrame {
             
             if (confirmar == JOptionPane.YES_OPTION) {
                 try {
-                    FuncionarioController.excluirFuncionario(id);
+                    funcionarioController.excluirFuncionario(id);
                     atualizarTabela();
                     JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
                 } catch (CampoVazioException ex) {
@@ -146,7 +148,7 @@ public class CadastroFuncionariosTela extends JFrame {
             
             try {
             	atualizarTabela();
-                FuncionarioController.editarFuncionario(idAntigo, id, nome, tipo, senha);
+                funcionarioController.editarFuncionario(idAntigo, id, nome, tipo, senha);
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
             } catch (CampoVazioException ex) {
@@ -180,7 +182,7 @@ public class CadastroFuncionariosTela extends JFrame {
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         
-        for (Funcionario f : FuncionarioController.getFuncionarios()) {
+        for (Funcionario f : funcionarioController.getFuncionarios()) {
             modeloTabela.addRow(new Object[]{
             		f.getId(),
             		f.getNome(),

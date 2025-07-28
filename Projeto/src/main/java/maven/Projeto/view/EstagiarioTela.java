@@ -22,7 +22,9 @@ public class EstagiarioTela extends JFrame {
     private JComboBox<String> metodoPagamentoBox;
     private JButton confirmarPagamentoBtn;
     private Emprestimo emprestimoSelecionado;
-
+    private ObraController obraController;
+    private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+    EmprestimoController emprestimoController = new EmprestimoController();
     LocalDate data = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     String dataFormatada = data.format(formatter);
@@ -132,7 +134,7 @@ public class EstagiarioTela extends JFrame {
         String status = (String) tabela.getValueAt(linha, 5);
         String codigo = (String) tabela.getValueAt(linha, 0);
 
-        emprestimoSelecionado = EmprestimoDAO.getEmprestimos().stream()
+        emprestimoSelecionado = emprestimoDAO.getEmprestimos().stream()
                 .filter(e -> e.getCodigoObra().equals(codigo))
                 .findFirst().orElse(null);
 
@@ -164,8 +166,8 @@ public class EstagiarioTela extends JFrame {
                 LocalDate.now(),
                 metodoPagamentoBox.getSelectedItem().toString()
         );
-        MultaDAO.registrarPagamento(pagamento);
-
+        MultaDAO multaDAO = new MultaDAO();
+		multaDAO.registrarPagamento(pagamento);
         concluirDevolucao();
         painelPagamento.setVisible(false);
         JOptionPane.showMessageDialog(this, "Pagamento registrado e devolução concluída.");
@@ -177,26 +179,27 @@ public class EstagiarioTela extends JFrame {
                 emprestimoSelecionado.getCodigoObra(),
                 emprestimoSelecionado.getMatriculaUsuario(),
                 dataFormatada);
-        DevolucaoDAO.registrarDevolucao(devolucao);
-        EmprestimoController.devolverObra(codigo);
+        DevolucaoDAO devolucaoDAO = new DevolucaoDAO();
+		devolucaoDAO.registrarDevolucao(devolucao);
+		emprestimoController.devolverObra(codigo);
         atualizarTabela();
     }
-
+    
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
-        List<Emprestimo> emprestimos = EmprestimoDAO.getEmprestimos();
-
-        addObrasComStatus(ObraController.getLivros(), "Livro", emprestimos);
-        addObrasComStatus(ObraController.getRevistas(), "Revista", emprestimos);
-        addObrasComStatus(ObraController.getArtigos(), "Artigo", emprestimos);
-
+        List<Emprestimo> emprestimos = emprestimoDAO.getEmprestimos();
+        
+        addObrasComStatus(obraController.getLivros(), "Livro", emprestimos);
+        addObrasComStatus(obraController.getRevistas(), "Revista", emprestimos);
+        addObrasComStatus(obraController.getArtigos(), "Artigo", emprestimos);
+        
         modeloTabela.fireTableDataChanged();
     }
-
+    
     private void addObrasComStatus(List<? extends Obra> obras, String tipo, List<Emprestimo> emprestimos) {
         for (Obra obra : obras) {
             String status = "Disponível";
-
+            
             for (Emprestimo emp : emprestimos) {
                 if (emp.getCodigoObra().equals(obra.getCodigo())) {
                     if (LocalDate.now().isAfter(emp.getDataDevolucaoPrevista())) {
@@ -207,7 +210,7 @@ public class EstagiarioTela extends JFrame {
                     break;
                 }
             }
-
+            
             modeloTabela.addRow(new Object[]{
                     obra.getCodigo(),
                     obra.getTitulo(),
@@ -218,7 +221,7 @@ public class EstagiarioTela extends JFrame {
             });
         }
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new EstagiarioTela().setVisible(true));
     }

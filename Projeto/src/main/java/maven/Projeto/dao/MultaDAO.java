@@ -10,12 +10,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class MultaDAO {
-    private static final String CAMINHO = "listaDePagamentosDeMultas.json";
-    private static List<PagamentoMulta> LISTA_DE_PAGAMENTOS = new ArrayList<>();
-    private static int contadorId = 1;
+public class MultaDAO extends DAO{
+    public MultaDAO() {
+		super("listaDePagamentosDeMultas.json");
+        carregarPagamentos();
+	}
     
-    private static final Gson GSON = new GsonBuilder()
+    private List<PagamentoMulta> LISTA_DE_PAGAMENTOS = new ArrayList<>();
+    private int contadorId = 1;
+    
+    private final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
                 @Override
                 public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
@@ -32,11 +36,7 @@ public class MultaDAO {
             .setPrettyPrinting()
             .create();
     
-    static {
-        carregarPagamentos();
-    }
-    
-    public static void registrarPagamento(PagamentoMulta pagamento) {
+    public void registrarPagamento(PagamentoMulta pagamento) {
         if (!LISTA_DE_PAGAMENTOS.contains(pagamento)) {
             if (pagamento.getId() == 0) {
                 pagamento.setId(contadorId++);
@@ -47,11 +47,11 @@ public class MultaDAO {
         }
     }
     
-    public static List<PagamentoMulta> getTodosPagamentos() {
+    public List<PagamentoMulta> getTodosPagamentos() {
         return new ArrayList<>(LISTA_DE_PAGAMENTOS); 
     }
     
-    public static List<PagamentoMulta> getPagamentosPorUsuario(String matricula) {
+    public List<PagamentoMulta> getPagamentosPorUsuario(String matricula) {
         List<PagamentoMulta> resultado = new ArrayList<>();
         for (PagamentoMulta p : LISTA_DE_PAGAMENTOS) {
             if (p.getMatriculaUsuario().equals(matricula)) {
@@ -61,7 +61,7 @@ public class MultaDAO {
         return resultado;
     }
     
-    private static void atualizarJson() {
+    private void atualizarJson() {
         try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DE_PAGAMENTOS, escritor);
             System.out.println("Pagamentos de multa atualizados com sucesso.");
@@ -70,7 +70,7 @@ public class MultaDAO {
         }
     }
     
-    private static void carregarPagamentos() {
+    private void carregarPagamentos() {
         File arquivo = new File(CAMINHO);
         if (!arquivo.exists()) {
             LISTA_DE_PAGAMENTOS = new ArrayList<>();

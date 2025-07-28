@@ -65,8 +65,8 @@ public class AdministradorTela extends JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Janela foi fechada!");
-                
-                FuncionarioController.logoOffFuncionario();
+            	FuncionarioController funcionarioController = new FuncionarioController();
+                funcionarioController.logoOffFuncionario();
             }
         });
     }

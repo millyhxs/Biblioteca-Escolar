@@ -11,7 +11,12 @@ import maven.Projeto.model.Livro;
 import maven.Projeto.model.Revista;
 
 public class ObraController {
-	public static void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
+	
+	LivroDAO livroDAO = new LivroDAO();
+	ArtigoDAO artigoDAO = new ArtigoDAO();
+	RevistaDAO revistaDAO = new RevistaDAO();
+	
+	public void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
 		if (codigo == null || codigo.trim().isEmpty()||
 			titulo == null || titulo.trim().isEmpty() ||
 			autor == null || autor.trim().isEmpty() ||
@@ -28,7 +33,7 @@ public class ObraController {
 	            livro.setAutor(autor);
 	            livro.setAnoDePublicacao(anoDePublicacao);
 	            livro.setEmprestado(emprestado);
-				LivroDAO.cadastrar(livro);
+				livroDAO.cadastrar(livro);
 			} catch (Exception e) {
 				
 			}
@@ -43,7 +48,7 @@ public class ObraController {
                 revista.setAutor(autor);
                 revista.setAnoDePublicacao(anoDePublicacao);
                 revista.setEmprestado(emprestado);
-				RevistaDAO.cadastrar(revista);
+				revistaDAO.cadastrar(revista);
 			} catch (Exception e) {
 				
 			}
@@ -58,26 +63,26 @@ public class ObraController {
 	             artigo.setAutor(autor);
 	             artigo.setAnoDePublicacao(anoDePublicacao);
 	             artigo.setEmprestado(emprestado);
-				ArtigoDAO.cadastrar(artigo);
+				artigoDAO.cadastrar(artigo);
 			} catch (Exception e) {
 				
 			}
 		} 
 	}
 	
-	public static void exclusaoDeDados(String tipo, String codigo) throws CampoVazioException {
+	public void exclusaoDeDados(String tipo, String codigo) throws CampoVazioException {
 		if (codigo == null || codigo.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
 		switch (tipo) {
         case "Livro":
-            LivroDAO.excluir(codigo);
+            livroDAO.excluir(codigo);
             break;
         case "Revista":
-            RevistaDAO.excluir(codigo);
+            revistaDAO.excluir(codigo);
             break;
         case "Artigo":
-            ArtigoDAO.excluir(codigo);
+            artigoDAO.excluir(codigo);
             break;
         default:
             System.out.println("Tipo de obra inválido");
@@ -85,18 +90,21 @@ public class ObraController {
 		
 	}
 	
-	public static List<Livro> getLivros() {
-        LivroDAO.buscarArquivo(); 
-        return LivroDAO.LISTA_DE_OBRAS;
+	public List<Livro> getLivros() {
+        LivroDAO livroDAO = new LivroDAO();
+		livroDAO.buscarArquivo(); 
+        return livroDAO.LISTA_DE_OBRAS;
     }
 	
-	public static List<Revista> getRevistas() {
-        RevistaDAO.buscarArquivo(); 
-        return RevistaDAO.LISTA_DE_OBRAS;
+	public List<Revista> getRevistas() {
+        RevistaDAO revistaDAO = new RevistaDAO();
+		revistaDAO.buscarArquivo(); 
+        return revistaDAO.LISTA_DE_OBRAS;
     }
 	
-	public static List<Artigo> getArtigos() {
-        ArtigoDAO.buscarArquivo(); 
-        return ArtigoDAO.LISTA_DE_OBRAS;
+	public List<Artigo> getArtigos() {
+        ArtigoDAO artigoDAO = new ArtigoDAO();
+		artigoDAO.buscarArquivo(); 
+        return artigoDAO.LISTA_DE_OBRAS;
     }
 }

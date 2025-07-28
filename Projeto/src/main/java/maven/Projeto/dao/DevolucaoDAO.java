@@ -10,11 +10,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class DevolucaoDAO {
-    private static final String CAMINHO = "listaDeDevolucoes.json";
-    private static List<Devolucao> LISTA_DEVOLUCOES = new ArrayList<>();
+public class DevolucaoDAO extends DAO{
+	
+    public DevolucaoDAO() {
+		super("listaDeDevolucoes.json");
+		carregarDevolucoes();
+	}
+
+    private List<Devolucao> LISTA_DEVOLUCOES = new ArrayList<>();
     
-    private static final Gson GSON = new GsonBuilder()
+    private final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
             public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
                 return new JsonPrimitive(src.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -28,22 +33,18 @@ public class DevolucaoDAO {
         })
         .setPrettyPrinting()
         .create();
-    	
-    static {
-        carregarDevolucoes();
-    }
     
-    public static void registrarDevolucao(Devolucao devolucao) {
+    public void registrarDevolucao(Devolucao devolucao) {
         LISTA_DEVOLUCOES.add(devolucao);
         atualizarJson();
     }
     
-    public static List<Devolucao> getTodasDevolucoes() {
+    public List<Devolucao> getTodasDevolucoes() {
         carregarDevolucoes();
         return LISTA_DEVOLUCOES;
     }
     
-    public static List<Devolucao> getDevolucoesPorUsuario(String matricula) {
+    public List<Devolucao> getDevolucoesPorUsuario(String matricula) {
         List<Devolucao> resultado = new ArrayList<>();
         for (Devolucao d : LISTA_DEVOLUCOES) {
             if (d.getMatriculaUsuario().equals(matricula)) {
@@ -53,7 +54,7 @@ public class DevolucaoDAO {
         return resultado;
     }
     
-    private static void atualizarJson() {
+    private void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)) {
             GSON.toJson(LISTA_DEVOLUCOES, escritor);
         } catch (IOException e) {
@@ -61,7 +62,7 @@ public class DevolucaoDAO {
         }
     }
     
-    private static void carregarDevolucoes() {
+    private void carregarDevolucoes() {
         File arquivo = new File(CAMINHO);
         if (!arquivo.exists()) {
             LISTA_DEVOLUCOES = new ArrayList<>();

@@ -8,7 +8,8 @@ import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
 public class LeitoresController {
-	public static void verificacaoDeDados(String tipo, String matricula, String nome, String telefone, String email) throws CampoVazioException{
+	LeitorDAO leitorDAO = new LeitorDAO();
+	public void verificacaoDeDados(String tipo, String matricula, String nome, String telefone, String email) throws CampoVazioException{
 		if (matricula == null || matricula.trim().isEmpty()||
 			nome == null || nome.trim().isEmpty() ||
 			telefone == null || telefone.trim().isEmpty() ||
@@ -23,20 +24,20 @@ public class LeitoresController {
 			leitor.setNome(nome);
 			leitor.setTelefone(telefone);
 			leitor.setEmail(email);
-			LeitorDAO.cadastrar(leitor);
+			leitorDAO.cadastrar(leitor);
 		} catch (Exception e) {
 			
 		} 
 	}
 	
-	public static void exclusaoDeDados(String codigo) throws CampoVazioException {
+	public void exclusaoDeDados(String codigo) throws CampoVazioException {
 		if (codigo == null || codigo.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
-		LeitorDAO.excluir(codigo);
+		leitorDAO.excluir(codigo);
 	}
 	
-	public static void editarUsuario(String matriculaAntiga, String matricula, String nome, String tipoDeUsuario, String telefone, String email) throws CampoVazioException {
+	public void editarUsuario(String matriculaAntiga, String matricula, String nome, String tipoDeUsuario, String telefone, String email) throws CampoVazioException {
         // Verificações básicas
         if (matriculaAntiga == null || matriculaAntiga.trim().isEmpty() || matricula == null || matricula.trim().isEmpty() || nome == null || nome.trim().isEmpty() || tipoDeUsuario == null || tipoDeUsuario.trim().isEmpty() || telefone == null || telefone.trim().isEmpty()
                 || email == null || email.trim().isEmpty()) {
@@ -57,23 +58,23 @@ public class LeitoresController {
         novoLeitor.setTelefone(telefone);
         novoLeitor.setEmail(email);
         
-        LeitorDAO.editarUsuario(matriculaAntiga, novoLeitor);
+        leitorDAO.editarUsuario(matriculaAntiga, novoLeitor);
     }
 	
-	public static void verificarMatriculaExistente(String matricula) throws MatriculaNaoEncontradaException, CampoVazioException {
+	public void verificarMatriculaExistente(String matricula) throws MatriculaNaoEncontradaException, CampoVazioException {
 		if (matricula == null || matricula.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha todos os campos");
 		}
 		
-		boolean existe = LeitorDAO.verificarMatricula(matricula);		
+		boolean existe = leitorDAO.verificarMatricula(matricula);		
 		
 	    if (!existe) {
 	        throw new MatriculaNaoEncontradaException("Usuário não encontrado com essa matrícula.");
 	    }
 	}
 	
-	public static List<Leitor> getLeitores() {
-        LeitorDAO.buscarArquivo(); 
-        return LeitorDAO.LISTA_DE_USUARIOS;
+	public List<Leitor> getLeitores() {
+        leitorDAO.buscarArquivo(); 
+        return leitorDAO.LISTA_DE_USUARIOS;
     }
 }
