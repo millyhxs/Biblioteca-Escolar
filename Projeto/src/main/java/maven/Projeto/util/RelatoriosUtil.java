@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.*;
 import java.util.List;
 
@@ -40,12 +41,17 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
-            doc.add(new Paragraph("Relatório: Empréstimos do Mês", TITULO));
+            int mesAtual = LocalDate.now().getMonthValue();
+            int anoAtual = LocalDate.now().getYear();
+            
+            String nomeMes = LocalDate.now()
+                    .getMonth()
+                    .getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+            
+            doc.add(new Paragraph("Relatório: Empréstimos de " + nomeMes + " de " + anoAtual, TITULO));
             doc.add(new Paragraph(" "));
             DevolucaoDAO dao = new DevolucaoDAO();
             List<Devolucao> devolucoes = dao.getTodasDevolucoes();
-            int mesAtual = LocalDate.now().getMonthValue();
-            int anoAtual = LocalDate.now().getYear();
             
             PdfPTable tabela = new PdfPTable(4);
             tabela.setWidthPercentage(100);

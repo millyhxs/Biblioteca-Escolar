@@ -27,7 +27,7 @@ public class BibliotecarioTela extends JFrame {
         JButton btnEmprestimos = util.criarBotao("Empréstimos", 100, 120, 200, 40, util.getCorBotaoPrincipal());
         btnEmprestimos.addActionListener(e -> new EmprestimoTela().setVisible(true));
         painel.add(btnEmprestimos);
-
+        
         JButton btnRelatorios = util.criarBotao("Relatórios", 100, 170, 200, 40, util.getCorBotaoPrincipal());
         btnRelatorios.addActionListener(e -> new RelatorioTela().setVisible(true));
         painel.add(btnRelatorios);
@@ -36,6 +36,8 @@ public class BibliotecarioTela extends JFrame {
         painel.add(btnSair);
         btnSair.addActionListener(e -> {
             dispose();
+            System.out.println("Usuario deslogado!");
+            new FuncionarioController().logoOffFuncionario();
             new LoginTela().setVisible(true);
         });
         
