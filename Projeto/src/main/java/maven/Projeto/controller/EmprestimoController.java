@@ -6,18 +6,33 @@ import maven.Projeto.model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Classe responsável por controlar os empréstimos e devoluções de obras no sistema.
+ * Realiza a comunicação entre a interface e os dados persistidos.
+ * 
+ * @author Millena
+ */
+
 public class EmprestimoController {
+	
 	private LivroDAO livroDAO = new LivroDAO();
 	private ArtigoDAO artigoDAO = new ArtigoDAO();
 	private RevistaDAO revistaDAO = new RevistaDAO();
 	private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
     
+	/**
+     * Registra um novo empréstimo de uma obra para um usuário.
+     * Valida se os campos foram preenchidos e se a obra está disponível.
+     */
+	
     public void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
         if (codigoObra == null || codigoObra.trim().isEmpty() ||
             matriculaUsuario == null || matriculaUsuario.trim().isEmpty() ||
             responsavel == null || responsavel.trim().isEmpty()) {
             throw new CampoVazioException("Todos os campos devem ser preenchidos.");
         }
+        
         Emprestavel obra = buscarObraPorCodigo(codigoObra);
         
         if (obra == null) {
@@ -33,11 +48,14 @@ public class EmprestimoController {
         atualizarObra(obra);
         
         Emprestimo emprestimo = new Emprestimo(codigoObra, matriculaUsuario, diasDeEmprestimo, responsavel);
-        
 		emprestimoDAO.cadastrar(emprestimo);
         
         System.out.println("Empréstimo registrado com sucesso!");
     }
+    
+    /**
+     * Realiza a devolução de uma obra, verificando se há atraso e registrando multa se necessário.
+     */
     
     public void devolverObra(String codigoObra) {
         Emprestavel obra = buscarObraPorCodigo(codigoObra);
@@ -62,6 +80,7 @@ public class EmprestimoController {
         }	
         
         LocalDate dataDevolucao = LocalDate.now();
+        
         if (dataDevolucao.isAfter(emprestimoEncontrado.getDataDevolucaoPrevista())) {
             long diasAtraso = java.time.temporal.ChronoUnit.DAYS.between(
                     emprestimoEncontrado.getDataDevolucaoPrevista(), dataDevolucao);
@@ -91,6 +110,10 @@ public class EmprestimoController {
         System.out.println("Devolução registrada com sucesso.");    
     }
     
+    /**
+    * Busca uma obra emprestável (Livro, Revista ou Artigo) com base no código informado.
+    */
+    
     private Emprestavel buscarObraPorCodigo(String codigoObra) {
 		livroDAO.buscarArquivo();
         for (Livro livro : livroDAO.getLISTA_DE_OBRAS()) {
@@ -116,6 +139,10 @@ public class EmprestimoController {
         return null;
     }
     
+    /**
+     * Atualiza a obra modificada no respectivo DAO, persistindo a alteração.
+     */
+    
     private void atualizarObra(Emprestavel obra) {
         if (obra instanceof Livro) {
             livroDAO.excluir(((Livro) obra).getCodigo());
@@ -129,9 +156,17 @@ public class EmprestimoController {
         }
     }
     
+    /**
+     * Verifica o valor da multa para um empréstimo com base nos dias permitidos.
+     */
+    
     public float verificarMulta(Emprestimo emprestimo, int diasPermitidos) {
         return emprestimoDAO.calcularMultaParaEmprestimo(emprestimo, diasPermitidos);
     }
+    
+    /**
+     * Retorna a lista de empréstimos ativos.
+     */
     
     public List<Emprestimo> getEmprestimos() {
     	emprestimoDAO.buscarArquivo();

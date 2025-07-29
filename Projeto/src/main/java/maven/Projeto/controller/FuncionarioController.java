@@ -8,9 +8,20 @@ import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
 import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
+/**
+ * Classe responsável pelo controle de cadastro, autenticação e gerenciamento de funcionários.
+ * Realiza validações e chama os métodos do DAO para persistência.
+ * 
+ * @author Hélder
+ */
+
 public class FuncionarioController {
 	
 	private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+	
+	/**
+     * Verifica os dados informados e realiza o cadastro de um novo funcionário.
+     */
     
 	public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
         if (id == null || id.trim().isEmpty() || 
@@ -28,6 +39,10 @@ public class FuncionarioController {
         
 		funcionarioDAO.cadastrar(novo);
     }
+	
+	/**
+     * Exclui um funcionário com base no ID informado.
+     */
     
     public void excluirFuncionario(String id) throws CampoVazioException {
         if (id == null || id.isEmpty()) {
@@ -36,6 +51,10 @@ public class FuncionarioController {
         
         funcionarioDAO.excluir(id);
     }
+    
+    /**
+     * Edita os dados de um funcionário existente.
+     */
     
     public void editarFuncionario(String idAntigo, String id, String nome, String tipo, String senha) throws CampoVazioException {
         // Verificações básicas
@@ -58,6 +77,10 @@ public class FuncionarioController {
         funcionarioDAO.editarUsuario(idAntigo, novoFuncionario);
     }
     
+    /**
+     * Autentica o funcionário pelo ID e senha.
+     */
+    
     public Funcionario autenticarFuncionario(String id, String senha) throws CampoVazioException, FuncionarioNaoEncontradoException {
         if (id == null || id.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
             throw new CampoVazioException("ID e senha devem ser preenchidos.");
@@ -72,6 +95,10 @@ public class FuncionarioController {
         return funcionario;
     }
     
+    /**
+     * Retorna o funcionário atualmente ativo no sistema.
+     */
+    
     public Funcionario BuscaFuncionarioAtivado() throws ValorNuloException {
     	Funcionario funcionario = funcionarioDAO.buscarFuncionarioAtivo();
     	
@@ -81,9 +108,17 @@ public class FuncionarioController {
     	return funcionario;
     }
     
+    /**
+     * Desloga o funcionário ativo, marcando-o como inativo.
+     */
+    
     public void logoOffFuncionario() {
     	funcionarioDAO.deslogarFuncionarioAtivo();
     }
+    
+    /**
+     * Retorna a lista de todos os funcionários registrados.
+     */
     
     public List<Funcionario> getFuncionarios() {
     	funcionarioDAO.buscarArquivo(); 

@@ -7,8 +7,21 @@ import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
+/**
+ * Classe responsável pela lógica de controle relacionada aos leitores.
+ * Realiza validações e interage com o DAO para operações de persistência.
+ * 
+ * @author Hélder
+ */
+
 public class LeitoresController {
+	
 	private LeitorDAO leitorDAO = new LeitorDAO();
+	
+	/**
+     * Realiza a validação e o cadastro de um novo leitor.
+     */
+	
 	public void verificacaoDeDados(String tipo, String matricula, String nome, String telefone, String email) throws CampoVazioException{
 		if (matricula == null || matricula.trim().isEmpty()||
 			nome == null || nome.trim().isEmpty() ||
@@ -30,12 +43,20 @@ public class LeitoresController {
 		} 
 	}
 	
+	/**
+     * Exclui um leitor com base no código informado (matrícula).
+     */
+	
 	public void exclusaoDeDados(String codigo) throws CampoVazioException {
 		if (codigo == null || codigo.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha os espaços");
 		}
 		leitorDAO.excluir(codigo);
 	}
+	
+	/**
+     * Edita os dados de um leitor existente.
+     */
 	
 	public void editarUsuario(String matriculaAntiga, String matricula, String nome, String tipoDeUsuario, String telefone, String email) throws CampoVazioException {
         // Verificações básicas
@@ -61,6 +82,10 @@ public class LeitoresController {
         leitorDAO.editarUsuario(matriculaAntiga, novoLeitor);
     }
 	
+	 /**
+     * Verifica se uma matrícula já existe no sistema.
+     */
+	
 	public void verificarMatriculaExistente(String matricula) throws MatriculaNaoEncontradaException, CampoVazioException {
 		if (matricula == null || matricula.trim().isEmpty()) {
 			throw new CampoVazioException("Preencha todos os campos");
@@ -73,6 +98,9 @@ public class LeitoresController {
 	    }
 	}
 	
+	  /**
+     * Retorna a lista de todos os leitores cadastrados.
+     */
 	public List<Leitor> getLeitores() {
         leitorDAO.buscarArquivo(); 
         return leitorDAO.getLISTA_DE_USUARIOS();
