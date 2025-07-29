@@ -13,7 +13,6 @@ import java.util.List;
  * 
  * @author Millena
  */
-
 public class EmprestimoController {
 	
 	private LivroDAO livroDAO = new LivroDAO();
@@ -25,7 +24,6 @@ public class EmprestimoController {
      * Registra um novo empréstimo de uma obra para um usuário.
      * Valida se os campos foram preenchidos e se a obra está disponível.
      */
-	
     public void registrarEmprestimo(String codigoObra, String matriculaUsuario, int diasDeEmprestimo, String responsavel) throws CampoVazioException {
         if (codigoObra == null || codigoObra.trim().isEmpty() ||
             matriculaUsuario == null || matriculaUsuario.trim().isEmpty() ||
@@ -56,7 +54,6 @@ public class EmprestimoController {
     /**
      * Realiza a devolução de uma obra, verificando se há atraso e registrando multa se necessário.
      */
-    
     public void devolverObra(String codigoObra) {
         Emprestavel obra = buscarObraPorCodigo(codigoObra);
         
@@ -113,7 +110,6 @@ public class EmprestimoController {
     /**
     * Busca uma obra emprestável (Livro, Revista ou Artigo) com base no código informado.
     */
-    
     private Emprestavel buscarObraPorCodigo(String codigoObra) {
 		livroDAO.buscarArquivo();
         for (Livro livro : livroDAO.getLISTA_DE_OBRAS()) {
@@ -142,7 +138,6 @@ public class EmprestimoController {
     /**
      * Atualiza a obra modificada no respectivo DAO, persistindo a alteração.
      */
-    
     private void atualizarObra(Emprestavel obra) {
         if (obra instanceof Livro) {
             livroDAO.excluir(((Livro) obra).getCodigo());
@@ -159,7 +154,6 @@ public class EmprestimoController {
     /**
      * Verifica o valor da multa para um empréstimo com base nos dias permitidos.
      */
-    
     public float verificarMulta(Emprestimo emprestimo, int diasPermitidos) {
         return emprestimoDAO.calcularMultaParaEmprestimo(emprestimo, diasPermitidos);
     }
@@ -167,7 +161,6 @@ public class EmprestimoController {
     /**
      * Retorna a lista de empréstimos ativos.
      */
-    
     public List<Emprestimo> getEmprestimos() {
     	emprestimoDAO.buscarArquivo();
         if (emprestimoDAO.getLISTA_DE_EMPRESTIMOS() == null) {

@@ -11,14 +11,14 @@ import maven.Projeto.model.PagamentoMulta;
  *
  * @author Millena
  */
-
 public class MultaDevolucaoController {
 	private MultaDAO multaDAO = new MultaDAO();
 	
-	 /**
+	/**
      * Registra um pagamento de multa.
+     * 
+     * @param pagamento Pagamento a ser registrado
      */
-	
 	public void registroDePagamento(PagamentoMulta pagamento) {
 		multaDAO.registrarPagamento(pagamento);
 	}

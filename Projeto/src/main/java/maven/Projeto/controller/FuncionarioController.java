@@ -14,7 +14,6 @@ import maven.Projeto.model.Funcionario;
  * 
  * @author Hélder
  */
-
 public class FuncionarioController {
 	
 	private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -22,7 +21,6 @@ public class FuncionarioController {
 	/**
      * Verifica os dados informados e realiza o cadastro de um novo funcionário.
      */
-    
 	public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
         if (id == null || id.trim().isEmpty() || 
             nome == null || nome.trim().isEmpty() || 
@@ -43,7 +41,6 @@ public class FuncionarioController {
 	/**
      * Exclui um funcionário com base no ID informado.
      */
-    
     public void excluirFuncionario(String id) throws CampoVazioException {
         if (id == null || id.isEmpty()) {
             throw new CampoVazioException("Informe o ID do funcionário para excluir.");
@@ -55,7 +52,6 @@ public class FuncionarioController {
     /**
      * Edita os dados de um funcionário existente.
      */
-    
     public void editarFuncionario(String idAntigo, String id, String nome, String tipo, String senha) throws CampoVazioException {
         // Verificações básicas
         if (idAntigo == null || idAntigo.trim().isEmpty() || id == null || id.trim().isEmpty() || nome == null || nome.trim().isEmpty() || tipo == null || tipo.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
@@ -80,7 +76,6 @@ public class FuncionarioController {
     /**
      * Autentica o funcionário pelo ID e senha.
      */
-    
     public Funcionario autenticarFuncionario(String id, String senha) throws CampoVazioException, FuncionarioNaoEncontradoException {
         if (id == null || id.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
             throw new CampoVazioException("ID e senha devem ser preenchidos.");
@@ -98,7 +93,6 @@ public class FuncionarioController {
     /**
      * Retorna o funcionário atualmente ativo no sistema.
      */
-    
     public Funcionario BuscaFuncionarioAtivado() throws ValorNuloException {
     	Funcionario funcionario = funcionarioDAO.buscarFuncionarioAtivo();
     	
@@ -111,7 +105,6 @@ public class FuncionarioController {
     /**
      * Desloga o funcionário ativo, marcando-o como inativo.
      */
-    
     public void logoOffFuncionario() {
     	funcionarioDAO.deslogarFuncionarioAtivo();
     }
@@ -119,7 +112,6 @@ public class FuncionarioController {
     /**
      * Retorna a lista de todos os funcionários registrados.
      */
-    
     public List<Funcionario> getFuncionarios() {
     	funcionarioDAO.buscarArquivo(); 
         return funcionarioDAO.getLISTA_DE_FUNCIONARIOS();

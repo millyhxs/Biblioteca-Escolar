@@ -21,13 +21,14 @@ public class ArtigoDAO extends DAO{
 		super("listaDeObras.json");
 	}
 	
-	/** Lista de "Arquivos" carregados do arquivo JSON. 
+	/** 
+	 * Lista de "Artigos" carregados do arquivo JSON. 
      */
     private List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
 
 	/**
      * Cadastra um novo Arquivo na lista de obras e salva no arquivo JSON.
-     * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
+     * Verifica se já existe um Arquivo com o mesmo código antes de cadastrar.
      *
      * @param novaObra O novo Arquivo a ser cadastrado.
      */

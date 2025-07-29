@@ -12,8 +12,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import java.awt.*;
-
 public class CadastroObrasTela extends JFrame {
 	private static final long serialVersionUID = -7860411679376119792L;
 	
