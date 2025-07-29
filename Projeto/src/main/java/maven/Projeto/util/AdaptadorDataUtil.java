@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class AdaptadorLocalDate implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+public class AdaptadorDataUtil implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
 	
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
