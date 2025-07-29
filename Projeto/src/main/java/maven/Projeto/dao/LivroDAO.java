@@ -11,21 +11,23 @@ import maven.Projeto.model.Livro;
  * Classe responsável pela manipulação dos dados dos livros.
  * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
  * 
- * @author
+ * @author Hélder
  */
 public class LivroDAO extends DAO{
 	
+	/**
+	 * Construtor da superclasse DAO que define o CAMINHO dos registros.
+	 */
 	public LivroDAO() {
 		super("listaDeObras.json");
-		// TODO Auto-generated constructor stub
 	}
 	
-	/** Lista de livros carregados do arquivo JSON. 
+	/** Lista de "Livros" carregados do arquivo JSON. 
      */
 	private List<Livro> LISTA_DE_OBRAS = new ArrayList<>();
 	
 	/**
-     * Cadastra um novo livro na lista de obras e salva no arquivo JSON.
+     * Cadastra um novo Livro na lista de obras e salva no arquivo JSON.
      * Verifica se já existe um livro com o mesmo código antes de cadastrar.
      *
      * @param novaObra O novo livro a ser cadastrado.
@@ -53,9 +55,9 @@ public class LivroDAO extends DAO{
     }
     
     /**
-     * Exclui um livro do arquivo JSON com base no seu código.
+     * Exclui um Livro do arquivo JSON com base no seu código.
      *
-     * @param codigo O código do livro a ser excluído.
+     * @param codigo O código do Livro a ser excluído.
      */
     public void excluir(String codigo) {
     	JsonArray array = lerJsonArray();
@@ -78,7 +80,7 @@ public class LivroDAO extends DAO{
     }
     
     /**
-     * Carrega os livros do arquivo JSON para a lista em memória.
+     * Carrega os Livros do arquivo JSON para a lista em memória.
      */
     public void buscarArquivo() {
         LISTA_DE_OBRAS = new ArrayList<>();
@@ -92,6 +94,8 @@ public class LivroDAO extends DAO{
             }
         }
     }   
+    
+    // Getters and Setters
     
     public List<Livro> getLISTA_DE_OBRAS() {
 		return LISTA_DE_OBRAS;

@@ -7,7 +7,7 @@ package maven.Projeto.model;
  * 
  * Esta classe implementa a interface {@link Emprestavel}, permitindo controle sobre empréstimos.
  * 
- * @author
+ * @author Hélder
  */
 public class Livro extends Obra implements Emprestavel{
 	

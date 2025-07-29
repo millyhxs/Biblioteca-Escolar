@@ -10,17 +10,30 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-
+/**
+ * Classe "mãe" de todas as classes dao.
+ * Possui métodos genéricos que são utilizados nas subclasses.
+ * 
+ * @author Hélder
+ */
 public class DAO {
 	
-	/** Caminho do arquivo JSON onde os dados são salvos. 
+	/** 
+	 * Caminho do arquivo JSON onde os dados são salvos. 
      */
 	protected String CAMINHO;
 	
+	/** 
+	 * Construtor utilizado para modificar o caminho dos daos.
+	 * 
+	 * @param caminho caminho onde os objetos serão armezanados nos jsons
+     */
 	public DAO(String caminho) {
         this.CAMINHO = caminho;
     }
-	/** Instância do GSON configurada com formatação bonita (pretty printing). 
+	
+	/** 
+	 * Instância do GSON configurada com formatação bonita (pretty printing). 
      */
     protected Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	

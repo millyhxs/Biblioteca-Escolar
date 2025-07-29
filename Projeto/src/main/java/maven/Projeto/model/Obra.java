@@ -2,12 +2,11 @@ package maven.Projeto.model;
 
 /**
  * Classe abstrata que representa uma Obra em uma biblioteca.
- * Pode ser uma subclasse como Livro, Revista ou Artigo.
  * 
  * Armazena informações comuns a todas as obras, como código, título, autor, ano de publicação,
  * tempo de empréstimo permitido e estado de empréstimo.
  * 
- * @author 
+ * @author Hélder
  */
 public abstract class Obra {
 	
@@ -95,11 +94,11 @@ public abstract class Obra {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
 	}
-
+	
 	public int getTempoDeEmprestimo() {
 		return tempoDeEmprestimo;
 	}
-
+	
 	public void setTempoDeEmprestimo(int tempoDeEmprestimo) {
 		this.tempoDeEmprestimo = tempoDeEmprestimo;
 	}

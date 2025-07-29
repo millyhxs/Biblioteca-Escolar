@@ -5,7 +5,7 @@ package maven.Projeto.model;
  * 
  * Essa classe herda de {@link Leitor} e define automaticamente o tipo de usuário como "Servidor".
  * 
- * @author
+ * @author Millena
  */
 public class Servidor extends Leitor {
 	
@@ -13,10 +13,10 @@ public class Servidor extends Leitor {
      * Construtor que cria um Servidor com os dados informados.
      * Define o tipo de usuário automaticamente como "Servidor".
      * 
-     * @param nome Nome do Servidor
-     * @param matricula Matrícula do Servidor
-     * @param telefone Telefone de contato
-     * @param email Endereço de e-mail
+     * @param nome | Nome do Servidor
+     * @param matricula | Matrícula do Servidor
+     * @param telefone | Telefone de contato
+     * @param email | Endereço de e-mail
      */
     public Servidor(String nome, String matricula, String telefone, String email) {
         super(nome, matricula, telefone, email);

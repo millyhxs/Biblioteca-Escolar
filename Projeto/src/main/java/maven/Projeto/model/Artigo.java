@@ -2,12 +2,12 @@ package maven.Projeto.model;
 
 /**
  * Representa um Artigo na biblioteca.
- * Um artigo é um tipo de {@link Obra} que pode ser emprestado e devolvido,
- * com um tempo de empréstimo máximo de 2 dias.
+ * Um artigo é um tipo de {@link Obra}
+ * Pode ser emprestado e devolvido, com um tempo de empréstimo máximo de 2 dias.
  * 
  * Esta classe implementa a interface {@link Emprestavel}, permitindo controle sobre empréstimos.
  * 
- * @author
+ * @author Hélder
  */
 public class Artigo extends Obra implements Emprestavel{
 	

@@ -6,9 +6,9 @@ import java.time.LocalDate;
  * Representa um pagamento de multa realizado por um usuário da biblioteca.
  * 
  * Esta classe armazena informações sobre o pagamento, como o valor, data,
- * método utilizado e a matrícula do usuário responsável.
+ * método utilizado e a matrícula do usuário responsável e id do pagamento.
  * 
- * @author 
+ * @author Millena
  */
 public class PagamentoMulta {
     
@@ -43,7 +43,7 @@ public class PagamentoMulta {
     }
     
     /**
-     * Construtor alternativo sem o ID (ID gerado posteriormente).
+     * Construtor alternativo sem o ID.
      * 
      * @param matriculaUsuario Matrícula do usuário.
      * @param valor Valor da multa.

@@ -5,7 +5,7 @@ package maven.Projeto.model;
  * 
  * Essa classe herda de {@link Leitor} e define automaticamente o tipo de usuário como "Professor".
  * 
- * @author 
+ * @author Millena
  */
 public class Professor extends Leitor {
     
@@ -13,10 +13,10 @@ public class Professor extends Leitor {
      * Construtor que cria um professor com os dados informados.
      * Define o tipo de usuário automaticamente como "Professor".
      * 
-     * @param nome Nome do professor
-     * @param matricula Matrícula do professor
-     * @param telefone Telefone de contato
-     * @param email Endereço de e-mail
+     * @param nome | Nome do professor
+     * @param matricula | Matrícula do professor
+     * @param telefone | Telefone de contato
+     * @param email | Endereço de e-mail
      */
     public Professor(String nome, String matricula, String telefone, String email) {
         super(nome, matricula, telefone, email);

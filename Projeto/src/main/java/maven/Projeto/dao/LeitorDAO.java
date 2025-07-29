@@ -12,14 +12,32 @@ import com.google.gson.JsonObject;
 
 import maven.Projeto.model.Leitor;
 
+/**
+ * Classe responsável pela manipulação dos dados dos Leitores.
+ * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
+ * 
+ * @author Hélder
+ */
 public class LeitorDAO extends DAO{
 	
+	/**
+	 * Construtor da superclasse DAO que define o CAMINHO dos registros.
+	 */
     public LeitorDAO() {
 		super("listaDeUsuarios.json");
 	}
     
+    /** 
+     * Lista de Leitores carregados do arquivo JSON. 
+     */
     private List<Leitor> LISTA_DE_USUARIOS = new ArrayList<>();
     
+    /**
+     * Cadastra um novo Leitor na lista de leitores e salva no arquivo JSON.
+     * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
+     *
+     * @param novoUsuario O novo Leitor a ser cadastrado.
+     */
 	public void cadastrar(Leitor novoUsuario) {
         buscarArquivo();
         
@@ -36,7 +54,6 @@ public class LeitorDAO extends DAO{
         
         JsonObject obj = GSON.toJsonTree(novoUsuario).getAsJsonObject();
         
-        
         JsonArray array = lerJsonArray();
         array.add(obj);
         salvarJson(array);
@@ -44,6 +61,11 @@ public class LeitorDAO extends DAO{
         System.out.println("Leitor cadastrado com sucesso!");
     }
     
+	/**
+     * Exclui um Leitor do arquivo JSON com base na sua matricula.
+     *
+     * @param matricula A matricula do Leitor a ser excluído.
+     */
     public void excluir(String matricula) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
@@ -85,6 +107,9 @@ public class LeitorDAO extends DAO{
         }
     }
     
+    /**
+     * Carrega os Leitores do arquivo JSON para a lista em memória.
+     */
     public void buscarArquivo() {
     	LISTA_DE_USUARIOS = new ArrayList<>();
         JsonArray array = lerJsonArray();
@@ -98,6 +123,9 @@ public class LeitorDAO extends DAO{
         }
     }
     
+    /**
+     * Atualiza o conteúdo da LISTA_DE_USUARIOS no arquivo JSON.
+     */
     private void atualizarJson() {
     	try (FileWriter escritor = new FileWriter(CAMINHO)){
     		GSON.toJson(LISTA_DE_USUARIOS, escritor);
@@ -107,6 +135,12 @@ public class LeitorDAO extends DAO{
     	}
     }
     
+    /**
+     * Método que permite a edição de um leitor que está no arquivo Json.
+     * 
+     * @param matricula Matricula do Leitor utilizada para achar qual Leitor será editado
+     * @param novosDados Novos dados
+     */
     public void editarUsuario(String matricula, Leitor novosDados) {
         buscarArquivo();
         
@@ -134,6 +168,12 @@ public class LeitorDAO extends DAO{
         }
     }
     
+    /**
+     * Método que verifica se a matricula de um leitor for repetida.
+     * 
+     * @param matricula Matricula para ser usada como verificação
+     * @return Retorna true caso a matricula parametro for repetida
+     */
     public boolean verificarMatricula(String matricula) {
     	buscarArquivo();
     	
@@ -145,6 +185,7 @@ public class LeitorDAO extends DAO{
     	return false;
     }
     
+    // Getters and Setters
     
     public List<Leitor> getLISTA_DE_USUARIOS() {
 		return LISTA_DE_USUARIOS;
