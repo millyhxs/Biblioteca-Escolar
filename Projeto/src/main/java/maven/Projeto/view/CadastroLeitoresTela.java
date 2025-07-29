@@ -18,7 +18,7 @@ public class CadastroLeitoresTela extends JFrame {
     private JTextField matriculaField, nomeField, telefoneField, emailField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
-    LeitoresController leitoresController = new LeitoresController();
+    private LeitoresController leitoresController = new LeitoresController();
     
 	public CadastroLeitoresTela() {
 		setResizable(false);

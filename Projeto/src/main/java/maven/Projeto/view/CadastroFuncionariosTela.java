@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.excepctions.CampoVazioException;
@@ -16,7 +17,7 @@ public class CadastroFuncionariosTela extends JFrame {
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
-    FuncionarioController funcionarioController = new FuncionarioController();
+    private FuncionarioController funcionarioController = new FuncionarioController();
     
     
     public CadastroFuncionariosTela() {

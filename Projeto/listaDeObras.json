@@ -1,41 +1,5 @@
 [
   {
-    "codigo": "L002",
-    "titulo": "Os Forasteiros",
-    "autor": "Michelle Paver",
-    "anoDePublicacao": "2014",
-    "tempoDeEmprestimo": 0,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L004",
-    "titulo": "Dom Quixote",
-    "autor": "Miguel de Cervantes",
-    "anoDePublicacao": "1605",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "R003",
-    "titulo": "Recreio",
-    "autor": "Jorge",
-    "anoDePublicacao": "2012",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "R002",
-    "titulo": "Capricho",
-    "autor": "Monica",
-    "anoDePublicacao": "2004",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
     "codigo": "L005",
     "titulo": "1984",
     "autor": "George Orwell",
@@ -90,24 +54,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "R001",
-    "titulo": "Veja",
-    "autor": "Lucia",
-    "anoDePublicacao": "2001",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "A001",
-    "titulo": "TCC de Jamily",
-    "autor": "Jamily",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "L012",
     "titulo": "Duna",
     "autor": "Frank Herbert",
@@ -117,13 +63,67 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "A003",
-    "titulo": "TCC de Clara",
-    "autor": "Clara",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
+    "codigo": "L002",
+    "titulo": "Os Forasteiros",
+    "autor": "Michelle Paver",
+    "anoDePublicacao": "2014",
+    "tempoDeEmprestimo": 0,
     "emprestado": false,
-    "tipo": "Artigo"
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L011",
+    "titulo": "Sherlock Holmes",
+    "autor": "Arthur Connan D\u0027oyle",
+    "anoDePublicacao": "1800",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R002",
+    "titulo": "Capricho",
+    "autor": "Monica",
+    "anoDePublicacao": "2004",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "R004",
+    "titulo": "Forbes",
+    "autor": "Arthur ",
+    "anoDePublicacao": "2025",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "R001",
+    "titulo": "Veja",
+    "autor": "Lucia",
+    "anoDePublicacao": "2001",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "L004",
+    "titulo": "Dom Quixote",
+    "autor": "Miguel de Cervantes",
+    "anoDePublicacao": "1605",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R003",
+    "titulo": "Recreio",
+    "autor": "Jorge",
+    "anoDePublicacao": "2012",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
   },
   {
     "codigo": "A004",
@@ -144,36 +144,36 @@
     "tipo": "Artigo"
   },
   {
-    "codigo": "L011",
-    "titulo": "Sherlock Holmes",
-    "autor": "Arthur Connan D\u0027oyle",
-    "anoDePublicacao": "1800",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "R004",
-    "titulo": "Forbes",
-    "autor": "Arthur ",
-    "anoDePublicacao": "2025",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
     "codigo": "A002",
     "titulo": "TCC de Hélder",
     "autor": "Hélder",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
   },
   {
     "codigo": "A006",
     "titulo": "TCC de Millena",
     "autor": "Millena",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A003",
+    "titulo": "TCC de Clara",
+    "autor": "Clara",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A001",
+    "titulo": "TCC de Jamily",
+    "autor": "Jamily",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
     "emprestado": false,

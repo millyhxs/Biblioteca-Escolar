@@ -36,7 +36,7 @@ public class CadastroObrasTela extends JFrame {
 			 * 
 			 */
 			private static final long serialVersionUID = -2049954589829299812L;
-
+			
 			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(new Color(45, 45, 45));
@@ -172,14 +172,6 @@ public class CadastroObrasTela extends JFrame {
         });
         
         atualizarTabela();
-        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
-        btnVoltar.setBounds(230, 480, 250, 30);
-        painel.add(btnVoltar);
-
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new AdministradorTela().setVisible(true);
-        });
     }
     
     

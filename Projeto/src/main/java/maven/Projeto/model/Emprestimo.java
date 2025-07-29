@@ -60,6 +60,10 @@ public class Emprestimo{
 	
 	// Getters and Setters
 	
+	public Emprestimo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setCodigoObra(String codigoObra) {
 		this.codigoObra = codigoObra;
 	}

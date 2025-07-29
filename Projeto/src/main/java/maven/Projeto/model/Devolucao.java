@@ -8,16 +8,12 @@ public class Devolucao {
     private LocalDate dataDevolucao;
     private LocalDate dataEmprestimo;
  
-    public Devolucao(String codigoObra, String matriculaUsuario, LocalDate localDate, LocalDate localDate2) {
+    public Devolucao(String codigoObra, String matriculaUsuario, LocalDate dataDeEmprestimo, LocalDate dataDeDevolucao) {
         this.codigoObra = codigoObra;
         this.matriculaUsuario = matriculaUsuario;
-        this.dataDevolucao = localDate;
-        this.dataEmprestimo = localDate2;
+        this.dataEmprestimo = dataDeEmprestimo;
+        this.dataDevolucao = dataDeDevolucao;
         
-    }
-    
-    public Devolucao(String string, String string2, String dataFormatada) {
-    	
     }
     
     // Getters e Setters
@@ -54,7 +50,5 @@ public class Devolucao {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 	
-
-   
 }
 

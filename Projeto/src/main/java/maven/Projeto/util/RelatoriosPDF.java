@@ -1,6 +1,7 @@
 package maven.Projeto.util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -18,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
@@ -25,10 +27,10 @@ import javax.swing.JOptionPane;
 
 public class RelatoriosPDF {
 	
-    private static final String FONTE = FontFactory.HELVETICA;
-    private static final Font TITULO = new Font(FontFactory.getFont(FONTE, 18, Font.BOLD));
-    private static final Font TEXTO = new Font(FontFactory.getFont(FONTE, 15, Font.NORMAL));
-    private static final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
+    private final String FONTE = FontFactory.HELVETICA;
+    private final Font TITULO = new Font(FontFactory.getFont(FONTE, 18, Font.BOLD));
+    private final Font TEXTO = new Font(FontFactory.getFont(FONTE, 15, Font.NORMAL));
+    private final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
     
     //Empréstimos do mês atual
     public void gerarEmprestimosMes() {
@@ -49,14 +51,20 @@ public class RelatoriosPDF {
             tabela.setWidthPercentage(100);
             adicionarCabecalho(tabela, "Código do livro", "Usuário", "Data Empréstimo", "Data Devolução");
             
+            DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             for (Devolucao d : devolucoes) {
-                if (d.getDataEmprestimo().getMonthValue() == mesAtual && d.getDataEmprestimo().getYear() == anoAtual) {
+                LocalDate dataEmprestimo = d.getDataEmprestimo();
+                if (dataEmprestimo != null &&
+                    dataEmprestimo.getMonthValue() == mesAtual &&
+                    dataEmprestimo.getYear() == anoAtual) {
+                    
                     tabela.addCell(new PdfPCell(new Phrase(d.getCodigoObra(), TEXTO)));
                     tabela.addCell(new PdfPCell(new Phrase(d.getMatriculaUsuario(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(d.getDataEmprestimo().toString(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(d.getDataDevolucao().toString(), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(d.getDataEmprestimo().format(formatoBR), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(d.getDataDevolucao().format(formatoBR), TEXTO)));
                 }
             }
+
             
             doc.add(tabela);
             JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
@@ -84,36 +92,38 @@ public class RelatoriosPDF {
     public void gerarObrasMaisEmprestadas() {
         Document document = new Document();
         try {
-            Gson gson = new Gson();
-            Type tipoLista = new TypeToken<List<Devolucao>>() {}.getType();
+        	Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new AdaptadorLocalDate())
+                    .create();
+        	Type tipoLista = new TypeToken<List<Devolucao>>() {}.getType();
             FileReader leitor = new FileReader("listaDeDevolucoes.json");
             List<Devolucao> devolucoes = gson.fromJson(leitor, tipoLista);
-
+            
             Map<String, Integer> contador = new HashMap<>();
             for (Devolucao d : devolucoes) {
                 String codigo = d.getCodigoObra();
                 contador.put(codigo, contador.getOrDefault(codigo, 0) + 1);
             }
-
+            
             // Ordena do mais emprestado para o menos
             List<Map.Entry<String, Integer>> listaOrdenada = new ArrayList<>(contador.entrySet());
             listaOrdenada.sort((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()));
-
+            
             PdfWriter.getInstance(document, new FileOutputStream("relatorio_obras_mais_emprestadas.pdf"));
             document.open();
-
+            
             Paragraph titulo = new Paragraph("Obras Mais Emprestadas\n\n", TITULO);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
-
+            
             PdfPTable tabela = new PdfPTable(3);
             tabela.setWidths(new int[]{2, 5, 2});
             tabela.setWidthPercentage(100);
-
+            
             tabela.addCell(new PdfPCell(new Phrase("Código", CABECALHO)));
             tabela.addCell(new PdfPCell(new Phrase("Título da Obra", CABECALHO)));
             tabela.addCell(new PdfPCell(new Phrase("Qtd. Empréstimos", CABECALHO)));
-
+            
             for (Map.Entry<String, Integer> entrada : listaOrdenada) {
                 String codigo = entrada.getKey();
                 String tituloObra = buscarTituloDaObra(codigo);
@@ -235,6 +245,7 @@ public class RelatoriosPDF {
                 return o.getTitulo();
             }
         }
+        System.out.println("⚠️ Código não encontrado: " + codigo); // <--- Ajuda no debug
         return "Título não encontrado";
     }
 

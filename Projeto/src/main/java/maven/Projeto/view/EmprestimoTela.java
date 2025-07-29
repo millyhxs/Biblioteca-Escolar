@@ -9,7 +9,6 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.util.List;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class EmprestimoTela extends JFrame {
     
@@ -31,9 +30,6 @@ public class EmprestimoTela extends JFrame {
     private EmprestimoController emprestimoController = new EmprestimoController();
     private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
     
-    private LocalDate data = LocalDate.now();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private String dataFormatada = data.format(formatter);
     private int diasPermitidos;
     
     public EmprestimoTela() {
@@ -257,14 +253,6 @@ public class EmprestimoTela extends JFrame {
 		    painelPagamento.setVisible(false);
 		    JOptionPane.showMessageDialog(this, "Devolução concluída.");
 		    
-		    String dataFormatada = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		    Devolucao devolucao = new Devolucao(
-		            emprestimoSelecionado.getCodigoObra(),
-		            emprestimoSelecionado.getMatriculaUsuario(),
-		            dataFormatada
-		    );
-		    
-			multaDevolucaoController.registroDeDevolucao(devolucao);
 		    emprestimoController.devolverObra(codigo);
 		    atualizarTabela();
 		}
@@ -299,8 +287,6 @@ public class EmprestimoTela extends JFrame {
         	);
 		multaDevolucaoController.registroDePagamento(pagamento);
         
-        Devolucao devolucao = new Devolucao( emprestimoSelecionado.getCodigoObra(), emprestimoSelecionado.getMatriculaUsuario(), dataFormatada);
-        multaDevolucaoController.registroDeDevolucao(devolucao);
         emprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
         
         painelPagamento.setVisible(false);

@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EstagiarioTela extends JFrame {
@@ -22,16 +21,16 @@ public class EstagiarioTela extends JFrame {
     private JPanel painelPagamento;
     private JLabel valorMultaLabel;
     private JComboBox<String> metodoPagamentoBox;
+    private TableRowSorter<DefaultTableModel> sorter;
     private JButton confirmarPagamentoBtn;
+    private JTextField campoFiltro;
     
     private Emprestimo emprestimoSelecionado;
     private ObraController obraController = new ObraController();
     private EmprestimoController emprestimoController = new EmprestimoController();
     private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
     
-    private LocalDate data = LocalDate.now();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private String dataFormatada = data.format(formatter);
+    private int diasPermitidos;
     
     public EstagiarioTela() {
         setTitle("Devolução de Obras - Estagiário");
@@ -111,6 +110,12 @@ public class EstagiarioTela extends JFrame {
         devolverBtn.setBounds(30, 380, 200, 30);
         painel.add(devolverBtn);
         
+        campoFiltro = new JTextField();
+        campoFiltro.setBounds (30, 500, 150, 30);
+        painel.add(campoFiltro);
+        sorter = new TableRowSorter<>(modeloTabela);
+        tabela.setRowSorter(sorter);
+        
         painelPagamento = new JPanel(null);
         painelPagamento.setBounds(480, 370, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
@@ -144,61 +149,92 @@ public class EstagiarioTela extends JFrame {
     }
     
     private void prepararDevolucao() {
-        int linha = tabela.getSelectedRow();
-        if (linha == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione uma obra.");
-            return;
-        }
-        
-        String status = (String) tabela.getValueAt(linha, 5);
-        String codigo = (String) tabela.getValueAt(linha, 0);
-        
-        emprestimoSelecionado = emprestimoController.getEmprestimos().stream()
-                .filter(e -> e.getCodigoObra().equals(codigo))
-                .findFirst().orElse(null);
-        
-        if (emprestimoSelecionado == null) {
-            JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
-            return;
-        }
-        
-        if (status.equalsIgnoreCase("Em atraso")) {
-            float multa = emprestimoSelecionado.getTaxaDaMulta();
-            if (multa > 0) {
-                valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", multa));
-                painelPagamento.setVisible(true);
-            } else {
-                concluirDevolucao();
-            }
-        } else {
-            painelPagamento.setVisible(false);
-            concluirDevolucao();
-        }
+    	int linha = tabela.getSelectedRow();
+		if (linha == -1) {
+		    JOptionPane.showMessageDialog(this, "Selecione uma obra.");
+		    return;
+		}
+		
+		String status = (String) tabela.getValueAt(linha, 5);
+		String codigo = (String) tabela.getValueAt(linha, 0);
+		
+		emprestimoSelecionado = emprestimoController.getEmprestimos().stream()
+		        .filter(e -> e.getCodigoObra().equals(codigo))
+		        .findFirst().orElse(null);
+		
+		if (emprestimoSelecionado == null) {
+		    JOptionPane.showMessageDialog(this, "Esta obra já está disponível.");
+		    return;
+		}
+		
+		if (status.trim().equalsIgnoreCase("Em atraso")) {
+			linha = tabela.getSelectedRow();
+	        String tipo = (String) tabela.getValueAt(linha, 4);
+	        
+	        if (tipo.equals("Livro") ) {
+	        	Livro livro = new Livro();
+	        	diasPermitidos = livro.getTempoEmprestimo();
+	        }
+	        else if (tipo.equals("Artigo") ) {
+	        	Artigo artigo = new Artigo();
+	        	diasPermitidos = artigo.getTempoEmprestimo();
+	        } 
+	        else if (tipo.equals("Revista") ) {
+	        	Revista revista = new Revista();
+	        	diasPermitidos = revista.getTempoEmprestimo();	
+	        }
+	        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
+	        
+	        if (valorMulta > 0f) {
+	        	valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
+	        	painelPagamento.setVisible(true);
+	        } else {
+	        	emprestimoController.devolverObra(codigo);
+	        	atualizarTabela();
+	        }
+		    
+		} else {
+		    painelPagamento.setVisible(false);
+		    JOptionPane.showMessageDialog(this, "Devolução concluída.");
+		    
+		    emprestimoController.devolverObra(codigo);
+		    atualizarTabela();
+		}
     }
 
     private void registrarPagamento() {
-        if (emprestimoSelecionado == null) return;
+    	if (emprestimoSelecionado == null) { 
+        	return;
+        }
         
+        int linha = tabela.getSelectedRow();
+        String tipo = (String) tabela.getValueAt(linha, 4);
+        
+        if (tipo.equals("Livro") ) {
+        	Livro livro = new Livro();
+        	diasPermitidos = livro.getTempoEmprestimo();
+        }
+        else if (tipo.equals("Artigo") ) {
+        	Artigo artigo = new Artigo();
+        	diasPermitidos = artigo.getTempoEmprestimo();
+        } 
+        else if (tipo.equals("Revista") ) {
+        	Revista revista = new Revista();
+        	diasPermitidos = revista.getTempoEmprestimo();	
+        }
+        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
         PagamentoMulta pagamento = new PagamentoMulta(
-                emprestimoSelecionado.getMatriculaUsuario(),
-                emprestimoSelecionado.getTaxaDaMulta(),
-                LocalDate.now(),
-                metodoPagamentoBox.getSelectedItem().toString()
-        );
+        	    emprestimoSelecionado.getMatriculaUsuario(),
+        	    valorMulta,
+        	    LocalDate.now(),
+        	    metodoPagamentoBox.getSelectedItem().toString()
+        	);
 		multaDevolucaoController.registroDePagamento(pagamento);
-        concluirDevolucao();
+        
+        emprestimoController.devolverObra(emprestimoSelecionado.getCodigoObra());
+        
         painelPagamento.setVisible(false);
         JOptionPane.showMessageDialog(this, "Pagamento registrado e devolução concluída.");
-    }
-
-    private void concluirDevolucao() {
-        String codigo = emprestimoSelecionado.getCodigoObra();
-        Devolucao devolucao = new Devolucao(
-                emprestimoSelecionado.getCodigoObra(),
-                emprestimoSelecionado.getMatriculaUsuario(),
-                dataFormatada);
-		multaDevolucaoController.registroDeDevolucao(devolucao);
-		emprestimoController.devolverObra(codigo);
         atualizarTabela();
     }
     
@@ -237,6 +273,29 @@ public class EstagiarioTela extends JFrame {
                     status
             });
         }
+        
+        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            
+            private void filtrar() {
+                String texto = campoFiltro.getText().toLowerCase();
+                if (texto.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                        public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                            String titulo = entry.getStringValue(1).toLowerCase();
+                            String autor = entry.getStringValue(2).toLowerCase();
+                            String tipo = entry.getStringValue(4).toLowerCase();
+                            return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
+                        }
+                    });
+                }
+            }
+        });
+        
     }
     
     public static void main(String[] args) {
