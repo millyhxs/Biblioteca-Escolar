@@ -5,7 +5,7 @@ package maven.Projeto.model;
  * 
  * Essa classe herda de {@link Leitor} e define automaticamente o tipo de usuário como "Aluno".
  * 
- * @author
+ * @author Millena
  */
 public class Aluno extends Leitor {
     

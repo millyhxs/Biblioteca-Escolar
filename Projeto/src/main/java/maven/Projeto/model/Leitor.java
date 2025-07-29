@@ -8,7 +8,7 @@ package maven.Projeto.model;
  * 
  * Essa classe é usada para identificar quem pode realizar empréstimos de obras.
  * 
- * @author
+ * @author Hélder
  */
 public class Leitor {
 	

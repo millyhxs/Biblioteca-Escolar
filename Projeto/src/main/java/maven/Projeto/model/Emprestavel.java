@@ -6,7 +6,7 @@ package maven.Projeto.model;
  * Qualquer classe que implemente esta interface deve fornecer mecanismos para controlar
  * o estado de empréstimo de um item, como realizar e devolver o empréstimo.
  * 
- * @author
+ * @author Millena
  */
 public interface Emprestavel {
 	

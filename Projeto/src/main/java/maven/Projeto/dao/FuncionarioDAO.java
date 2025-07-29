@@ -16,14 +16,33 @@ import com.google.gson.reflect.TypeToken;
 
 import maven.Projeto.model.Funcionario;
 
+/**
+ * Classe responsável pela manipulação dos dados dos Funcionários.
+ * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
+ * 
+ * @author Hélder
+ */
 public class FuncionarioDAO extends DAO{
+	
+	/**
+	 * Construtor da superclasse DAO que define o CAMINHO dos registros.
+	 */
 	public FuncionarioDAO() {
 		super("listaDeFuncionarios.json");
 		
 	}
 	
+	/** 
+	 * Lista de Funcionários carregados do arquivo JSON. 
+     */
     private List<Funcionario> LISTA_DE_FUNCIONARIOS = new ArrayList<>();
     
+    /**
+     * Cadastra um novo Funcionário na lista de funcionários e salva no arquivo JSON.
+     * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
+     * 
+     * @param novoServidor O novo Funcionário a ser cadastrado.
+     */
 	public void cadastrar(Funcionario novoServidor) {
         buscarArquivo();
         
@@ -42,6 +61,80 @@ public class FuncionarioDAO extends DAO{
         atualizarJson();
     }
     
+	/**
+     * Exclui um Funcionário do arquivo JSON com base na sua matricula.
+     *
+     * @param id O ID do Funcionário a ser excluído.
+     */
+    public void excluir(String id) {
+    	JsonArray array = lerJsonArray();
+        boolean removido = false;
+        
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject obj = array.get(i).getAsJsonObject();
+            if ("Administrador".equals(obj.get("tipo").getAsString()) &&
+                id.equals(obj.get("id").getAsString())) {
+                array.remove(i);
+                removido = true;
+                break;
+            }
+        }
+        
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject obj = array.get(i).getAsJsonObject();
+            if ("Estagiário".equals(obj.get("tipo").getAsString()) &&
+                id.equals(obj.get("id").getAsString())) {
+                array.remove(i);
+                removido = true;
+                break;
+            }
+        }
+        
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject obj = array.get(i).getAsJsonObject();
+            if ("Bibliotecário".equals(obj.get("tipo").getAsString()) &&
+                id.equals(obj.get("id").getAsString())) {
+                array.remove(i);
+                removido = true;
+                break;
+            }
+        }
+        if (removido) {
+        	salvarJson(array);
+        } else {
+            System.out.println("Leitor não encontrado");
+        }
+    }
+    
+    /**
+     * Carrega os Leitores do arquivo JSON para a lista em memória.
+     */
+    public void buscarArquivo() {
+        try (FileReader leitor = new FileReader(CAMINHO)) {
+            Type tipoLista = new TypeToken<List<Funcionario>>() {}.getType();
+            LISTA_DE_FUNCIONARIOS = GSON.fromJson(leitor, tipoLista);
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo JSON.");
+        }
+    }
+    
+    /**
+     * Atualiza o conteúdo da LISTA_DE_FUNCIONARIOS no arquivo JSON.
+     */
+    private void atualizarJson() {
+    	try (FileWriter escritor = new FileWriter(CAMINHO)){
+    		GSON.toJson(LISTA_DE_FUNCIONARIOS, escritor);
+    	} catch (IOException e) {
+    		System.out.println("Erro ao escrever no arquivo JSON.");
+    	}
+    }
+    
+    /**
+     * Método que permite a edição de um leitor que está no arquivo Json.
+     * 
+     * @param id ID do Funcionário utilizada para achar qual Funcionário será editado
+     * @param novosDados Novos dados
+     */
     public void editarUsuario(String id, Funcionario novosDados) {
         buscarArquivo();
         
@@ -67,62 +160,13 @@ public class FuncionarioDAO extends DAO{
         }
     }
     
-    public void excluir(String matricula) {
-    	JsonArray array = lerJsonArray();
-        boolean removido = false;
-        
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Administrador".equals(obj.get("tipo").getAsString()) &&
-                matricula.equals(obj.get("id").getAsString())) {
-                array.remove(i);
-                removido = true;
-                break;
-            }
-        }
-        
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Estagiário".equals(obj.get("tipo").getAsString()) &&
-                matricula.equals(obj.get("id").getAsString())) {
-                array.remove(i);
-                removido = true;
-                break;
-            }
-        }
-        
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject obj = array.get(i).getAsJsonObject();
-            if ("Bibliotecário".equals(obj.get("tipo").getAsString()) &&
-                matricula.equals(obj.get("id").getAsString())) {
-                array.remove(i);
-                removido = true;
-                break;
-            }
-        }
-        if (removido) {
-        	salvarJson(array);
-        } else {
-            System.out.println("Leitor não encontrado");
-        }
-    }
-    public void buscarArquivo() {
-        try (FileReader leitor = new FileReader(CAMINHO)) {
-            Type tipoLista = new TypeToken<List<Funcionario>>() {}.getType();
-            LISTA_DE_FUNCIONARIOS = GSON.fromJson(leitor, tipoLista);
-        } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo JSON.");
-        }
-    }
-    
-    private void atualizarJson() {
-    	try (FileWriter escritor = new FileWriter(CAMINHO)){
-    		GSON.toJson(LISTA_DE_FUNCIONARIOS, escritor);
-    	} catch (IOException e) {
-    		System.out.println("Erro ao escrever no arquivo JSON.");
-    	}
-    }
-    
+    /**
+     * Método que busca na lista json o Funcionário dea acordo com a matricula e senha.
+     * 
+     * @param id ID exclusivo do Funcionário
+     * @param senha Senha exclusiva do Funcionário
+     * @return Retorna o Funcionário encontrado
+     */
     public Funcionario buscarPorIdESenha(String id, String senha) {
         buscarArquivo();
         
@@ -138,6 +182,11 @@ public class FuncionarioDAO extends DAO{
         return null;
     }
     
+    /**
+     * Método que retorna o Funcionário que está ativo na lista json.
+     * 
+     * @return Retorna o Funcionário que está ativo
+     */
     public Funcionario buscarFuncionarioAtivo() {
         buscarArquivo();
         
@@ -150,7 +199,9 @@ public class FuncionarioDAO extends DAO{
         }
         return null;
     }
-    
+    /**
+     * Método que busca um Funcionário que está ativo no json e modifica ele para que fique falso.
+     */
     public void deslogarFuncionarioAtivo() {
         try (FileReader reader = new FileReader(CAMINHO)) {
             JsonArray array = JsonParser.parseReader(reader).getAsJsonArray();
@@ -170,6 +221,8 @@ public class FuncionarioDAO extends DAO{
             System.out.println("Erro ao deslogar funcionário: " + e.getMessage());
         }
     }
+    
+    // Getters and Setters
     
     public List<Funcionario> getLISTA_DE_FUNCIONARIOS() {
 		return LISTA_DE_FUNCIONARIOS;

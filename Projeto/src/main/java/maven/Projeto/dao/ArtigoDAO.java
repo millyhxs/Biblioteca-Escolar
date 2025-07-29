@@ -10,19 +10,23 @@ import maven.Projeto.model.Artigo;
  * Classe responsável pela manipulação dos dados dos Artigos.
  * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
  * 
- * @author
+ * @author Millena
  */
 public class ArtigoDAO extends DAO{
 	
+	/**
+	 * Construtor da superclasse DAO que define o CAMINHO dos registros.
+	 */
 	public ArtigoDAO() {
 		super("listaDeObras.json");
 	}
+	
 	/** Lista de "Arquivos" carregados do arquivo JSON. 
      */
     private List<Artigo> LISTA_DE_OBRAS = new ArrayList<>();
 
 	/**
-     * Cadastra um novo arquivo na lista de obras e salva no arquivo JSON.
+     * Cadastra um novo Arquivo na lista de obras e salva no arquivo JSON.
      * Verifica se já existe um arquivo com o mesmo código antes de cadastrar.
      *
      * @param novaObra O novo Arquivo a ser cadastrado.
@@ -52,9 +56,9 @@ public class ArtigoDAO extends DAO{
     }
     
     /**
-     * Exclui um "arquivo" do arquivo JSON com base no seu código.
+     * Exclui um "Arquivo" do arquivo JSON com base no seu código.
      *
-     * @param codigo O código do arquivo a ser excluído.
+     * @param codigo O código do Arquivo a ser excluído.
      */
     public void excluir(String codigo) {
     	JsonArray array = lerJsonArray();
@@ -91,6 +95,8 @@ public class ArtigoDAO extends DAO{
             }
         }
     } 
+    
+    // Getters and Setters
     
     public List<Artigo> getLISTA_DE_OBRAS() {
 		return LISTA_DE_OBRAS;

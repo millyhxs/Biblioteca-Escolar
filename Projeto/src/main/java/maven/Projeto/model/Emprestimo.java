@@ -8,9 +8,9 @@ import java.time.LocalDate;
  * Armazena dados como código da obra, matrícula do usuário, datas do empréstimo e devolução, 
  * responsável e taxa de multa por atraso.
  * 
- * @author
+ * @author Hélder
  */
-public class Emprestimo{
+public class Emprestimo {
 	
 	/**
      * codigoObra | Código da Obra.
@@ -28,7 +28,6 @@ public class Emprestimo{
 	private LocalDate dataDevolucaoPrevista;
 	
 	/**
-     * Cria um novo empréstimo com base nas informações da obra e do usuário.
      * A data do empréstimo é definida como a data atual e a data de devolução é calculada com base no prazo.
      * A taxa padrão por dia de multa é definida como 2.5.
      * 
@@ -63,7 +62,7 @@ public class Emprestimo{
 	public Emprestimo() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public void setCodigoObra(String codigoObra) {
 		this.codigoObra = codigoObra;
 	}

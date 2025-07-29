@@ -7,7 +7,7 @@ package maven.Projeto.model;
  * tipo (função) e status de atividade.
  * Pode ser utilizada tanto para controle de acesso quanto para gerenciamento de usuários do sistema.
  * 
- * @author
+ * @author Hélder
  */
 public class Funcionario {
 	

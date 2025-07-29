@@ -6,14 +6,31 @@ import com.google.gson.*;
 
 import maven.Projeto.model.Revista;
 
+/**
+ * Classe responsável pela manipulação dos dados das revistas.
+ * Utiliza a biblioteca GSON para persistência em um arquivo JSON.
+ * 
+ * @author Millena
+ */
 public class RevistaDAO extends DAO{
+	
+	/**
+	 * Construtor da superclasse DAO que define o CAMINHO dos registros.
+	 */
 	public RevistaDAO() {
 		super("listaDeObras.json");
 	}
     
-	
+	/** Lista de "Revistas" carregados do arquivo JSON. 
+     */
 	private List<Revista> LISTA_DE_OBRAS = new ArrayList<>();
-    
+	
+	/**
+     * Cadastra uma nova Revista na lista de obras e salva no arquivo JSON.
+     * Verifica se já existe uma Revista com o mesmo código antes de cadastrar.
+     *
+     * @param novaObra A nova Revista a ser cadastrada.
+     */
 	public void cadastrar(Revista novaObra) {
         
         buscarArquivo();
@@ -37,6 +54,11 @@ public class RevistaDAO extends DAO{
         salvarJson(array);
     }
     
+	/**
+     * Exclui uma Revista do arquivo JSON com base no seu código.
+     *
+     * @param codigo O código da Revista a ser excluída.
+     */
     public void excluir(String codigo) {
     	JsonArray array = lerJsonArray();
         boolean removido = false;
@@ -57,6 +79,9 @@ public class RevistaDAO extends DAO{
         }
     }
     
+    /**
+     * Carrega as Revistas do arquivo JSON para a lista em memória.
+     */
     public void buscarArquivo() {
     	LISTA_DE_OBRAS = new ArrayList<>();
         JsonArray array = lerJsonArray();
@@ -69,6 +94,8 @@ public class RevistaDAO extends DAO{
             }
         }
     }
+    
+    // Getters and Setters
     
     public List<Revista> getLISTA_DE_OBRAS() {
 		return LISTA_DE_OBRAS;

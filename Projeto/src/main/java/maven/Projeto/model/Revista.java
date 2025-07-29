@@ -2,12 +2,12 @@ package maven.Projeto.model;
 
 /**
  * Representa uma Revista na biblioteca.
- * Uma revista é um tipo de {@link Obra} que pode ser emprestado e devolvido,
- * com um tempo de empréstimo máximo de 3 dias.
+ * Uma revista é um tipo de {@link Obra} que 
+ * Pode ser emprestado e devolvido, com um tempo de empréstimo máximo de 3 dias.
  * 
  * Esta classe implementa a interface {@link Emprestavel}, permitindo controle sobre empréstimos.
  * 
- * @author
+ * @author Hélder
  */
 public class Revista extends Obra implements Emprestavel{
 	
