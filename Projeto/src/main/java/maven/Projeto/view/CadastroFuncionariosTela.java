@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import maven.Projeto.controller.FuncionarioController;
-import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Funcionario;
 import maven.Projeto.util.ComponenteUtil;
 import maven.Projeto.util.FiltroTabelaUtil;

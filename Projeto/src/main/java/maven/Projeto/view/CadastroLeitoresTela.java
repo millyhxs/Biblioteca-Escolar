@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import maven.Projeto.controller.LeitoresController;
-import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Leitor;
 import maven.Projeto.util.ComponenteUtil;
 import maven.Projeto.util.FiltroTabelaUtil;

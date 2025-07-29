@@ -14,17 +14,20 @@ import maven.Projeto.model.Obra;
 import maven.Projeto.model.PagamentoMulta;
 
 import java.awt.Desktop;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
+/**
+ * Classe utilitária responsável pela geração de relatórios em PDF relacionados ao sistema de biblioteca.
+ * Relatórios gerados:
+ * 
+ * @author Millena
+ */
 public class RelatoriosUtil {
 	
     private final String FONTE = FontFactory.HELVETICA;
@@ -32,7 +35,9 @@ public class RelatoriosUtil {
     private final Font TEXTO = new Font(FontFactory.getFont(FONTE, 15, Font.NORMAL));
     private final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
     
-    //Empréstimos do mês atual
+    /**
+     * Gera um relatório PDF com todos os empréstimos realizados no mês atual.
+     */
     public void gerarEmprestimosMes() {
     	Document doc = new Document();
         try {            
@@ -40,8 +45,8 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
-            doc.add(new Paragraph("Relatório: Empréstimos do Mês", TITULO));
-            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("Relatório: Empréstimos do Mês\\n\\n", TITULO));
+            
             DevolucaoDAO dao = new DevolucaoDAO();
             List<Devolucao> devolucoes = dao.getTodasDevolucoes();
             int mesAtual = LocalDate.now().getMonthValue();
@@ -52,6 +57,7 @@ public class RelatoriosUtil {
             adicionarCabecalho(tabela, "Código do livro", "Usuário", "Data Empréstimo", "Data Devolução");
             
             DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
             for (Devolucao d : devolucoes) {
                 LocalDate dataEmprestimo = d.getDataEmprestimo();
                 if (dataEmprestimo != null &&
@@ -75,20 +81,13 @@ public class RelatoriosUtil {
         } finally {
             doc.close();
             
-            try {
-                File pdfFile = new File("relatorio_emprestimos_mes.pdf");
-                if (pdfFile.exists()) {
-                    Desktop.getDesktop().open(pdfFile); // Abre no leitor padrão do sistema
-                } else {
-                    JOptionPane.showMessageDialog(null, "Arquivo PDF não encontrado.");
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
-            }
+            abrirPdf("relatorio_emprestimos_mes.pdf");
         }
     }
     
-    //Obras mais emprestadas
+    /**
+     * Gera um relatório com as obras mais emprestadas (ordenadas do maior para o menor).
+     */
     public void gerarObrasMaisEmprestadas() {
         Document document = new Document();
         try {
@@ -120,16 +119,11 @@ public class RelatoriosUtil {
             tabela.setWidths(new int[]{2, 5, 2});
             tabela.setWidthPercentage(100);
             
-            tabela.addCell(new PdfPCell(new Phrase("Código", CABECALHO)));
-            tabela.addCell(new PdfPCell(new Phrase("Título da Obra", CABECALHO)));
-            tabela.addCell(new PdfPCell(new Phrase("Qtd. Empréstimos", CABECALHO)));
+            adicionarCabecalho(tabela, "Código", "Título da Obra", "Qtd. Empréstimos");
             
             for (Map.Entry<String, Integer> entrada : listaOrdenada) {
-                String codigo = entrada.getKey();
-                String tituloObra = buscarTituloDaObra(codigo);
-                
-                tabela.addCell(codigo);
-                tabela.addCell(tituloObra);
+            	tabela.addCell(entrada.getKey());
+                tabela.addCell(buscarTituloDaObra(entrada.getKey()));
                 tabela.addCell(String.valueOf(entrada.getValue()));
             }
 
@@ -141,21 +135,14 @@ public class RelatoriosUtil {
             JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório: " + e.getMessage());
         } finally {
             document.close();
-            try {
-                File pdfFile = new File("relatorio_obras_mais_emprestadas.pdf");
-                if (pdfFile.exists()) {
-                    Desktop.getDesktop().open(pdfFile);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Arquivo PDF não encontrado.");
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
-            }
+            abrirPdf("relatorio_obras_mais_emprestadas.pdf");
         }
     }
 
     
-    // Usuários com mais atrasos
+    /**
+     * Gera um relatório com os usuários que mais atrasaram devoluções.
+     */
     public void gerarUsuariosComMaisAtrasos() {
     	MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
         List<PagamentoMulta> pagamentos = multaDevolucaoController.listarTodosPagamentos();
@@ -182,18 +169,15 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(document, new FileOutputStream("relatorio_usuarios_com_mais_atrasos.pdf"));
             document.open();
             
-            Font tituloFonte = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-            Paragraph titulo = new Paragraph("Usuários com Mais Atrasos\n\n", tituloFonte);
+            Paragraph titulo = new Paragraph("Usuários com Mais Atrasos\n\n", TITULO);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
             
-            Font cabecalhoFonte = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+
             PdfPTable tabela = new PdfPTable(2);
-            tabela.setWidths(new int[]{2, 1});
+            tabela.setWidths(new int[]{2, 2});
             tabela.setWidthPercentage(100);
-            
-            tabela.addCell(new PdfPCell(new Phrase("Matrícula do Usuário", cabecalhoFonte)));
-            tabela.addCell(new PdfPCell(new Phrase("Quantidade de Atrasos", cabecalhoFonte)));
+            adicionarCabecalho(tabela, "Matrícula do Usuário", "Quantidade de Atrasos");
             
             for (Map.Entry<String, Integer> entrada : listaOrdenada) {
                 tabela.addCell(entrada.getKey());
@@ -209,18 +193,13 @@ public class RelatoriosUtil {
         } finally {
             document.close();
             
-            try {
-                File pdfFile = new File("relatorio_usuarios_com_mais_atrasos.pdf");
-                if (pdfFile.exists()) {
-                    Desktop.getDesktop().open(pdfFile); // Abre no leitor padrão do sistema
-                } else {
-                    JOptionPane.showMessageDialog(null, "Arquivo PDF não encontrado.");
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
-            }
+            abrirPdf("relatorio_usuarios_com_mais_atrasos.pdf");
         }
     }
+    
+    /**
+     * Adiciona cabeçalho a uma tabela PDF com base nos títulos fornecidos.
+     */
     private void adicionarCabecalho(PdfPTable tabela, String... titulos) {
         for (String t : titulos) {
             PdfPCell cell = new PdfPCell(new Phrase(t, CABECALHO));
@@ -228,6 +207,10 @@ public class RelatoriosUtil {
             tabela.addCell(cell);
         }
     }
+    
+    /**
+     * Busca o título da obra baseado no código.
+     */
     private String buscarTituloDaObra(String codigo) {
     	ObraController obraController = new ObraController();
         for (Obra o : obraController.getLivros()) {
@@ -248,6 +231,21 @@ public class RelatoriosUtil {
         System.out.println("⚠️ Código não encontrado: " + codigo); // <--- Ajuda no debug
         return "Título não encontrado";
     }
-
+    
+    /**
+     * Abre o PDF automaticamente no leitor padrão do sistema.
+     */
+    private void abrirPdf(String caminho) {
+        try {
+            File pdfFile = new File(caminho);
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                JOptionPane.showMessageDialog(null, "Arquivo PDF não encontrado.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + e.getMessage());
+        }
+    }
     
 }

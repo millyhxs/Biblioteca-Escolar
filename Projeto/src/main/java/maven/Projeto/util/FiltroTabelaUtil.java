@@ -6,16 +6,29 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+/**
+ * Classe utilitária para aplicar filtros dinâmicos em tabelas (JTable).
+ * Permite filtrar por uma ou várias colunas com base no texto digitado em um campo de entrada.
+ * 
+ * @author Millena
+ */
 public class FiltroTabelaUtil {
 
     private final TableRowSorter<DefaultTableModel> sorter;
 
+    /**
+     * Construtor que inicializa o sorter e o associa à tabela.
+     */
     public FiltroTabelaUtil(JTable tabela) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         this.sorter = new TableRowSorter<>(modelo);
         tabela.setRowSorter(sorter);
     }
-
+    
+    /**
+     * Aplica filtro em uma única coluna com base no conteúdo do JTextField.
+     * O filtro atualiza automaticamente conforme o texto é digitado ou removido.
+     */
     public void aplicarFiltro(JTextField campoFiltro, int coluna) {
         campoFiltro.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -43,6 +56,11 @@ public class FiltroTabelaUtil {
             }
         });
     }
+    
+    /**
+     * Aplica filtro em múltiplas colunas simultaneamente com base no texto digitado.
+     * Útil para buscas mais abrangentes (ex: pesquisar nome, ID e e-mail ao mesmo tempo).
+     */ 
     public void aplicarFiltroMultiplo(JTextField campoFiltro, int[] colunas) {
         campoFiltro.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { filtrar(); }

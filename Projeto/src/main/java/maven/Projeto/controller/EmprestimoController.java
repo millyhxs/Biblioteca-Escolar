@@ -1,7 +1,7 @@
 package maven.Projeto.controller;
 
 import maven.Projeto.dao.*;
-import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

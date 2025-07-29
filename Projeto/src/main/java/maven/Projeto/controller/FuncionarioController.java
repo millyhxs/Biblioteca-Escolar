@@ -3,9 +3,9 @@ package maven.Projeto.controller;
 import java.util.List;
 
 import maven.Projeto.dao.FuncionarioDAO;
-import maven.Projeto.excepctions.CampoVazioException;
-import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
-import maven.Projeto.excepctions.ValorNuloException;
+import maven.Projeto.exceptions.CampoVazioException;
+import maven.Projeto.exceptions.FuncionarioNaoEncontradoException;
+import maven.Projeto.exceptions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
 /**

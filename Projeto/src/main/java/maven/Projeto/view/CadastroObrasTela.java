@@ -1,7 +1,7 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.ObraController;
-import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Revista;

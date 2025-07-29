@@ -3,8 +3,8 @@ package maven.Projeto.controller;
 import java.util.List;
 
 import maven.Projeto.dao.LeitorDAO;
-import maven.Projeto.excepctions.CampoVazioException;
-import maven.Projeto.excepctions.MatriculaNaoEncontradaException;
+import maven.Projeto.exceptions.CampoVazioException;
+import maven.Projeto.exceptions.MatriculaNaoEncontradaException;
 import maven.Projeto.model.Leitor;
 
 /**

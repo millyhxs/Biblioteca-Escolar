@@ -1,4 +1,4 @@
-package maven.Projeto.excepctions;
+package maven.Projeto.exceptions;
 
 /**
  * Exceção personalizada lançada quando algum campo obrigatório não está preenchido.

@@ -1,4 +1,4 @@
-package maven.Projeto.excepctions;
+package maven.Projeto.exceptions;
 
 /**
  * Exceção personalizada lançada quando alguma matrícula não é encontrada.

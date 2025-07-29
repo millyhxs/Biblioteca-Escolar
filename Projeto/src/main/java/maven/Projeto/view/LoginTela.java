@@ -1,9 +1,9 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.FuncionarioController;
-import maven.Projeto.excepctions.CampoVazioException;
-import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
-import maven.Projeto.excepctions.ValorNuloException;
+import maven.Projeto.exceptions.CampoVazioException;
+import maven.Projeto.exceptions.FuncionarioNaoEncontradoException;
+import maven.Projeto.exceptions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 import maven.Projeto.util.ComponenteUtil;
 

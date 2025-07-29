@@ -1,7 +1,7 @@
 package maven.Projeto.view;
 
 import maven.Projeto.controller.*;
-import maven.Projeto.excepctions.*;
+import maven.Projeto.exceptions.*;
 import maven.Projeto.model.*;
 import maven.Projeto.util.ComponenteUtil;
 import maven.Projeto.util.FiltroTabelaUtil;

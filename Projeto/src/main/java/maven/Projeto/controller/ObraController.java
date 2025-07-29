@@ -5,7 +5,7 @@ import java.util.List;
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.LivroDAO;
 import maven.Projeto.dao.RevistaDAO;
-import maven.Projeto.excepctions.CampoVazioException;
+import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Livro;
 import maven.Projeto.model.Revista;
