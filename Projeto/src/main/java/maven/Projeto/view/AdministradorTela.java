@@ -18,7 +18,7 @@ public class AdministradorTela extends JFrame {
         JPanel painel = util.painelComFundoNulo();
         painel.setLayout(null);
         getContentPane().add(painel);
- 
+        
         
         JLabel titulo = new JLabel("Área do Administrador", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 22));
