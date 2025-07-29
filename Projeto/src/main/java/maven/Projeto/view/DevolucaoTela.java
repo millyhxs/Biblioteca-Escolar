@@ -1,21 +1,21 @@
 package maven.Projeto.view;
 
-import maven.Projeto.controller.*;
-import maven.Projeto.excepctions.*;
+import maven.Projeto.controller.EmprestimoController;
+import maven.Projeto.controller.MultaDevolucaoController;
+import maven.Projeto.controller.ObraController;
 import maven.Projeto.model.*;
+import maven.Projeto.util.ComponenteUtil;
 
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.util.List;
 import java.time.LocalDate;
+import java.util.List;
 
-public class EmprestimoTela extends JFrame {
-    
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2740513108303069203L;
+public class DevolucaoTela extends JFrame {
+	private static final long serialVersionUID = 1143581939582089287L;
+	private final ComponenteUtil util = new ComponenteUtil();
+	 
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
@@ -27,15 +27,13 @@ public class EmprestimoTela extends JFrame {
     
     private Emprestimo emprestimoSelecionado;
     private ObraController obraController = new ObraController();
-    private LeitoresController leitores = new LeitoresController();
-    private FuncionarioController funcionarioController = new FuncionarioController();
     private EmprestimoController emprestimoController = new EmprestimoController();
     private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
     
     private int diasPermitidos;
     
-    public EmprestimoTela() {
-        setTitle("Tela de Empréstimo");
+    public DevolucaoTela() {
+        setTitle("Devolução de Obras - Estagiário");
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -45,7 +43,7 @@ public class EmprestimoTela extends JFrame {
             /**
 			 * 
 			 */
-			private static final long serialVersionUID = 7150161965554806235L;
+			private static final long serialVersionUID = 2509288756281624314L;
 			
 			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -54,67 +52,62 @@ public class EmprestimoTela extends JFrame {
         };
         getContentPane().add(painel);
         
-        JLabel titulo = new JLabel("Empréstimos de Obras", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("Registrar Devoluções", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 24));
         titulo.setForeground(Color.WHITE);
         titulo.setBounds(0, 10, 900, 30);
         painel.add(titulo);
         
-        modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0){
+        modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0) {
             /**
 			 * 
 			 */
-			private static final long serialVersionUID = 7064388783696092988L;
-
+			private static final long serialVersionUID = -6426250182220130365L;
+			
 			public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        
         tabela = new JTable(modeloTabela);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             /**
 			 * 
 			 */
-			private static final long serialVersionUID = -1595664890445679868L;
-
+			private static final long serialVersionUID = -2787758373329218192L;
+			
 			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                
                 c.setForeground(Color.BLACK);
                 
                 if (column == 5 && value instanceof String) {
                     String status = ((String) value).toLowerCase();
                     switch (status) {
                         case "disponível":
-                            c.setForeground(new Color(0, 160, 0)); // verde
+                            c.setForeground(new Color(0, 160, 0));
                             break;
                         case "emprestado/a":
-                            c.setForeground(new Color(220, 160, 0)); // amarelo
+                            c.setForeground(new Color(220, 160, 0));
                             break;
                         case "em atraso":
-                            c.setForeground(new Color(200, 0, 0)); // vermelho
+                            c.setForeground(new Color(200, 0, 0));
                             break;
                     }
                 }
                 
                 c.setBackground(isSelected ? tabela.getSelectionBackground() : Color.WHITE);
-                
                 return c;
             }
         });
-        	
+        
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 60, 830, 300);
         painel.add(scroll);
         
-        JButton emprestarBtn = new JButton("Realizar Empréstimo");
-        emprestarBtn.setBounds(30, 420, 200, 30);
-        painel.add(emprestarBtn);
-        
         JButton devolverBtn = new JButton("Registrar Devolução");
-        devolverBtn.setBounds(240, 420, 200, 30);
+        devolverBtn.setBounds(30, 420, 200, 30);
         painel.add(devolverBtn);
         
         campoFiltro = new JTextField();
@@ -137,7 +130,7 @@ public class EmprestimoTela extends JFrame {
         });
         
         painelPagamento = new JPanel(null);
-        painelPagamento.setBounds(480, 380, 380, 150);
+        painelPagamento.setBounds(480, 370, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
         painelPagamento.setBackground(new Color(60, 60, 60));
         
@@ -162,71 +155,14 @@ public class EmprestimoTela extends JFrame {
         
         painel.add(painelPagamento);
         
-        emprestarBtn.addActionListener(e -> emprestar());
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
         
         atualizarTabela();
-    }
+    } 
     
-    private void emprestar() {
-        int linha = tabela.getSelectedRow();
-        
-        if (linha == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione uma obra.");
-            return;
-        }
-        
-        String codigo = (String) tabela.getValueAt(linha, 0); 
-        String status = (String) tabela.getValueAt(linha, 5);
-        
-        if (!status.equals("Disponível")) {
-            JOptionPane.showMessageDialog(this, "A obra selecionada não está disponível para empréstimo.");
-            return;
-        }
-        
-        String matricula = JOptionPane.showInputDialog("Digite a matrícula do usuário:");
-        
-        try {
-			leitores.verificarMatriculaExistente(matricula);
-		} catch (MatriculaNaoEncontradaException | CampoVazioException ex) {
-            JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
-            return;
-		}
-        
-        try {
-            
-        	Funcionario responsavel = funcionarioController.BuscaFuncionarioAtivado();
-        	String tipo = (String) tabela.getValueAt(linha, 4);
-        	
-        	int diasDeEmprestimo = 0;
-        	switch (tipo) {
-			case "Livro":
-				diasDeEmprestimo = 7; 
-				break;
-			case "Artigo":
-				diasDeEmprestimo = 2;
-				break;
-			case "Revista":
-				diasDeEmprestimo = 3;
-				break;
-			default:
-				break;
-			}
-			
-        	emprestimoController.registrarEmprestimo(codigo, matricula, diasDeEmprestimo, responsavel.getNome());
-            
-        	JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso.");
-            
-            atualizarTabela();
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
-        }
-    }
-	
-	private void prepararDevolucao() {
-		int linha = tabela.getSelectedRow();
+    private void prepararDevolucao() {
+    	int linha = tabela.getSelectedRow();
 		if (linha == -1) {
 		    JOptionPane.showMessageDialog(this, "Selecione uma obra.");
 		    return;
@@ -278,9 +214,9 @@ public class EmprestimoTela extends JFrame {
 		    atualizarTabela();
 		}
     }
-	
+
     private void registrarPagamento() {
-        if (emprestimoSelecionado == null) { 
+    	if (emprestimoSelecionado == null) { 
         	return;
         }
         
@@ -342,14 +278,15 @@ public class EmprestimoTela extends JFrame {
             }
             
             modeloTabela.addRow(new Object[]{
-                obra.getCodigo(),
-                obra.getTitulo(),
-                obra.getAutor(),
-                obra.getAnoDePublicacao(),
-                tipo,
-                status
+                    obra.getCodigo(),
+                    obra.getTitulo(),
+                    obra.getAutor(),
+                    obra.getAnoDePublicacao(),
+                    tipo,
+                    status
             });
         }
+        
         campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
             public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
@@ -371,5 +308,6 @@ public class EmprestimoTela extends JFrame {
                 }
             }
         });
+        
     }
 }

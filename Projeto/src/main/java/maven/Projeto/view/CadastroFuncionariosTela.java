@@ -11,92 +11,86 @@ import javax.swing.table.TableRowSorter;
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Funcionario;
+import maven.Projeto.util.ComponenteUtil;
+import maven.Projeto.util.FiltroTabelaUtil;
 
-@SuppressWarnings("serial")
 public class CadastroFuncionariosTela extends JFrame {
-    private JComboBox<String> nivelCombo;
+	private static final long serialVersionUID = 1L;
+	
+	private JComboBox<String> nivelCombo;
     private JTextField idField, nomeField, campoFiltro;
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
     private TableRowSorter<DefaultTableModel> sorter;
     private FuncionarioController funcionarioController = new FuncionarioController();
+    private ComponenteUtil util = new ComponenteUtil();
     
     
     public CadastroFuncionariosTela() {
-        setResizable(false);
-        setTitle("Cadastro de Funcionários");
-        setSize(740, 560);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+    	util.aplicarTemaPadrao(this, "Cadastro de Funcionarios", 740, 560);
         
-        JPanel painel = new JPanel(null) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1439219301304304992L;
-
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(45, 45, 45));
-            }
-        };
-        
+    	JPanel painel = util.painelComFundoNulo();
+        painel.setLayout(null);
         getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Cadastro de Funcionários", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 24));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 10, 700, 30);
         painel.add(titulo);
         
-        painel.add(criarLabel("ID:", 30, 60));
-        idField = criarCampoTexto(90, 60);
+        painel.add(util.criarLabel("ID:", 30, 60));
+        idField = util.criarCampoTexto(90, 60);
         painel.add(idField);
         
-        painel.add(criarLabel("Nome:", 260, 60));
-        nomeField = criarCampoTexto(330, 60);
+        painel.add(util.criarLabel("Nome:", 260, 60));
+        nomeField = util.criarCampoTexto(330, 60);
         painel.add(nomeField);
         
-        painel.add(criarLabel("Senha:", 500, 60));
+        painel.add(util.criarLabel("Senha:", 500, 60));
         senhaField = new JPasswordField();
         senhaField.setBounds(550, 60, 150, 25);
         painel.add(senhaField);
         
-        painel.add(criarLabel("Nível:", 260, 100));
+        painel.add(util.criarLabel("Nível:", 260, 100));
         nivelCombo = new JComboBox<>(new String[]{"Administrador", "Bibliotecário", "Estagiário"});
         nivelCombo.setBounds(330, 100, 150, 25);
         painel.add(nivelCombo);
         
-        JButton adicionarBtn = new JButton("Adicionar Funcionário");
-        adicionarBtn.setBounds(110, 150, 160, 30);
+        JButton adicionarBtn = util.criarBotao("Adicionar Funcionário", 110, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
         
-        JButton excluirBtn = new JButton("Excluir Funcionário");
-        excluirBtn.setBounds(470, 150, 160, 30);
-        painel.add(excluirBtn);
-        
-        JButton editarBtn = new JButton("Editar Funcionário");
-        editarBtn.setBounds(290, 150, 160, 30);
+        JButton editarBtn = util.criarBotao("Editar Funcionário", 290, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(editarBtn);
         
-        painel.add(criarLabel("Filtrar:", 30, 200));
-        campoFiltro = criarCampoTexto(90, 200);
+        JButton excluirBtn = util.criarBotao("Excluir Funcionário", 470, 150, 160, 30, util.getCorBotaoSecundario());
+        painel.add(excluirBtn);
+        
+        painel.add(util.criarLabel("Filtrar:", 30, 200));
+        campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
         
         modeloTabela = new DefaultTableModel(new String[]{"ID", "Nome", "Nível de Acesso"}, 0) {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false; 
             }
         };
+        
         tabela = new JTable(modeloTabela);
         tabela.setRowSelectionAllowed(true);
         tabela.setAutoCreateRowSorter(true);
         tabela.getTableHeader().setReorderingAllowed(false);
+        
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
+        
+        FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
+        filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{0, 1});
         
         atualizarTabela();
         
@@ -167,38 +161,7 @@ public class CadastroFuncionariosTela extends JFrame {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            
-            private void filtrar() {
-                String texto = campoFiltro.getText().toLowerCase();
-                
-                sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
-                    public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
-                        String titulo = entry.getStringValue(1).toLowerCase(); 
-                        String autor = entry.getStringValue(2).toLowerCase();  
-                        String tipo = entry.getStringValue(4).toLowerCase();   
-                        return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
-                    }
-                });
-            }
-        });
         atualizarTabela();
-    }
-    
-    private JLabel criarLabel(String texto, int x, int y) {
-        JLabel label = new JLabel(texto);
-        label.setBounds(x, y, 100, 25);
-        label.setForeground(Color.WHITE);
-        return label;
-    }
-    
-    private JTextField criarCampoTexto(int x, int y) {
-        JTextField campo = new JTextField();
-        campo.setBounds(x, y, 150, 25);
-        return campo;
     }
     
     private void atualizarTabela() {
@@ -217,9 +180,5 @@ public class CadastroFuncionariosTela extends JFrame {
                 }
             }
         }
-    }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CadastroFuncionariosTela().setVisible(true));
     }
 }

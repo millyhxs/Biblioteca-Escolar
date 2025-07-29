@@ -5,82 +5,55 @@ import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.excepctions.FuncionarioNaoEncontradoException;
 import maven.Projeto.excepctions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
+import maven.Projeto.util.ComponenteUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginTela extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8807194293603135254L;
-	FuncionarioController funcionarioController = new FuncionarioController();
-    public LoginTela() {
-        setTitle("Login | H² Biblioteca");
-        setSize(420, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        JPanel painel = new JPanel() {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = -8121900001994564248L;
 
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(45, 45, 45));
-            }
-        };
-        painel.setLayout(null);
-        add(painel);
+	FuncionarioController funcionarioController = new FuncionarioController();
+	private final ComponenteUtil util = new ComponenteUtil();
+	private JTextField campoUsuario;
+	private JPasswordField campoSenha;
+	
+    public LoginTela() {
+    	util.aplicarTemaPadrao(this, "Login", 400, 400);
         
-        Font fontePadrao = new Font("SansSerif", Font.PLAIN, 15);
+        JPanel painel = util.painelComFundoNulo();
+        painel.setLayout(null);
+        getContentPane().add(painel);
         
         JLabel titulo = new JLabel("H² Biblioteca", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 28));
-        titulo.setForeground(Color.WHITE);
-        titulo.setBounds(0, 30, 420, 40);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
+        titulo.setBounds(0, 30, 400, 40);
         painel.add(titulo);
         
         JLabel subtitulo = new JLabel("Acesso ao sistema", SwingConstants.CENTER);
         subtitulo.setFont(new Font("SansSerif", Font.ITALIC, 14));
         subtitulo.setForeground(new Color(200, 200, 200));
-        subtitulo.setBounds(0, 65, 420, 20);
+        subtitulo.setBounds(0, 65, 400, 20);
         painel.add(subtitulo);
         
-        JLabel idLabel = new JLabel("ID do Usuário:");
-        idLabel.setBounds(60, 120, 120, 25);
-        idLabel.setFont(fontePadrao);
-        idLabel.setForeground(Color.WHITE);
-        painel.add(idLabel);
-        
-        JTextField idField = new JTextField();
-        idField.setFont(fontePadrao);
-        idField.setBounds(180, 120, 180, 30);
-        painel.add(idField);
-        
-        JLabel senhaLabel = new JLabel("Senha:");
-        senhaLabel.setBounds(60, 170, 120, 25);
-        senhaLabel.setFont(fontePadrao);
-        senhaLabel.setForeground(Color.WHITE);
-        painel.add(senhaLabel);
-        
-        JPasswordField senhaField = new JPasswordField();
-        senhaField.setFont(fontePadrao);
-        senhaField.setBounds(180, 170, 180, 30);
-        painel.add(senhaField);
-        
-        JButton loginBtn = new JButton("Entrar");
-        loginBtn.setBounds(140, 240, 120, 40);
-        loginBtn.setFont(new Font("SansSerif", Font.BOLD, 15));
-        loginBtn.setBackground(new Color(220, 53, 69));
-        loginBtn.setForeground(Color.WHITE);
-        painel.add(loginBtn);
-        
-        loginBtn.addActionListener(e -> {
-        	String id = idField.getText();
-            String senha = new String(senhaField.getPassword());
+        JLabel labelUsuario = util.criarLabel("Usuário:", 90, 120);
+        painel.add(labelUsuario);
+        campoUsuario = util.criarCampoTexto(150, 120);
+        painel.add(campoUsuario);
+
+        JLabel labelSenha = util.criarLabel("Senha:", 90, 160);
+        painel.add(labelSenha);
+        campoSenha = util.criarCampoSenha(150, 160);
+        painel.add(campoSenha);
+
+        JButton botaoLogin = util.criarBotao("Entrar", 100, 240, 200, 40, util.getCorBotaoPrincipal());
+        painel.add(botaoLogin);
+
+
+        botaoLogin.addActionListener(e -> {
+        	String id = campoUsuario.getText();
+            String senha = new String(campoSenha.getPassword());
             
             try {
                 funcionarioController.autenticarFuncionario(id, senha);

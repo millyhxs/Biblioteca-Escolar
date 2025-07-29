@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class RelatoriosPDF {
+public class RelatoriosUtil {
 	
     private final String FONTE = FontFactory.HELVETICA;
     private final Font TITULO = new Font(FontFactory.getFont(FONTE, 18, Font.BOLD));

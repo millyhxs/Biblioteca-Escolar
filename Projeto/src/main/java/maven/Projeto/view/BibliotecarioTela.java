@@ -3,91 +3,48 @@ package maven.Projeto.view;
 import javax.swing.*;
 
 import maven.Projeto.controller.FuncionarioController;
+import maven.Projeto.util.ComponenteUtil;
 
 import java.awt.*;
 
 public class BibliotecarioTela extends JFrame {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 8350761075553799383L;
-
+	private final ComponenteUtil util = new ComponenteUtil();
+	
 	public BibliotecarioTela() {
-        setTitle("Painel do Bibliotecário");
-        setSize(400, 320);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+		util.aplicarTemaPadrao(this, "Painel do Bibliotecário", 400, 400);
         
-        JPanel painel = new JPanel() {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 5075502080637725843L;
-
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(40, 40, 40));
-            }
-        };
-        painel.setLayout(null);
-        getContentPane().add(painel);
+		JPanel painel = util.painelComFundoNulo();
+	    painel.setLayout(null);
+	    getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Área do Bibliotecário", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
-        titulo.setBounds(0, 20, 400, 30);
+        titulo.setBounds(0, 20, 400, 80);
         painel.add(titulo);
         
-        Font fonteBtn = new Font("SansSerif", Font.BOLD, 16);
-        Color corBotao = new Color(220, 53, 69);
-        Color corTexto = Color.WHITE;
-        int larguraBtn = 200;
-        int xCentral = (400 - larguraBtn) / 2;
-        
-        JButton btnEmprestimos = new JButton("Empréstimos");
-        btnEmprestimos.setBounds(xCentral, 90, larguraBtn, 40);
-        btnEmprestimos.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnEmprestimos.setBackground(corBotao);
-        btnEmprestimos.setForeground(corTexto);
-        btnEmprestimos.setFocusPainted(false);
-        painel.add(btnEmprestimos);
+        JButton btnEmprestimos = util.criarBotao("Empréstimos", 100, 120, 200, 40, util.getCorBotaoPrincipal());
         btnEmprestimos.addActionListener(e -> new EmprestimoTela().setVisible(true));
-       
-        
-        JButton btnRelatorios = new JButton("Relatórios");
-        btnRelatorios.setBounds(xCentral, 140, larguraBtn, 40);
-        btnRelatorios.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnRelatorios.setBackground(corBotao);
-        btnRelatorios.setForeground(corTexto);
-        btnRelatorios.setFocusPainted(false);
-        painel.add(btnRelatorios);
+        painel.add(btnEmprestimos);
+
+        JButton btnRelatorios = util.criarBotao("Relatórios", 100, 170, 200, 40, util.getCorBotaoPrincipal());
         btnRelatorios.addActionListener(e -> new RelatorioTela().setVisible(true));
+        painel.add(btnRelatorios);
+        
+        JButton btnSair = util.criarBotao("Sair", 100, 220, 200, 40, util.getCorBotaoSair());
+        painel.add(btnSair);
+        btnSair.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Janela foi fechada!");
-            	FuncionarioController funcionarioController = new FuncionarioController();
-                funcionarioController.logoOffFuncionario();
+                new FuncionarioController().logoOffFuncionario();
             }
         });
-        JButton btnLogoff = new JButton("Sair");
-        btnLogoff.setBounds(100, 190, 200, 40);
-        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLogoff.setBackground(new Color(100, 100, 100));
-        btnLogoff.setForeground(Color.WHITE);
-        btnLogoff.setFocusPainted(false);
-        painel.add(btnLogoff);
-
-        btnLogoff.addActionListener(e -> {
-            dispose();
-            new LoginTela().setVisible(true);
-        });
-
-    }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new BibliotecarioTela().setVisible(true));
     }
 }

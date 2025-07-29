@@ -10,83 +10,91 @@ import javax.swing.table.*;
 import maven.Projeto.controller.LeitoresController;
 import maven.Projeto.excepctions.CampoVazioException;
 import maven.Projeto.model.Leitor;
+import maven.Projeto.util.ComponenteUtil;
+import maven.Projeto.util.FiltroTabelaUtil;
 
 public class CadastroLeitoresTela extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7156802021149027047L;
+	
 	private JComboBox<String> tipoCombo;
     private JTextField matriculaField, nomeField, telefoneField, emailField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private TableRowSorter<DefaultTableModel> sorter;
     private LeitoresController leitoresController = new LeitoresController();
+    private ComponenteUtil util = new ComponenteUtil();
     
 	public CadastroLeitoresTela() {
-		setResizable(false);
-        setTitle("Cadastro de Leitores");
-		setSize(740, 560);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+		util.aplicarTemaPadrao(this, "Cadastro de Leitores", 740, 560);
 		
-		JPanel painel = new JPanel(null) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = -564995400446272329L;
-
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(45, 45, 45));
-            }
-        };
-        
+		JPanel painel = util.painelComFundoNulo();
+        painel.setLayout(null);
         getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Cadastro de Leitores", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 24));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 10, 700, 30);
         painel.add(titulo);
         
-        JLabel tipoLabel = criarLabel("Tipo:", 30, 60);
-        painel.add(tipoLabel);
+        painel.add(util.criarLabel("Tipo:", 30, 60));
         tipoCombo = new JComboBox<>(new String[]{"Aluno", "Professor", "Servidor"});
         tipoCombo.setBounds(100, 60, 150, 25);
         painel.add(tipoCombo);
         
-        painel.add(criarLabel("Matricula:", 270, 60));
-        matriculaField = criarCampoTexto(340, 60);
+        painel.add(util.criarLabel("Matricula:", 270, 60));
+        matriculaField = util.criarCampoTexto(340, 60);
         painel.add(matriculaField);
         
-        painel.add(criarLabel("Nome:", 30, 100));
-        nomeField = criarCampoTexto(100, 100);
+        painel.add(util.criarLabel("Nome:", 30, 100));
+        nomeField = util.criarCampoTexto(100, 100);
         painel.add(nomeField);
         
-        painel.add(criarLabel("Telefone:", 270, 100));
-        telefoneField = criarCampoTexto(340, 100);
+        painel.add(util.criarLabel("Telefone:", 270, 100));
+        telefoneField = util.criarCampoTexto(340, 100);
         painel.add(telefoneField);
         
-        painel.add(criarLabel("Email:", 510, 60));
-        emailField = criarCampoTexto(550, 60);
+        painel.add(util.criarLabel("Email:", 510, 60));
+        emailField = util.criarCampoTexto(550, 60);
         painel.add(emailField);
         
-        JButton excluirBtn = new JButton("Excluir Leitor");
-        excluirBtn.setBounds(470, 150, 160, 30);
-        painel.add(excluirBtn);
-        
-        JButton adicionarBtn = new JButton("Adicionar Leitor");
-        adicionarBtn.setBounds(110, 150, 160, 30);
+        JButton adicionarBtn = util.criarBotao("Adicionar Leitor", 110, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
-        
-        JButton editarBtn = new JButton("Editar Leitor");
-        editarBtn.setBounds(290, 150, 160, 30);
+
+        JButton editarBtn = util.criarBotao("Editar Leitor", 290, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(editarBtn);
         
-        painel.add(criarLabel("Filtrar:", 30, 200));
-        campoFiltro = criarCampoTexto(90, 200);
+        JButton excluirBtn = util.criarBotao("Excluir Leitor", 470, 150, 160, 30, util.getCorBotaoSecundario());
+        painel.add(excluirBtn);
+ 
+ 
+        painel.add(util.criarLabel("Filtrar:", 30, 200));
+        campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
+        
+        
+        modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0) {
+			private static final long serialVersionUID = -6839186715585930198L;
+
+			@Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        tabela = new JTable(modeloTabela);
+        tabela.setAutoCreateRowSorter(true);
+        tabela.setRowSelectionAllowed(true);
+        tabela.getTableHeader().setReorderingAllowed(false);
+        
+        JScrollPane scroll = new JScrollPane(tabela);
+        scroll.setBounds(30, 235, 670, 260);
+        painel.add(scroll);
+        
+        FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
+        filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{0, 1, 2, 3});
+        
+        atualizarTabela();
         
         adicionarBtn.addActionListener(e -> {
             try {
@@ -116,29 +124,7 @@ public class CadastroLeitoresTela extends JFrame {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        
-        modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0) {
-        	/**
-			 * 
-			 */
-			private static final long serialVersionUID = -6839186715585930198L;
-
-			@Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
-        tabela = new JTable(modeloTabela);
-        tabela.setAutoCreateRowSorter(true);
-        tabela.setRowSelectionAllowed(true);
-        tabela.getTableHeader().setReorderingAllowed(false);
-        JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 235, 670, 260);
-        painel.add(scroll);
-        
-        atualizarTabela();
-        
+         
         excluirBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
@@ -192,37 +178,6 @@ public class CadastroLeitoresTela extends JFrame {
             }
         
         });
-        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            
-            private void filtrar() {
-                String texto = campoFiltro.getText().toLowerCase();
-                
-                sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
-                    public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
-                        String titulo = entry.getStringValue(1).toLowerCase(); 
-                        String autor = entry.getStringValue(2).toLowerCase();  
-                        String tipo = entry.getStringValue(4).toLowerCase();   
-                        return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
-                    }
-                });
-            }
-        });
-	}
-	
-    private JLabel criarLabel(String texto, int x, int y) {
-	    JLabel label = new JLabel(texto);
-	    label.setBounds(x, y, 100, 25);
-	    label.setForeground(Color.WHITE);
-	    return label;
-    }
-	 
-	private JTextField criarCampoTexto(int x, int y) {
-		JTextField campo = new JTextField();
-		campo.setBounds(x, y, 150, 25);
-		return campo;
 	}
 	
 	private void atualizarTabela() {
@@ -243,12 +198,5 @@ public class CadastroLeitoresTela extends JFrame {
 	            }
 	        }
 	    }
-	}
-
-	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-            new CadastroLeitoresTela().setVisible(true);
-		});
 	}
 }

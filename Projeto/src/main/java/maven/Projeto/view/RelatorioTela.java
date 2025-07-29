@@ -1,6 +1,6 @@
 package maven.Projeto.view;
 
-import maven.Projeto.util.RelatoriosPDF;
+import maven.Projeto.util.RelatoriosUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class RelatorioTela extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 2402584122525090331L;
-	RelatoriosPDF relatoriosPDF = new RelatoriosPDF();
+	RelatoriosUtil relatoriosPDF = new RelatoriosUtil();
     public RelatorioTela() {
         setTitle("Relatórios Gerenciais");
         setSize(400, 320);
@@ -60,9 +60,5 @@ public class RelatorioTela extends JFrame {
         botao.setFocusPainted(false);
         botao.addActionListener(acao::accept);
         painel.add(botao);
-    }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new RelatorioTela().setVisible(true));
     }
 }

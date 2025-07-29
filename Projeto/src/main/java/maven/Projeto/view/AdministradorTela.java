@@ -3,100 +3,54 @@ package maven.Projeto.view;
 import javax.swing.*;
 
 import maven.Projeto.controller.FuncionarioController;
+import maven.Projeto.util.ComponenteUtil;
 
 import java.awt.*;
 
 public class AdministradorTela extends JFrame {
-	
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3123822800837998866L;
+	 private final ComponenteUtil util = new ComponenteUtil();
 
 	public AdministradorTela() {
-        setTitle("Painel do Administrador");
-        setSize(400, 320);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
-        setResizable(false);
+		util.aplicarTemaPadrao(this, "Painel do Administrador", 400, 400);
         
-        JPanel painel = new JPanel() {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = -6812232095475454565L;
-
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(40, 40, 40));
-            }
-        };
+        JPanel painel = util.painelComFundoNulo();
         painel.setLayout(null);
         getContentPane().add(painel);
+ 
         
         JLabel titulo = new JLabel("Área do Administrador", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
-        titulo.setBounds(0, 20, 400, 30);
+        titulo.setBounds(0, 20, 400, 50);
         painel.add(titulo);
         
-        Font fonteBtn = new Font("SansSerif", Font.BOLD, 16);
-        Color corBotao = new Color(220, 53, 69);
-        Color corTextoBotao = Color.WHITE;
-        
-        JButton btnObras = new JButton("Cadastrar Obras");
-        btnObras.setBounds(100, 70, 200, 40);
-        btnObras.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnObras.setBackground(corBotao);
-        btnObras.setForeground(corTextoBotao);
-        btnObras.setFocusPainted(false);
-        painel.add(btnObras);
-        btnObras.addActionListener(e -> new CadastroObrasTela().setVisible(true));
-        
-        JButton btnLeitores = new JButton("Cadastrar Leitores");
-        btnLeitores.setBounds(100, 120, 200, 40);
-        btnLeitores.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLeitores.setBackground(corBotao);
-        btnLeitores.setForeground(corTextoBotao);
-        btnLeitores.setFocusPainted(false);
-        painel.add(btnLeitores);
-        btnLeitores.addActionListener(e -> new CadastroLeitoresTela().setVisible(true));
-        
-        JButton btnFuncionarios = new JButton("Cadastrar Funcionários");
-        btnFuncionarios.setBounds(100, 170, 200, 40);
-        btnFuncionarios.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnFuncionarios.setBackground(corBotao);
-        btnFuncionarios.setForeground(corTextoBotao);
-        btnFuncionarios.setFocusPainted(false);
-        painel.add(btnFuncionarios);
-        btnFuncionarios.addActionListener(e -> new CadastroFuncionariosTela().setVisible(true));
+        JButton btnCadastrarObras = util.criarBotao("Cadastrar Obras", 100, 100, 200, 40, util.getCorBotaoPrincipal());
+        btnCadastrarObras.addActionListener(e -> new CadastroObrasTela().setVisible(true));
+        painel.add(btnCadastrarObras);
+
+        JButton btnCadastrarLeitores = util.criarBotao("Cadastrar Leitores", 100, 150, 200, 40, util.getCorBotaoPrincipal());
+        btnCadastrarLeitores.addActionListener(e -> new CadastroLeitoresTela().setVisible(true));
+        painel.add(btnCadastrarLeitores);
+
+        JButton btnCadastrarFuncionarios = util.criarBotao("Cadastrar Funcionários", 100, 200, 200, 40, util.getCorBotaoPrincipal());
+        btnCadastrarFuncionarios.addActionListener(e -> new CadastroFuncionariosTela().setVisible(true));
+        painel.add(btnCadastrarFuncionarios);
+
+        JButton btnSair = util.criarBotao("Sair", 100, 250, 200, 40, util.getCorBotaoSair());
+        painel.add(btnSair);
+        btnSair.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.out.println("Janela foi fechada!");
-            	FuncionarioController funcionarioController = new FuncionarioController();
-                funcionarioController.logoOffFuncionario();
+                new FuncionarioController().logoOffFuncionario();
             }
-        });
-        JButton btnLogoff = new JButton("Sair");
-        btnLogoff.setBounds(100, 220, 200, 40);
-        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLogoff.setBackground(new Color(100, 100, 100));
-        btnLogoff.setForeground(Color.WHITE);
-        btnLogoff.setFocusPainted(false);
-        painel.add(btnLogoff);
-
-        btnLogoff.addActionListener(e -> {
-            dispose(); 
-            new LoginTela().setVisible(true);
-        });
-
-    }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new AdministradorTela().setVisible(true);
         });
     }
 }
