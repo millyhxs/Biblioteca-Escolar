@@ -119,7 +119,7 @@ public class CadastroObrasTela extends JFrame {
         sorter = new TableRowSorter<>(modeloTabela);
         tabela.setRowSorter(sorter);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 235, 670, 230);
+        scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
         excluirBtn.addActionListener(e -> {

@@ -55,7 +55,7 @@ public class RelatorioTela extends JFrame {
         JButton botao = new JButton(texto);
         botao.setBounds(x, y, largura, altura);
         botao.setFont(new Font("SansSerif", Font.BOLD, 14));
-        botao.setBackground(new Color(23, 162, 184));
+        botao.setBackground(new Color(220, 53, 69));
         botao.setForeground(Color.WHITE);
         botao.setFocusPainted(false);
         botao.addActionListener(acao::accept);

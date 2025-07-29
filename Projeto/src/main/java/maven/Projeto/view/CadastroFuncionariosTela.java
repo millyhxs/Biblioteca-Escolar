@@ -1,6 +1,8 @@
 package maven.Projeto.view;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,10 +15,11 @@ import maven.Projeto.model.Funcionario;
 @SuppressWarnings("serial")
 public class CadastroFuncionariosTela extends JFrame {
     private JComboBox<String> nivelCombo;
-    private JTextField idField, nomeField;
+    private JTextField idField, nomeField, campoFiltro;
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
+    private TableRowSorter<DefaultTableModel> sorter;
     private FuncionarioController funcionarioController = new FuncionarioController();
     
     
@@ -77,6 +80,10 @@ public class CadastroFuncionariosTela extends JFrame {
         editarBtn.setBounds(290, 150, 160, 30);
         painel.add(editarBtn);
         
+        painel.add(criarLabel("Filtrar:", 30, 200));
+        campoFiltro = criarCampoTexto(90, 200);
+        painel.add(campoFiltro);
+        
         modeloTabela = new DefaultTableModel(new String[]{"ID", "Nome", "Nível de Acesso"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -88,7 +95,7 @@ public class CadastroFuncionariosTela extends JFrame {
         tabela.setAutoCreateRowSorter(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 200, 665, 270);
+        scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
         atualizarTabela();
@@ -160,16 +167,26 @@ public class CadastroFuncionariosTela extends JFrame {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        atualizarTabela();
-        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
-        btnVoltar.setBounds(230, 480, 250, 30);
-        painel.add(btnVoltar);
-
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new AdministradorTela().setVisible(true);
+        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            
+            private void filtrar() {
+                String texto = campoFiltro.getText().toLowerCase();
+                
+                sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                    public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                        String titulo = entry.getStringValue(1).toLowerCase(); 
+                        String autor = entry.getStringValue(2).toLowerCase();  
+                        String tipo = entry.getStringValue(4).toLowerCase();   
+                        return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
+                    }
+                });
+            }
         });
-	}
+        atualizarTabela();
+    }
     
     private JLabel criarLabel(String texto, int x, int y) {
         JLabel label = new JLabel(texto);
@@ -186,13 +203,19 @@ public class CadastroFuncionariosTela extends JFrame {
     
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
-        
-        for (Funcionario f : funcionarioController.getFuncionarios()) {
-            modeloTabela.addRow(new Object[]{
-            		f.getId(),
-            		f.getNome(),
-            		f.getTipo()
-            	});
+
+        List<String> ordem = Arrays.asList("Administrador", "Bibliotecário", "Estagiário");
+
+        for (String nivel : ordem) {
+            for (Funcionario f : funcionarioController.getFuncionarios()) {
+                if (f.getTipo().equals(nivel)) {
+                    modeloTabela.addRow(new Object[]{
+                        f.getId(),
+                        f.getNome(),
+                        f.getTipo()
+                    });
+                }
+            }
         }
     }
     

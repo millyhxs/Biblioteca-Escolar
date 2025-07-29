@@ -1,6 +1,8 @@
 package maven.Projeto.view;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -15,9 +17,10 @@ public class CadastroLeitoresTela extends JFrame {
 	 */
 	private static final long serialVersionUID = -7156802021149027047L;
 	private JComboBox<String> tipoCombo;
-    private JTextField matriculaField, nomeField, telefoneField, emailField;
+    private JTextField matriculaField, nomeField, telefoneField, emailField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
+    private TableRowSorter<DefaultTableModel> sorter;
     private LeitoresController leitoresController = new LeitoresController();
     
 	public CadastroLeitoresTela() {
@@ -81,6 +84,10 @@ public class CadastroLeitoresTela extends JFrame {
         editarBtn.setBounds(290, 150, 160, 30);
         painel.add(editarBtn);
         
+        painel.add(criarLabel("Filtrar:", 30, 200));
+        campoFiltro = criarCampoTexto(90, 200);
+        painel.add(campoFiltro);
+        
         adicionarBtn.addActionListener(e -> {
             try {
                 String matricula = matriculaField.getText();
@@ -127,7 +134,7 @@ public class CadastroLeitoresTela extends JFrame {
         tabela.setRowSelectionAllowed(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBounds(30, 200, 670, 270);
+        scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
         atualizarTabela();
@@ -185,14 +192,23 @@ public class CadastroLeitoresTela extends JFrame {
             }
         
         });
-        
-        JButton btnVoltar = new JButton("Voltar à Área do Administrador");
-        btnVoltar.setBounds(230, 480, 250, 30);
-        painel.add(btnVoltar);
-
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new AdministradorTela().setVisible(true);
+        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            
+            private void filtrar() {
+                String texto = campoFiltro.getText().toLowerCase();
+                
+                sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                    public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                        String titulo = entry.getStringValue(1).toLowerCase(); 
+                        String autor = entry.getStringValue(2).toLowerCase();  
+                        String tipo = entry.getStringValue(4).toLowerCase();   
+                        return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
+                    }
+                });
+            }
         });
 	}
 	
@@ -210,18 +226,25 @@ public class CadastroLeitoresTela extends JFrame {
 	}
 	
 	private void atualizarTabela() {
-        modeloTabela.setRowCount(0);
-        
-        for (Leitor leitor : leitoresController.getLeitores()) {
-            modeloTabela.addRow(new Object[]{
-            	leitor.getMatricula(),
-            	leitor.getNome(),
-            	leitor.getTelefone(),
-            	leitor.getEmail(),
-                leitor.getTipoDeUsuario()
-            });
-        }
-    }
+	    modeloTabela.setRowCount(0);
+
+	    List<String> ordem = Arrays.asList("Aluno", "Professor", "Servidor");
+
+	    for (String tipo : ordem) {
+	        for (Leitor leitor : leitoresController.getLeitores()) {
+	            if (leitor.getTipoDeUsuario().equals(tipo)) {
+	                modeloTabela.addRow(new Object[]{
+	                    leitor.getMatricula(),
+	                    leitor.getNome(),
+	                    leitor.getTelefone(),
+	                    leitor.getEmail(),
+	                    leitor.getTipoDeUsuario()
+	                });
+	            }
+	        }
+	    }
+	}
+
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {

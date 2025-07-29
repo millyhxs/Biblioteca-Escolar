@@ -126,15 +126,6 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "A004",
-    "titulo": "TCC de Augusto",
-    "autor": "Augusto",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "A005",
     "titulo": "TCC de Matheus",
     "autor": "Matheus",
@@ -174,6 +165,15 @@
     "codigo": "A001",
     "titulo": "TCC de Jamily",
     "autor": "Jamily",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A004",
+    "titulo": "TCC de Augusto",
+    "autor": "Augusto",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
     "emprestado": false,

@@ -45,7 +45,7 @@ public class AdministradorTela extends JFrame {
         Color corTextoBotao = Color.WHITE;
         
         JButton btnObras = new JButton("Cadastrar Obras");
-        btnObras.setBounds(100, 100, 200, 40);
+        btnObras.setBounds(100, 70, 200, 40);
         btnObras.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnObras.setBackground(corBotao);
         btnObras.setForeground(corTextoBotao);
@@ -54,7 +54,7 @@ public class AdministradorTela extends JFrame {
         btnObras.addActionListener(e -> new CadastroObrasTela().setVisible(true));
         
         JButton btnLeitores = new JButton("Cadastrar Leitores");
-        btnLeitores.setBounds(100, 150, 200, 40);
+        btnLeitores.setBounds(100, 120, 200, 40);
         btnLeitores.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnLeitores.setBackground(corBotao);
         btnLeitores.setForeground(corTextoBotao);
@@ -63,7 +63,7 @@ public class AdministradorTela extends JFrame {
         btnLeitores.addActionListener(e -> new CadastroLeitoresTela().setVisible(true));
         
         JButton btnFuncionarios = new JButton("Cadastrar Funcionários");
-        btnFuncionarios.setBounds(100, 200, 200, 40);
+        btnFuncionarios.setBounds(100, 170, 200, 40);
         btnFuncionarios.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnFuncionarios.setBackground(corBotao);
         btnFuncionarios.setForeground(corTextoBotao);
@@ -79,6 +79,19 @@ public class AdministradorTela extends JFrame {
                 funcionarioController.logoOffFuncionario();
             }
         });
+        JButton btnLogoff = new JButton("Sair");
+        btnLogoff.setBounds(100, 220, 200, 40);
+        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnLogoff.setBackground(new Color(100, 100, 100));
+        btnLogoff.setForeground(Color.WHITE);
+        btnLogoff.setFocusPainted(false);
+        painel.add(btnLogoff);
+
+        btnLogoff.addActionListener(e -> {
+            dispose(); 
+            new LoginTela().setVisible(true);
+        });
+
     }
     
     public static void main(String[] args) {

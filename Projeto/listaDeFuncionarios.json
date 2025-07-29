@@ -40,5 +40,12 @@
     "nome": "Jorge",
     "tipo": "Bibliotecário",
     "ativo": false
+  },
+  {
+    "id": "252627",
+    "senha": "helloworld",
+    "nome": "Daiana",
+    "tipo": "Administrador",
+    "ativo": false
   }
 ]

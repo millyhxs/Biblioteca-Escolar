@@ -107,14 +107,27 @@ public class EstagiarioTela extends JFrame {
         painel.add(scroll);
         
         JButton devolverBtn = new JButton("Registrar Devolução");
-        devolverBtn.setBounds(30, 380, 200, 30);
+        devolverBtn.setBounds(30, 420, 200, 30);
         painel.add(devolverBtn);
         
         campoFiltro = new JTextField();
-        campoFiltro.setBounds (30, 500, 150, 30);
+        campoFiltro.setBounds (30, 380, 410, 30);
         painel.add(campoFiltro);
         sorter = new TableRowSorter<>(modeloTabela);
         tabela.setRowSorter(sorter);
+        
+        JButton btnLogoff = new JButton("Sair");
+        btnLogoff.setBounds(30, 460, 200, 30);
+        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnLogoff.setBackground(new Color(220, 53, 69));
+        btnLogoff.setForeground(Color.WHITE);
+        btnLogoff.setFocusPainted(false);
+        painel.add(btnLogoff);
+
+        btnLogoff.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
         
         painelPagamento = new JPanel(null);
         painelPagamento.setBounds(480, 370, 380, 150);
@@ -146,7 +159,7 @@ public class EstagiarioTela extends JFrame {
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
         
         atualizarTabela();
-    }
+    } 
     
     private void prepararDevolucao() {
     	int linha = tabela.getSelectedRow();

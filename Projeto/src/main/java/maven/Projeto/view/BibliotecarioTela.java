@@ -46,7 +46,7 @@ public class BibliotecarioTela extends JFrame {
         int xCentral = (400 - larguraBtn) / 2;
         
         JButton btnEmprestimos = new JButton("Empréstimos");
-        btnEmprestimos.setBounds(xCentral, 100, larguraBtn, 40);
+        btnEmprestimos.setBounds(xCentral, 90, larguraBtn, 40);
         btnEmprestimos.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnEmprestimos.setBackground(corBotao);
         btnEmprestimos.setForeground(corTexto);
@@ -56,7 +56,7 @@ public class BibliotecarioTela extends JFrame {
        
         
         JButton btnRelatorios = new JButton("Relatórios");
-        btnRelatorios.setBounds(xCentral, 150, larguraBtn, 40);
+        btnRelatorios.setBounds(xCentral, 140, larguraBtn, 40);
         btnRelatorios.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnRelatorios.setBackground(corBotao);
         btnRelatorios.setForeground(corTexto);
@@ -72,6 +72,19 @@ public class BibliotecarioTela extends JFrame {
                 funcionarioController.logoOffFuncionario();
             }
         });
+        JButton btnLogoff = new JButton("Sair");
+        btnLogoff.setBounds(100, 190, 200, 40);
+        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnLogoff.setBackground(new Color(100, 100, 100));
+        btnLogoff.setForeground(Color.WHITE);
+        btnLogoff.setFocusPainted(false);
+        painel.add(btnLogoff);
+
+        btnLogoff.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
+
     }
     
     public static void main(String[] args) {

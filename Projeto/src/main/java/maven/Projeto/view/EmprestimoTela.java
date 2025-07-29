@@ -21,7 +21,9 @@ public class EmprestimoTela extends JFrame {
     private JPanel painelPagamento;
     private JLabel valorMultaLabel;
     private JComboBox<String> metodoPagamentoBox;
+    private TableRowSorter<DefaultTableModel> sorter;
     private JButton confirmarPagamentoBtn;
+    private JTextField campoFiltro;
     
     private Emprestimo emprestimoSelecionado;
     private ObraController obraController = new ObraController();
@@ -108,15 +110,34 @@ public class EmprestimoTela extends JFrame {
         painel.add(scroll);
         
         JButton emprestarBtn = new JButton("Realizar Empréstimo");
-        emprestarBtn.setBounds(30, 380, 200, 30);
+        emprestarBtn.setBounds(30, 420, 200, 30);
         painel.add(emprestarBtn);
         
         JButton devolverBtn = new JButton("Registrar Devolução");
-        devolverBtn.setBounds(250, 380, 200, 30);
+        devolverBtn.setBounds(240, 420, 200, 30);
         painel.add(devolverBtn);
         
+        campoFiltro = new JTextField();
+        campoFiltro.setBounds (30, 380, 410, 30);
+        painel.add(campoFiltro);
+        sorter = new TableRowSorter<>(modeloTabela);
+        tabela.setRowSorter(sorter);
+        
+        JButton btnLogoff = new JButton("Sair");
+        btnLogoff.setBounds(30, 460, 200, 30);
+        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnLogoff.setBackground(new Color(220, 53, 69));
+        btnLogoff.setForeground(Color.WHITE);
+        btnLogoff.setFocusPainted(false);
+        painel.add(btnLogoff);
+
+        btnLogoff.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
+        
         painelPagamento = new JPanel(null);
-        painelPagamento.setBounds(480, 370, 380, 150);
+        painelPagamento.setBounds(480, 380, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
         painelPagamento.setBackground(new Color(60, 60, 60));
         
@@ -329,6 +350,27 @@ public class EmprestimoTela extends JFrame {
                 status
             });
         }
+        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            
+            private void filtrar() {
+                String texto = campoFiltro.getText().toLowerCase();
+                if (texto.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                        public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                            String titulo = entry.getStringValue(1).toLowerCase();
+                            String autor = entry.getStringValue(2).toLowerCase();
+                            String tipo = entry.getStringValue(4).toLowerCase();
+                            return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
+                        }
+                    });
+                }
+            }
+        });
     }
     
     public static void main(String[] args) {

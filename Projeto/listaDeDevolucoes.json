@@ -52,5 +52,11 @@
     "matriculaUsuario": "232323",
     "dataDevolucao": "28/07/2025",
     "dataEmprestimo": "28/07/2025"
+  },
+  {
+    "codigoObra": "A004",
+    "matriculaUsuario": "123456",
+    "dataDevolucao": "29/07/2025",
+    "dataEmprestimo": "29/07/2025"
   }
 ]
