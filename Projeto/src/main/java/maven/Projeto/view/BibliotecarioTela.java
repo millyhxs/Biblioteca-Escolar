@@ -36,6 +36,7 @@ public class BibliotecarioTela extends JFrame {
         painel.add(btnSair);
         btnSair.addActionListener(e -> {
             dispose();
+            new FuncionarioController().logoOffFuncionario();
             new LoginTela().setVisible(true);
         });
         

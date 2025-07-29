@@ -3,6 +3,8 @@ package maven.Projeto.view;
 import maven.Projeto.controller.*;
 import maven.Projeto.excepctions.*;
 import maven.Projeto.model.*;
+import maven.Projeto.util.ComponenteUtil;
+import maven.Projeto.util.FiltroTabelaUtil;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -11,11 +13,8 @@ import java.util.List;
 import java.time.LocalDate;
 
 public class EmprestimoTela extends JFrame {
-    
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2740513108303069203L;
+	
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
@@ -31,51 +30,35 @@ public class EmprestimoTela extends JFrame {
     private FuncionarioController funcionarioController = new FuncionarioController();
     private EmprestimoController emprestimoController = new EmprestimoController();
     private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
+    private ComponenteUtil util = new ComponenteUtil();
     
     private int diasPermitidos;
     
     public EmprestimoTela() {
-        setTitle("Tela de Empréstimo");
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        
-        JPanel painel = new JPanel(null) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 7150161965554806235L;
-			
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(40, 40, 40));
-            }
-        };
+    	util.aplicarTemaPadrao(this, "Tela de Empréstimo", 900, 600);
+        JPanel painel = util.painelComFundoNulo();
+        painel.setLayout(null);
         getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Empréstimos de Obras", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 24));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());;
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 10, 900, 30);
         painel.add(titulo);
         
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0){
-            /**
-			 * 
-			 */
 			private static final long serialVersionUID = 7064388783696092988L;
 
 			public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        
         tabela = new JTable(modeloTabela);
+        sorter = new TableRowSorter<>(modeloTabela);
+        tabela.setRowSorter(sorter);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            /**
-			 * 
-			 */
 			private static final long serialVersionUID = -1595664890445679868L;
 
 			@Override
@@ -109,62 +92,47 @@ public class EmprestimoTela extends JFrame {
         scroll.setBounds(30, 60, 830, 300);
         painel.add(scroll);
         
-        JButton emprestarBtn = new JButton("Realizar Empréstimo");
-        emprestarBtn.setBounds(30, 420, 200, 30);
-        painel.add(emprestarBtn);
-        
-        JButton devolverBtn = new JButton("Registrar Devolução");
-        devolverBtn.setBounds(240, 420, 200, 30);
-        painel.add(devolverBtn);
-        
-        campoFiltro = new JTextField();
-        campoFiltro.setBounds (30, 380, 410, 30);
+        campoFiltro = util.criarCampoTexto(30, 380);
+        campoFiltro.setSize(410, 30);
         painel.add(campoFiltro);
-        sorter = new TableRowSorter<>(modeloTabela);
-        tabela.setRowSorter(sorter);
+        FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
+        filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{1, 2, 4});
         
-        JButton btnLogoff = new JButton("Sair");
-        btnLogoff.setBounds(30, 460, 200, 30);
-        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLogoff.setBackground(new Color(220, 53, 69));
-        btnLogoff.setForeground(Color.WHITE);
-        btnLogoff.setFocusPainted(false);
+        JButton emprestarBtn = util.criarBotao("Realizar Empréstimo", 30, 420, 200, 30, util.getCorBotaoSecundario());
+        JButton devolverBtn = util.criarBotao("Registrar Devolução", 240, 420, 200, 30, util.getCorBotaoSecundario());
+        JButton btnLogoff = util.criarBotao("Sair", 30, 460, 200, 30, util.getCorBotaoPrincipal());
+        
+        painel.add(emprestarBtn);
+        painel.add(devolverBtn);
         painel.add(btnLogoff);
-
-        btnLogoff.addActionListener(e -> {
-            dispose();
-            new LoginTela().setVisible(true);
-        });
+        
         
         painelPagamento = new JPanel(null);
         painelPagamento.setBounds(480, 380, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
         painelPagamento.setBackground(new Color(60, 60, 60));
         
-        JLabel metodoLabel = new JLabel("Método:");
-        metodoLabel.setForeground(Color.WHITE);
-        metodoLabel.setBounds(20, 30, 100, 25);
-        painelPagamento.add(metodoLabel);
         
+        JLabel metodoLabel = util.criarLabel("Método:", 20, 30);
         metodoPagamentoBox = new JComboBox<>(new String[]{"PIX", "Dinheiro", "Cartão"});
         metodoPagamentoBox.setBounds(100, 30, 150, 25);
+        valorMultaLabel = util.criarLabel("Multa: R$ 0.00", 20, 60);
+        confirmarPagamentoBtn = util.criarBotao("Confirmar Pagamento", 100, 100, 180, 30, util.getCorBotaoSecundario());
+        
+        painelPagamento.add(metodoLabel);
         painelPagamento.add(metodoPagamentoBox);
-        
-        valorMultaLabel = new JLabel("Multa: R$ 0.00");
-        valorMultaLabel.setForeground(Color.WHITE);
-        valorMultaLabel.setBounds(20, 60, 200, 25);
         painelPagamento.add(valorMultaLabel);
-        
-        confirmarPagamentoBtn = new JButton("Confirmar Pagamento");
-        confirmarPagamentoBtn.setBounds(100, 100, 180, 30);
         painelPagamento.add(confirmarPagamentoBtn);
         painelPagamento.setVisible(false);
         
-        painel.add(painelPagamento);
-        
         emprestarBtn.addActionListener(e -> emprestar());
         devolverBtn.addActionListener(e -> prepararDevolucao());
-        confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
+        confirmarPagamentoBtn.addActionListener(e -> registrarPagamento()); 
+        btnLogoff.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
+        
         
         atualizarTabela();
     }

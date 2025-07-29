@@ -5,6 +5,7 @@ import maven.Projeto.controller.MultaDevolucaoController;
 import maven.Projeto.controller.ObraController;
 import maven.Projeto.model.*;
 import maven.Projeto.util.ComponenteUtil;
+import maven.Projeto.util.FiltroTabelaUtil;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class DevolucaoTela extends JFrame {
 	private static final long serialVersionUID = 1143581939582089287L;
-	private final ComponenteUtil util = new ComponenteUtil();
+
 	 
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
@@ -29,39 +30,23 @@ public class DevolucaoTela extends JFrame {
     private ObraController obraController = new ObraController();
     private EmprestimoController emprestimoController = new EmprestimoController();
     private MultaDevolucaoController multaDevolucaoController = new MultaDevolucaoController();
+    private final ComponenteUtil util = new ComponenteUtil();
     
     private int diasPermitidos;
     
     public DevolucaoTela() {
-        setTitle("Devolução de Obras - Estagiário");
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        
-        JPanel painel = new JPanel(null) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 2509288756281624314L;
-			
-			protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                setBackground(new Color(40, 40, 40));
-            }
-        };
+    	util.aplicarTemaPadrao(this, "Tela de Devolução", 900, 600);
+        JPanel painel = util.painelComFundoNulo();
+        painel.setLayout(null);
         getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Registrar Devoluções", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 24));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 10, 900, 30);
         painel.add(titulo);
         
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0) {
-            /**
-			 * 
-			 */
 			private static final long serialVersionUID = -6426250182220130365L;
 			
 			public boolean isCellEditable(int row, int column) {
@@ -71,6 +56,8 @@ public class DevolucaoTela extends JFrame {
         
         tabela = new JTable(modeloTabela);
         tabela.getTableHeader().setReorderingAllowed(false);
+        sorter = new TableRowSorter<>(modeloTabela);
+        tabela.setRowSorter(sorter);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             /**
 			 * 
@@ -106,55 +93,43 @@ public class DevolucaoTela extends JFrame {
         scroll.setBounds(30, 60, 830, 300);
         painel.add(scroll);
         
-        JButton devolverBtn = new JButton("Registrar Devolução");
-        devolverBtn.setBounds(30, 420, 200, 30);
-        painel.add(devolverBtn);
-        
-        campoFiltro = new JTextField();
-        campoFiltro.setBounds (30, 380, 410, 30);
+        campoFiltro = util.criarCampoTexto(30, 380);
+        campoFiltro.setSize(410, 30);
         painel.add(campoFiltro);
-        sorter = new TableRowSorter<>(modeloTabela);
-        tabela.setRowSorter(sorter);
+        FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
+        filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{1, 2, 4});
         
-        JButton btnLogoff = new JButton("Sair");
-        btnLogoff.setBounds(30, 460, 200, 30);
-        btnLogoff.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnLogoff.setBackground(new Color(220, 53, 69));
-        btnLogoff.setForeground(Color.WHITE);
-        btnLogoff.setFocusPainted(false);
+        JButton devolverBtn = util.criarBotao("Registrar Devolução", 30, 420, 200, 30, util.getCorBotaoSecundario());
+        painel.add(devolverBtn);
+        JButton btnLogoff = util.criarBotao("Sair", 30, 460, 200, 30, util.getCorBotaoPrincipal());
         painel.add(btnLogoff);
-
-        btnLogoff.addActionListener(e -> {
-            dispose();
-            new LoginTela().setVisible(true);
-        });
-        
+                
         painelPagamento = new JPanel(null);
-        painelPagamento.setBounds(480, 370, 380, 150);
+        painelPagamento.setBounds(480, 380, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
         painelPagamento.setBackground(new Color(60, 60, 60));
         
-        JLabel metodoLabel = new JLabel("Método:");
-        metodoLabel.setForeground(Color.WHITE);
-        metodoLabel.setBounds(20, 30, 100, 25);
+        JLabel metodoLabel = util.criarLabel("Método:", 20, 30);
         painelPagamento.add(metodoLabel);
         
         metodoPagamentoBox = new JComboBox<>(new String[]{"PIX", "Dinheiro", "Cartão"});
         metodoPagamentoBox.setBounds(100, 30, 150, 25);
         painelPagamento.add(metodoPagamentoBox);
         
-        valorMultaLabel = new JLabel("Multa: R$ 0.00");
-        valorMultaLabel.setForeground(Color.WHITE);
-        valorMultaLabel.setBounds(20, 60, 200, 25);
+        valorMultaLabel = util.criarLabel("Multa: R$ 0.00", 20, 60);
         painelPagamento.add(valorMultaLabel);
         
-        confirmarPagamentoBtn = new JButton("Confirmar Pagamento");
-        confirmarPagamentoBtn.setBounds(100, 100, 180, 30);
+        confirmarPagamentoBtn = util.criarBotao("Confirmar Pagamento", 100, 100, 180, 30, util.getCorBotaoSecundario());
         painelPagamento.add(confirmarPagamentoBtn);
         painelPagamento.setVisible(false);
         
         painel.add(painelPagamento);
         
+        btnLogoff.addActionListener(e -> {
+            dispose();
+            new LoginTela().setVisible(true);
+        });
+
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
         
