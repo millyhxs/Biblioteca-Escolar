@@ -48,7 +48,7 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
-            Paragraph titulo = new Paragraph("Obras Mais Emprestadas - " + mesEAno, TITULO);
+            Paragraph titulo = new Paragraph("Empréstimos do mês - " + mesEAno, TITULO);
             titulo.setSpacingAfter(10); 
             doc.add(titulo);
             

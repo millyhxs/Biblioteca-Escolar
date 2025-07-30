@@ -46,7 +46,7 @@ public class RelatorioTela extends JFrame {
         int yInicial = 80;
         int espacamento = 50;
         
-        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarEmprestimosMes());
+        criarBotao(painel, "Empréstimos do mês", xCentral, yInicial, larguraBtn, alturaBtn, e ->  new MesesRelatorioTela().setVisible(true));
         criarBotao(painel, "Obras mais emprestadas", xCentral, yInicial + espacamento, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarObrasMaisEmprestadas());
         criarBotao(painel, "Usuários com mais atrasos", xCentral, yInicial + espacamento * 2, larguraBtn, alturaBtn, e -> relatoriosPDF.gerarUsuariosComMaisAtrasos());
     }
