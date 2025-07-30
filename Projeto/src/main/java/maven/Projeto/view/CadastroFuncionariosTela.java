@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.exceptions.CampoVazioException;
@@ -21,7 +20,6 @@ public class CadastroFuncionariosTela extends JFrame {
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
-    private TableRowSorter<DefaultTableModel> sorter;
     private FuncionarioController funcionarioController = new FuncionarioController();
     private ComponenteUtil util = new ComponenteUtil();
     
@@ -103,6 +101,7 @@ public class CadastroFuncionariosTela extends JFrame {
                 funcionarioController.verificarCadastro(id, nome, senha, nivel);
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
+                limparCampos();
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -152,17 +151,35 @@ public class CadastroFuncionariosTela extends JFrame {
             
             
             try {
-            	atualizarTabela();
                 funcionarioController.editarFuncionario(idAntigo, id, nome, tipo, senha);
                 atualizarTabela();
+                limparCampos();
+                editarBtn.setText("Editar Leitor");
                 JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
         atualizarTabela();
+        tabela.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && tabela.getSelectedRow() != -1) {
+                int linha = tabela.getSelectedRow();
+
+                idField.setText((String) modeloTabela.getValueAt(linha, 0));
+                nomeField.setText((String) modeloTabela.getValueAt(linha, 1));
+                nivelCombo.setSelectedItem((String) modeloTabela.getValueAt(linha, 2));
+                editarBtn.setText("Salvar Edição");
+            }
+        });
+
     }
     
+    private void limparCampos() {
+    	idField.setText("");
+    	nomeField.setText("");
+    	senhaField.setText("");
+    }
+
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
 

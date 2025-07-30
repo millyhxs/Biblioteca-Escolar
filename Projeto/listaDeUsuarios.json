@@ -1,51 +1,37 @@
 [
   {
-    "nome": "Hélder",
-    "matricula": "232323",
+    "nome": "Millena Xavier",
+    "matricula": "20230102",
     "tipoDeUsuario": "Aluno",
-    "telefone": "43545353",
-    "email": "helder.chris@gmail.com"
+    "telefone": "(83) 99654-2425",
+    "email": "millenita@gmail.com"
   },
   {
-    "nome": "Millena",
-    "matricula": "123456",
+    "nome": "Hélder Christian",
+    "matricula": "20235847",
     "tipoDeUsuario": "Aluno",
-    "telefone": "6545156",
-    "email": "millyhxs@gmail.com"
+    "telefone": "(83) 99485-7235",
+    "email": "elde@gmail.com"
   },
   {
-    "nome": "Lucas Eduardo",
-    "matricula": "019232",
-    "tipoDeUsuario": "Servidor",
-    "telefone": "321312",
-    "email": "lukeedu@gmail.com"
-  },
-  {
-    "nome": "Lucio",
-    "matricula": "54353",
+    "nome": "Vitória Albuquerque",
+    "matricula": "20212547",
     "tipoDeUsuario": "Aluno",
-    "telefone": "983920192",
-    "email": "luc@gmail.com"
+    "telefone": "(81) 84759-6232",
+    "email": "torii23@gmail.com"
   },
   {
-    "nome": "Rita",
-    "matricula": "181920",
+    "nome": "Alisson Werner",
+    "matricula": "01258452",
     "tipoDeUsuario": "Professor",
-    "telefone": "996254586",
-    "email": "ritinha@gmail.com"
+    "telefone": "(83) 95847-2354",
+    "email": "AlissonW@gmail.com"
   },
   {
-    "nome": "Catiana",
-    "matricula": "885656",
+    "nome": "Rita Silva",
+    "matricula": "03548548",
     "tipoDeUsuario": "Servidor",
-    "telefone": "998452365",
-    "email": "cats@gmail.com"
-  },
-  {
-    "nome": "Pedro",
-    "matricula": "909909",
-    "tipoDeUsuario": "Aluno",
-    "telefone": "83978901234",
-    "email": "pedrin@hotmail.com"
+    "telefone": "(83) 95648-2146",
+    "email": "ritinhaa@gmail.com"
   }
 ]

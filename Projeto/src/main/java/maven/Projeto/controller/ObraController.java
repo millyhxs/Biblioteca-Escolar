@@ -8,6 +8,7 @@ import maven.Projeto.dao.RevistaDAO;
 import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Livro;
+import maven.Projeto.model.Obra;
 import maven.Projeto.model.Revista;
 
 /**
@@ -24,9 +25,8 @@ public class ObraController {
 	/**
      * Verifica os dados fornecidos e realiza o cadastro de uma obra dependendo do seu tipo.
      */
-	public void verificacaoDeDados(String opcao, String codigo, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
-		if (codigo == null || codigo.trim().isEmpty()||
-			titulo == null || titulo.trim().isEmpty() ||
+	public void verificacaoDeDados(String opcao, String codigoIgnorado, String titulo, String autor, String anoDePublicacao, boolean emprestado) throws CampoVazioException{
+		if (titulo == null || titulo.trim().isEmpty() ||
 			autor == null || autor.trim().isEmpty() ||
 			anoDePublicacao == null || anoDePublicacao.trim().isEmpty()) {
 			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
@@ -36,7 +36,7 @@ public class ObraController {
 			Livro livro = new Livro();
 			
 			try {
-				livro.setCodigo(codigo);
+				livro.setCodigo(gerarCodigo("Livro"));
 	            livro.setTitulo(titulo);
 	            livro.setAutor(autor);
 	            livro.setAnoDePublicacao(anoDePublicacao);
@@ -51,7 +51,7 @@ public class ObraController {
 			Revista revista = new Revista();
 			
 			try {
-				revista.setCodigo(codigo);
+				revista.setCodigo(gerarCodigo("Revista"));
                 revista.setTitulo(titulo);
                 revista.setAutor(autor);
                 revista.setAnoDePublicacao(anoDePublicacao);
@@ -66,7 +66,7 @@ public class ObraController {
 			Artigo artigo = new Artigo();
 			
 			try {
-				 artigo.setCodigo(codigo);
+				 artigo.setCodigo(gerarCodigo("Artigo"));
 	             artigo.setTitulo(titulo);
 	             artigo.setAutor(autor);
 	             artigo.setAnoDePublicacao(anoDePublicacao);
@@ -77,6 +77,48 @@ public class ObraController {
 			}
 		} 
 	}
+	
+	public String gerarCodigo(String tipo) {
+	    int proximoNumero = 1;
+	    String prefixo = "";
+
+	    if (tipo.equals("Livro")) {
+	        prefixo = "L";
+	        LivroDAO dao = new LivroDAO();
+	        dao.buscarArquivo(); // garante lista atualizada
+	        for (Livro l : dao.getLISTA_DE_OBRAS()) {
+	            if (l.getCodigo().startsWith(prefixo)) {
+	                int numero = Integer.parseInt(l.getCodigo().substring(1));
+	                if (numero >= proximoNumero) proximoNumero = numero + 1;
+	            }
+	        }
+	    } else if (tipo.equals("Revista")) {
+	        prefixo = "R";
+	        RevistaDAO dao = new RevistaDAO();
+	        dao.buscarArquivo(); // garante lista atualizada
+	        for (Revista r : dao.getLISTA_DE_OBRAS()) {
+	            if (r.getCodigo().startsWith(prefixo)) {
+	                int numero = Integer.parseInt(r.getCodigo().substring(1));
+	                if (numero >= proximoNumero) proximoNumero = numero + 1;
+	            }
+	        }
+	    } else if (tipo.equals("Artigo")) {
+	        prefixo = "A";
+	        ArtigoDAO dao = new ArtigoDAO();
+	        dao.buscarArquivo(); // garante lista atualizada
+	        for (Artigo a : dao.getLISTA_DE_OBRAS()) {
+	            if (a.getCodigo().startsWith(prefixo)) {
+	                int numero = Integer.parseInt(a.getCodigo().substring(1));
+	                if (numero >= proximoNumero) proximoNumero = numero + 1;
+	            }
+	        }
+	    }
+
+	    return prefixo + String.format("%03d", proximoNumero);
+	}
+
+
+
 	
 	/**
      * Exclui uma obra com base no tipo e código informado.

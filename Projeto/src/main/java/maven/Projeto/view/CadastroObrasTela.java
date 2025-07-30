@@ -43,6 +43,7 @@ public class CadastroObrasTela extends JFrame {
         
         painel.add(util.criarLabel("Código:", 270, 60));
         codField = util.criarCampoTexto(340, 60);
+        codField.setEditable(false);
         painel.add(codField);
         
         painel.add(util.criarLabel("Título:", 30, 100));
@@ -81,6 +82,14 @@ public class CadastroObrasTela extends JFrame {
         
         atualizarTabela();
         
+        codField.setText(obraController.gerarCodigo((String) tipoCombo.getSelectedItem()));
+        
+        tipoCombo.addActionListener(e -> {
+            String tipoSelecionado = (String) tipoCombo.getSelectedItem();
+            String codigoGerado = obraController.gerarCodigo(tipoSelecionado);
+            codField.setText(codigoGerado);
+        });
+        
         adicionarBtn.addActionListener(e -> {
             try {
                 String tipo = (String) tipoCombo.getSelectedItem();
@@ -104,6 +113,9 @@ public class CadastroObrasTela extends JFrame {
                 atualizarTabela();
                 modeloTabela.fireTableDataChanged();
                 JOptionPane.showMessageDialog(this, "Item adicionado com sucesso!");
+                
+                limparCampos();
+                codField.setText(obraController.gerarCodigo(tipo));
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -137,10 +149,18 @@ public class CadastroObrasTela extends JFrame {
                 
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+                codField.setText(obraController.gerarCodigo((String) tipoCombo.getSelectedItem()));
             }
         });
         
     }
+    
+    private void limparCampos() {
+        tituloField.setText("");
+        autorField.setText("");
+        anoField.setText("");
+    }
+
     
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import javax.swing.table.*;
 
 import maven.Projeto.controller.LeitoresController;
@@ -19,7 +20,6 @@ public class CadastroLeitoresTela extends JFrame {
     private JTextField matriculaField, nomeField, telefoneField, emailField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
-    private TableRowSorter<DefaultTableModel> sorter;
     private LeitoresController leitoresController = new LeitoresController();
     private ComponenteUtil util = new ComponenteUtil();
     
@@ -50,8 +50,17 @@ public class CadastroLeitoresTela extends JFrame {
         painel.add(nomeField);
         
         painel.add(util.criarLabel("Telefone:", 270, 100));
-        telefoneField = util.criarCampoTexto(340, 100);
-        painel.add(telefoneField);
+        
+        try {
+            MaskFormatter maskTelefone = new MaskFormatter("(##) #####-####");
+            maskTelefone.setPlaceholderCharacter('_');
+            telefoneField = new JFormattedTextField(maskTelefone);
+            telefoneField.setBounds(340, 100, 150, 25);
+            painel.add(telefoneField);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         
         painel.add(util.criarLabel("Email:", 510, 60));
         emailField = util.criarCampoTexto(550, 60);
@@ -79,6 +88,8 @@ public class CadastroLeitoresTela extends JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+			
+			
         };
         
         tabela = new JTable(modeloTabela);
@@ -118,6 +129,8 @@ public class CadastroLeitoresTela extends JFrame {
                 }
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor adicionado com sucesso!");
+                
+                limparCampos();
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -162,22 +175,51 @@ public class CadastroLeitoresTela extends JFrame {
             }
             
             String matriculaAntiga = (String) modeloTabela.getValueAt(linhaSelecionada, 0);
-            String matricula = matriculaField.getText();
             String nome = nomeField.getText();
             String telefone = telefoneField.getText();
             String email = emailField.getText();
             String tipo = (String) tipoCombo.getSelectedItem();
             
             try {
-                leitoresController.editarUsuario(matriculaAntiga, matricula, nome, tipo, telefone, email);
+                leitoresController.editarUsuario(matriculaAntiga, matriculaAntiga, nome, tipo, telefone, email);
                 atualizarTabela();
+                limparCampos();
+                editarBtn.setText("Editar Leitor");
+                matriculaField.setEditable(true);
                 JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso!");
+                
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         
         });
+        
+        tabela.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && tabela.getSelectedRow() != -1) {
+                int linha = tabela.getSelectedRow();
+                matriculaField.setText((String) modeloTabela.getValueAt(linha, 0));
+                nomeField.setText((String) modeloTabela.getValueAt(linha, 1));
+                telefoneField.setText((String) modeloTabela.getValueAt(linha, 2));
+                emailField.setText((String) modeloTabela.getValueAt(linha, 3));
+                tipoCombo.setSelectedItem((String) modeloTabela.getValueAt(linha, 4));
+
+                matriculaField.setEditable(false);
+                editarBtn.setText("Salvar Edição");
+            }
+        });
+
+
 	}
+	
+	private void limparCampos() {
+		matriculaField.setText("");
+	    nomeField.setText("");
+	    telefoneField.setText("");
+	    emailField.setText("");
+	    tipoCombo.setSelectedIndex(0);
+	    matriculaField.setEditable(true);
+	}
+
 	
 	private void atualizarTabela() {
 	    modeloTabela.setRowCount(0);
