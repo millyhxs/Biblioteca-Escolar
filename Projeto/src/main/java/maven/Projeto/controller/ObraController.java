@@ -1,6 +1,8 @@
 package maven.Projeto.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import maven.Projeto.dao.ArtigoDAO;
 import maven.Projeto.dao.LivroDAO;
@@ -8,7 +10,6 @@ import maven.Projeto.dao.RevistaDAO;
 import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.model.Artigo;
 import maven.Projeto.model.Livro;
-import maven.Projeto.model.Obra;
 import maven.Projeto.model.Revista;
 
 /**
@@ -79,43 +80,44 @@ public class ObraController {
 	}
 	
 	public String gerarCodigo(String tipo) {
-	    int proximoNumero = 1;
 	    String prefixo = "";
+	    List<String> codigosExistentes = new ArrayList<>();
 
 	    if (tipo.equals("Livro")) {
 	        prefixo = "L";
 	        LivroDAO dao = new LivroDAO();
-	        dao.buscarArquivo(); // garante lista atualizada
+	        dao.buscarArquivo();
 	        for (Livro l : dao.getLISTA_DE_OBRAS()) {
-	            if (l.getCodigo().startsWith(prefixo)) {
-	                int numero = Integer.parseInt(l.getCodigo().substring(1));
-	                if (numero >= proximoNumero) proximoNumero = numero + 1;
-	            }
+	            codigosExistentes.add(l.getCodigo());
 	        }
 	    } else if (tipo.equals("Revista")) {
 	        prefixo = "R";
 	        RevistaDAO dao = new RevistaDAO();
-	        dao.buscarArquivo(); // garante lista atualizada
+	        dao.buscarArquivo();
 	        for (Revista r : dao.getLISTA_DE_OBRAS()) {
-	            if (r.getCodigo().startsWith(prefixo)) {
-	                int numero = Integer.parseInt(r.getCodigo().substring(1));
-	                if (numero >= proximoNumero) proximoNumero = numero + 1;
-	            }
+	            codigosExistentes.add(r.getCodigo());
 	        }
 	    } else if (tipo.equals("Artigo")) {
 	        prefixo = "A";
 	        ArtigoDAO dao = new ArtigoDAO();
-	        dao.buscarArquivo(); // garante lista atualizada
+	        dao.buscarArquivo();
 	        for (Artigo a : dao.getLISTA_DE_OBRAS()) {
-	            if (a.getCodigo().startsWith(prefixo)) {
-	                int numero = Integer.parseInt(a.getCodigo().substring(1));
-	                if (numero >= proximoNumero) proximoNumero = numero + 1;
-	            }
+	            codigosExistentes.add(a.getCodigo());
 	        }
 	    }
 
-	    return prefixo + String.format("%03d", proximoNumero);
+	    String codigoGerado;
+	    Random random = new Random();
+	    int numero;
+
+	    do {
+	        numero = random.nextInt(1000); 
+	        codigoGerado = prefixo + String.format("%03d", numero);
+	    } while (codigosExistentes.contains(codigoGerado));
+
+	    return codigoGerado;
 	}
+
 
 
 

@@ -18,15 +18,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L004",
-    "titulo": "O Senhor dos Anéis",
-    "autor": "J.R.R.Tolkien",
-    "anoDePublicacao": "1954",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L005",
     "titulo": "A Metamorfose",
     "autor": "Franz Kafka",
@@ -36,46 +27,10 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L006",
-    "titulo": "Duna",
-    "autor": "Frank Herbert",
-    "anoDePublicacao": "2010",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L007",
-    "titulo": "Sherlock Holmes",
-    "autor": "Arthur Conan Doyle ",
-    "anoDePublicacao": "1800",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L008",
-    "titulo": "Os Forasteiros",
-    "autor": "Michelle Paver",
-    "anoDePublicacao": "2014",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L009",
     "titulo": "Dom Quixote",
     "autor": "Miguel de Cervantes",
     "anoDePublicacao": "1605",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L010",
-    "titulo": "O Sol e a Estrela",
-    "autor": "Rick Riordan",
-    "anoDePublicacao": "2023",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
@@ -117,15 +72,6 @@
     "tipo": "Artigo"
   },
   {
-    "codigo": "A004",
-    "titulo": "TCC de Claire",
-    "autor": "Claire Medeiros",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
     "codigo": "A005",
     "titulo": "TCC de Lucas",
     "autor": "Lucas Costa",
@@ -133,15 +79,6 @@
     "tempoDeEmprestimo": 2,
     "emprestado": false,
     "tipo": "Artigo"
-  },
-  {
-    "codigo": "R001",
-    "titulo": "Recreio",
-    "autor": "Ruth Rocha",
-    "anoDePublicacao": "1981",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
   },
   {
     "codigo": "R002",
@@ -186,6 +123,69 @@
     "anoDePublicacao": "1943",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L006",
+    "titulo": "Duna",
+    "autor": "Frank Herbert",
+    "anoDePublicacao": "2010",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "R001",
+    "titulo": "Recreio",
+    "autor": "Ruth Rocha",
+    "anoDePublicacao": "1981",
+    "tempoDeEmprestimo": 3,
+    "emprestado": true,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "A004",
+    "titulo": "TCC de Claire",
+    "autor": "Claire Medeiros",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "L004",
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R.Tolkien",
+    "anoDePublicacao": "1954",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L007",
+    "titulo": "Sherlock Holmes",
+    "autor": "Arthur Conan Doyle ",
+    "anoDePublicacao": "1800",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L008",
+    "titulo": "Os Forasteiros",
+    "autor": "Michelle Paver",
+    "anoDePublicacao": "2014",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L010",
+    "titulo": "O Sol e a Estrela",
+    "autor": "Rick Riordan",
+    "anoDePublicacao": "2023",
+    "tempoDeEmprestimo": 7,
+    "emprestado": true,
     "tipo": "Livro"
   }
 ]

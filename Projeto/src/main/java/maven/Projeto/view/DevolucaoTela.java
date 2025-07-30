@@ -101,8 +101,6 @@ public class DevolucaoTela extends JFrame {
         
         JButton devolverBtn = util.criarBotao("Registrar Devolução", 30, 420, 200, 30, util.getCorBotaoSecundario());
         painel.add(devolverBtn);
-        JButton btnLogoff = util.criarBotao("Sair", 30, 460, 200, 30, util.getCorBotaoPrincipal());
-        painel.add(btnLogoff);
                 
         painelPagamento = new JPanel(null);
         painelPagamento.setBounds(480, 380, 380, 150);
@@ -124,11 +122,6 @@ public class DevolucaoTela extends JFrame {
         painelPagamento.setVisible(false);
         
         painel.add(painelPagamento);
-        
-        btnLogoff.addActionListener(e -> {
-            dispose();
-            new LoginTela().setVisible(true);
-        });
 
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());

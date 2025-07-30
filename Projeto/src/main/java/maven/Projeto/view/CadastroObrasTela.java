@@ -58,6 +58,17 @@ public class CadastroObrasTela extends JFrame {
         anoField = util.criarCampoTexto(550, 60);
         painel.add(anoField);
         
+        anoField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                char c = e.getKeyChar();
+                // impede digitar se já tiver 4 caracteres ou não for número
+                if (!Character.isDigit(c) || anoField.getText().length() >= 4) {
+                    e.consume();
+                }
+            }
+        });
+
+        
         JButton adicionarBtn = util.criarBotao("Adicionar item", 200, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
         

@@ -100,11 +100,9 @@ public class EmprestimoTela extends JFrame {
         
         JButton emprestarBtn = util.criarBotao("Realizar Empréstimo", 30, 420, 200, 30, util.getCorBotaoSecundario());
         JButton devolverBtn = util.criarBotao("Registrar Devolução", 240, 420, 200, 30, util.getCorBotaoSecundario());
-        JButton btnLogoff = util.criarBotao("Sair", 30, 460, 200, 30, util.getCorBotaoPrincipal());
         
         painel.add(emprestarBtn);
         painel.add(devolverBtn);
-        painel.add(btnLogoff);
         
         
         painelPagamento = new JPanel(null);
@@ -128,11 +126,7 @@ public class EmprestimoTela extends JFrame {
         emprestarBtn.addActionListener(e -> emprestar());
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento()); 
-        btnLogoff.addActionListener(e -> {
-            dispose();
-            new LoginTela().setVisible(true);
-        });
-        
+  
         
         atualizarTabela();
     }

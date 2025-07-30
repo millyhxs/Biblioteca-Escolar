@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "codigoObra": "L006",
+    "matriculaUsuario": "20235847",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "06/08/2025"
+  },
+  {
+    "codigoObra": "R001",
+    "matriculaUsuario": "20202123",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "02/08/2025"
+  },
+  {
+    "codigoObra": "A004",
+    "matriculaUsuario": "02545874",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "01/08/2025"
+  },
+  {
+    "codigoObra": "L004",
+    "matriculaUsuario": "02321524",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "06/08/2025"
+  },
+  {
+    "codigoObra": "L007",
+    "matriculaUsuario": "03528459",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "06/08/2025"
+  },
+  {
+    "codigoObra": "L010",
+    "matriculaUsuario": "20230102",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "30/07/2025",
+    "dataDevolucaoPrevista": "06/08/2025"
+  }
+]

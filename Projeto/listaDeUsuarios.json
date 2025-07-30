@@ -25,7 +25,7 @@
     "matricula": "01258452",
     "tipoDeUsuario": "Professor",
     "telefone": "(83) 95847-2354",
-    "email": "AlissonW@gmail.com"
+    "email": "alissonW@gmail.com"
   },
   {
     "nome": "Rita Silva",
@@ -33,5 +33,54 @@
     "tipoDeUsuario": "Servidor",
     "telefone": "(83) 95648-2140",
     "email": "ritinhaa@gmail.com"
+  },
+  {
+    "nome": "Larissa Lucena",
+    "matricula": "02354652",
+    "tipoDeUsuario": "Professor",
+    "telefone": "(83) 98532-5632",
+    "email": "lala@gmail.com"
+  },
+  {
+    "nome": "Patricia Batista",
+    "matricula": "01654875",
+    "tipoDeUsuario": "Professor",
+    "telefone": "(81) 98125-4523",
+    "email": "patricia.bat@gmail.com"
+  },
+  {
+    "nome": "Maria Luzia",
+    "matricula": "03528459",
+    "tipoDeUsuario": "Servidor",
+    "telefone": "(81) 95842-3525",
+    "email": "marilu12@gmail.com"
+  },
+  {
+    "nome": "Thainá Oliveira",
+    "matricula": "20202123",
+    "tipoDeUsuario": "Aluno",
+    "telefone": "(83) 85642-2354",
+    "email": "thaina.oli@gmail.com"
+  },
+  {
+    "nome": "Joaquim Bezerra",
+    "matricula": "02321524",
+    "tipoDeUsuario": "Servidor",
+    "telefone": "(83) 95842-3154",
+    "email": "jocca@gmail.com"
+  },
+  {
+    "nome": "Daiana Queiroz",
+    "matricula": "20202354",
+    "tipoDeUsuario": "Aluno",
+    "telefone": "(81) 88564-3262",
+    "email": "daiana845@gmail.com"
+  },
+  {
+    "nome": "Ana Lívia",
+    "matricula": "02545874",
+    "tipoDeUsuario": "Professor",
+    "telefone": "(83) 99547-3215",
+    "email": "ana.livia15@gmail.com"
   }
 ]
