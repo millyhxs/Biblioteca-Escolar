@@ -60,10 +60,10 @@ public class CadastroObrasTela extends JFrame {
         
         JButton adicionarBtn = util.criarBotao("Adicionar item", 200, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
-
+        
         JButton excluirBtn = util.criarBotao("Excluir item", 380, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(excluirBtn);
-
+        
         painel.add(util.criarLabel("Filtrar:", 30, 200));
         campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);

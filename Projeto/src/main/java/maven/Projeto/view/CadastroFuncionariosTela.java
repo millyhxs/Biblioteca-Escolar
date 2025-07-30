@@ -70,7 +70,7 @@ public class CadastroFuncionariosTela extends JFrame {
         
         modeloTabela = new DefaultTableModel(new String[]{"ID", "Nome", "Nível de Acesso"}, 0) {
 			private static final long serialVersionUID = 1L;
-
+			
 			@Override
             public boolean isCellEditable(int row, int column) {
                 return false; 
@@ -97,6 +97,17 @@ public class CadastroFuncionariosTela extends JFrame {
             String senha = new String(senhaField.getPassword());
             String nivel = (String) nivelCombo.getSelectedItem();
             
+            for (int i = 0; i < modeloTabela.getRowCount(); i++) {
+                String codigoExistente = (String) modeloTabela.getValueAt(i, 0); 
+                if (codigoExistente.equals(id)) {
+                    JOptionPane.showMessageDialog(this,
+                        "Já existe um Funcionario com esse ID.",
+                        "ID Duplicado",
+                        JOptionPane.WARNING_MESSAGE);
+                    return; 
+                }
+            }
+            
             try {
                 funcionarioController.verificarCadastro(id, nome, senha, nivel);
                 atualizarTabela();
@@ -104,7 +115,9 @@ public class CadastroFuncionariosTela extends JFrame {
                 limparCampos();
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            }
+            } catch (Exception ex) {
+            	JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			}
         });
         
         excluirBtn.addActionListener(e -> {
@@ -128,6 +141,7 @@ public class CadastroFuncionariosTela extends JFrame {
                     funcionarioController.excluirFuncionario(id);
                     atualizarTabela();
                     JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
+                    limparCampos();
                 } catch (CampoVazioException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -155,7 +169,8 @@ public class CadastroFuncionariosTela extends JFrame {
                 atualizarTabela();
                 limparCampos();
                 editarBtn.setText("Editar Leitor");
-                JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!"); 
+                limparCampos();
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -164,14 +179,14 @@ public class CadastroFuncionariosTela extends JFrame {
         tabela.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tabela.getSelectedRow() != -1) {
                 int linha = tabela.getSelectedRow();
-
+                
                 idField.setText((String) modeloTabela.getValueAt(linha, 0));
                 nomeField.setText((String) modeloTabela.getValueAt(linha, 1));
                 nivelCombo.setSelectedItem((String) modeloTabela.getValueAt(linha, 2));
                 editarBtn.setText("Salvar Edição");
             }
         });
-
+        
     }
     
     private void limparCampos() {
@@ -179,12 +194,12 @@ public class CadastroFuncionariosTela extends JFrame {
     	nomeField.setText("");
     	senhaField.setText("");
     }
-
+    
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
-
+        
         List<String> ordem = Arrays.asList("Administrador", "Bibliotecário", "Estagiário");
-
+        
         for (String nivel : ordem) {
             for (Funcionario f : funcionarioController.getFuncionarios()) {
                 if (f.getTipo().equals(nivel)) {

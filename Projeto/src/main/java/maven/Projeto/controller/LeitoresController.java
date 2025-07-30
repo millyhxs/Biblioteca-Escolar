@@ -28,6 +28,12 @@ public class LeitoresController {
 			throw new CampoVazioException("Os campos não estão todos preenchidos."); 
 		}
 		
+		String telefoneNumeros = telefone.replaceAll("\\D", "");
+		
+	    if (telefoneNumeros.length() < 11) {
+	        throw new CampoVazioException("O número de telefone está incompleto.");
+	    }
+		
 		try {
 			Leitor leitor = new Leitor();
 			leitor.setTipoDeUsuario(tipo);

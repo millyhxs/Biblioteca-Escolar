@@ -60,7 +60,7 @@ public class CadastroLeitoresTela extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        
         
         painel.add(util.criarLabel("Email:", 510, 60));
         emailField = util.criarCampoTexto(550, 60);
@@ -115,6 +115,7 @@ public class CadastroLeitoresTela extends JFrame {
                 String tipo = (String) tipoCombo.getSelectedItem();
                 
                 
+                
 				leitoresController.verificacaoDeDados(tipo, matricula, nomeTxt, telefone, email);
                 
                 for (int i = 0; i < modeloTabela.getRowCount(); i++) {
@@ -163,6 +164,7 @@ public class CadastroLeitoresTela extends JFrame {
                 
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor excluído com sucesso!");
+                limparCampos();
             }
         });
         
@@ -187,6 +189,7 @@ public class CadastroLeitoresTela extends JFrame {
                 editarBtn.setText("Editar Leitor");
                 matriculaField.setEditable(true);
                 JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso!");
+                limparCampos();
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

@@ -1,14 +1,5 @@
 [
   {
-    "codigo": "L001",
-    "titulo": "O Pequeno Príncipe",
-    "autor": "Antoine de Saint-Exupéry",
-    "anoDePublicacao": "1943",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L002",
     "titulo": "A Revolução dos Bichos",
     "autor": "George Orwell",
@@ -178,5 +169,23 @@
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"
+  },
+  {
+    "codigo": "L013",
+    "titulo": "Odisseia",
+    "autor": "Homero",
+    "anoDePublicacao": "2015",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L001",
+    "titulo": "O Pequeno Príncipe",
+    "autor": "Antoine de Saint-Exupéry",
+    "anoDePublicacao": "1943",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
   }
 ]

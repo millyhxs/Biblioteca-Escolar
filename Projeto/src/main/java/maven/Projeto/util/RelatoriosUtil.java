@@ -34,6 +34,9 @@ public class RelatoriosUtil {
     private final Font TITULO = new Font(FontFactory.getFont(FONTE, 18, Font.BOLD));
     private final Font TEXTO = new Font(FontFactory.getFont(FONTE, 15, Font.NORMAL));
     private final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
+    private LocalDate hoje = LocalDate.now();
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM/yyyy", new Locale("pt", "BR"));
+    private String mesEAno = hoje.format(formatter);
     
     /**
      * Gera um relatório PDF com todos os empréstimos realizados no mês atual.
@@ -45,7 +48,9 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
-            doc.add(new Paragraph("Relatório: Empréstimos do Mês\\n\\n", TITULO));
+            Paragraph titulo = new Paragraph("Obras Mais Emprestadas - " + mesEAno, TITULO);
+            titulo.setSpacingAfter(10); 
+            doc.add(titulo);
             
             DevolucaoDAO dao = new DevolucaoDAO();
             List<Devolucao> devolucoes = dao.getTodasDevolucoes();
@@ -111,7 +116,8 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(document, new FileOutputStream("relatorio_obras_mais_emprestadas.pdf"));
             document.open();
             
-            Paragraph titulo = new Paragraph("Obras Mais Emprestadas\n\n", TITULO);
+            Paragraph titulo = new Paragraph("Obras Mais Emprestadas", TITULO);
+            titulo.setSpacingAfter(10);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
             
@@ -169,11 +175,11 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(document, new FileOutputStream("relatorio_usuarios_com_mais_atrasos.pdf"));
             document.open();
             
-            Paragraph titulo = new Paragraph("Usuários com Mais Atrasos\n\n", TITULO);
+            Paragraph titulo = new Paragraph("Usuários com Mais Atrasos", TITULO);
+            titulo.setSpacingAfter(10); 
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
             
-
             PdfPTable tabela = new PdfPTable(2);
             tabela.setWidths(new int[]{2, 2});
             tabela.setWidthPercentage(100);

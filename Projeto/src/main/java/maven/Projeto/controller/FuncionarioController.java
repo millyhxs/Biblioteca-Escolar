@@ -5,6 +5,7 @@ import java.util.List;
 import maven.Projeto.dao.FuncionarioDAO;
 import maven.Projeto.exceptions.CampoVazioException;
 import maven.Projeto.exceptions.FuncionarioNaoEncontradoException;
+import maven.Projeto.exceptions.MatriculaNaoEncontradaException;
 import maven.Projeto.exceptions.ValorNuloException;
 import maven.Projeto.model.Funcionario;
 
@@ -20,8 +21,9 @@ public class FuncionarioController {
 	
 	/**
      * Verifica os dados informados e realiza o cadastro de um novo funcionário.
+	 * @throws Exception 
      */
-	public void verificarCadastro(String id, String nome, String senha, String tipo) throws CampoVazioException {
+	public void verificarCadastro(String id, String nome, String senha, String tipo) throws Exception {
         if (id == null || id.trim().isEmpty() || 
             nome == null || nome.trim().isEmpty() || 
             senha == null || senha.trim().isEmpty() || 
@@ -101,6 +103,21 @@ public class FuncionarioController {
     	}
     	return funcionario;
     }
+    
+    /**
+     * Verifica se um ID já existe no sistema.
+     */
+	public void verificarIDExistente(String id) throws MatriculaNaoEncontradaException, CampoVazioException {
+		if (id == null || id.trim().isEmpty()) {
+			throw new CampoVazioException("Preencha todos os campos");
+		}
+		
+		boolean existe = funcionarioDAO.verificarID(id);		
+		
+	    if (!existe) {
+	        throw new MatriculaNaoEncontradaException("Usuário não encontrado com essa matrícula.");
+	    }
+	}
     
     /**
      * Desloga o funcionário ativo, marcando-o como inativo.

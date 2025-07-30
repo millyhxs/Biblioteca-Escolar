@@ -15,6 +15,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import maven.Projeto.model.Funcionario;
+import maven.Projeto.model.Leitor;
 
 /**
  * Classe responsável pela manipulação dos dados dos Funcionários.
@@ -199,6 +200,24 @@ public class FuncionarioDAO extends DAO{
         }
         return null;
     }
+    
+    /**
+     * Método para verificar caso haja um ID repetido a lista
+     * 
+     * @param id ID do novo funcionário
+     * @return Retorna verdadeiro caso o paramentro for true
+     */
+    public boolean verificarID(String id) {
+    	buscarArquivo();
+    	
+    	for (Funcionario funcionario : LISTA_DE_FUNCIONARIOS) {
+            if (funcionario.getId().equals(id)) {
+                return true;
+            }
+        }
+    	return false;
+    }
+    
     /**
      * Método que busca um Funcionário que está ativo no json e modifica ele para que fique falso.
      */
