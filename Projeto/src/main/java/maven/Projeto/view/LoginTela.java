@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class LoginTela extends JFrame {
 	private static final long serialVersionUID = -8807194293603135254L;
-
+	
 	FuncionarioController funcionarioController = new FuncionarioController();
 	private final ComponenteUtil util = new ComponenteUtil();
 	private JTextField campoUsuario;

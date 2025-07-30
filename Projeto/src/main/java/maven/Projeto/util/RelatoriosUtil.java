@@ -17,6 +17,7 @@ import java.awt.Desktop;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -34,28 +35,28 @@ public class RelatoriosUtil {
     private final Font TITULO = new Font(FontFactory.getFont(FONTE, 18, Font.BOLD));
     private final Font TEXTO = new Font(FontFactory.getFont(FONTE, 15, Font.NORMAL));
     private final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
-    private LocalDate hoje = LocalDate.now();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM/yyyy", new Locale("pt", "BR"));
-    private String mesEAno = hoje.format(formatter);
     
     /**
      * Gera um relatório PDF com todos os empréstimos realizados no mês atual.
      */
-    public void gerarEmprestimosMes() {
-    	Document doc = new Document();
-        try {            
-           
+    public void gerarEmprestimosMes(int mesEscolhido, int anoEscolhido) {
+        Document doc = new Document();
+        try {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
+            // Formatando nome do mês com primeira letra maiúscula em português
+            YearMonth anoMes = YearMonth.of(anoEscolhido, mesEscolhido);
+            String mesEAno = anoMes.format(DateTimeFormatter.ofPattern("MMMM/yyyy", new Locale("pt", "BR")));
+            mesEAno = mesEAno.substring(0, 1).toUpperCase() + mesEAno.substring(1); // Primeira letra maiúscula
+            
             Paragraph titulo = new Paragraph("Empréstimos do mês - " + mesEAno, TITULO);
-            titulo.setSpacingAfter(10); 
+            titulo.setSpacingAfter(10);
+            titulo.setAlignment(Element.ALIGN_CENTER);
             doc.add(titulo);
             
             DevolucaoDAO dao = new DevolucaoDAO();
             List<Devolucao> devolucoes = dao.getTodasDevolucoes();
-            int mesAtual = LocalDate.now().getMonthValue();
-            int anoAtual = LocalDate.now().getYear();
             
             PdfPTable tabela = new PdfPTable(4);
             tabela.setWidthPercentage(100);
@@ -66,16 +67,15 @@ public class RelatoriosUtil {
             for (Devolucao d : devolucoes) {
                 LocalDate dataEmprestimo = d.getDataEmprestimo();
                 if (dataEmprestimo != null &&
-                    dataEmprestimo.getMonthValue() == mesAtual &&
-                    dataEmprestimo.getYear() == anoAtual) {
-                    
+                    dataEmprestimo.getMonthValue() == mesEscolhido &&
+                    dataEmprestimo.getYear() == anoEscolhido) {
+
                     tabela.addCell(new PdfPCell(new Phrase(d.getCodigoObra(), TEXTO)));
                     tabela.addCell(new PdfPCell(new Phrase(d.getMatriculaUsuario(), TEXTO)));
-                    tabela.addCell(new PdfPCell(new Phrase(d.getDataEmprestimo().format(formatoBR), TEXTO)));
+                    tabela.addCell(new PdfPCell(new Phrase(dataEmprestimo.format(formatoBR), TEXTO)));
                     tabela.addCell(new PdfPCell(new Phrase(d.getDataDevolucao().format(formatoBR), TEXTO)));
                 }
             }
-
             
             doc.add(tabela);
             JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
@@ -85,7 +85,6 @@ public class RelatoriosUtil {
             JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório: " + e.getMessage());
         } finally {
             doc.close();
-            
             abrirPdf("relatorio_emprestimos_mes.pdf");
         }
     }
