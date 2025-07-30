@@ -1,11 +1,11 @@
 Biblioteca Escolar com conceitos de POO
 ---------------------------------------------------
 
-Projeto da disciplina Programação Orientada a Objetos do curso de ADS.
+Projeto da disciplina Programação Orientada a Objetos do curso de ADS. 
 
 Criadores: 
-[Hélder Christian](https://github.com/Heilch)
-[Hellen Millena](https://github.com/millyhxs)
+[Hélder Christian](https://github.com/Heilch).
+[Hellen Millena](https://github.com/millyhxs).
 
 🎯 Objetivo
 ---------------------------------------------------
@@ -80,6 +80,8 @@ Tratamento de exceções personalizadas.
 ---------------------------------------------------
 💻 Tecnologias Utilizadas
 ---------------------------------------------------
+Eclipse IDE
+
 Java SE 17+
 
 Gson – persistência de dados em JSON
