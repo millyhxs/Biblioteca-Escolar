@@ -59,9 +59,6 @@ public class DevolucaoTela extends JFrame {
         sorter = new TableRowSorter<>(modeloTabela);
         tabela.setRowSorter(sorter);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            /**
-			 * 
-			 */
 			private static final long serialVersionUID = -2787758373329218192L;
 			
 			@Override
@@ -96,6 +93,7 @@ public class DevolucaoTela extends JFrame {
         campoFiltro = util.criarCampoTexto(30, 380);
         campoFiltro.setSize(410, 30);
         painel.add(campoFiltro);
+        
         FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
         filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{1, 2, 4});
         
@@ -151,19 +149,8 @@ public class DevolucaoTela extends JFrame {
 		if (status.trim().equalsIgnoreCase("Em atraso")) {
 			linha = tabela.getSelectedRow();
 	        String tipo = (String) tabela.getValueAt(linha, 4);
+	        diasPermitidos = obterDiasPermitidos(tipo);
 	        
-	        if (tipo.equals("Livro") ) {
-	        	Livro livro = new Livro();
-	        	diasPermitidos = livro.getTempoEmprestimo();
-	        }
-	        else if (tipo.equals("Artigo") ) {
-	        	Artigo artigo = new Artigo();
-	        	diasPermitidos = artigo.getTempoEmprestimo();
-	        } 
-	        else if (tipo.equals("Revista") ) {
-	        	Revista revista = new Revista();
-	        	diasPermitidos = revista.getTempoEmprestimo();	
-	        }
 	        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
 	        
 	        if (valorMulta > 0f) {
@@ -190,19 +177,8 @@ public class DevolucaoTela extends JFrame {
         
         int linha = tabela.getSelectedRow();
         String tipo = (String) tabela.getValueAt(linha, 4);
+        diasPermitidos = obterDiasPermitidos(tipo);
         
-        if (tipo.equals("Livro") ) {
-        	Livro livro = new Livro();
-        	diasPermitidos = livro.getTempoEmprestimo();
-        }
-        else if (tipo.equals("Artigo") ) {
-        	Artigo artigo = new Artigo();
-        	diasPermitidos = artigo.getTempoEmprestimo();
-        } 
-        else if (tipo.equals("Revista") ) {
-        	Revista revista = new Revista();
-        	diasPermitidos = revista.getTempoEmprestimo();	
-        }
         float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
         PagamentoMulta pagamento = new PagamentoMulta(
         	    emprestimoSelecionado.getMatriculaUsuario(),
@@ -218,6 +194,15 @@ public class DevolucaoTela extends JFrame {
         JOptionPane.showMessageDialog(this, "Pagamento registrado e devolução concluída.");
         atualizarTabela();
     }
+    
+    private int obterDiasPermitidos(String tipo) {
+		switch (tipo) {
+			case "Livro": return new Livro().getTempoEmprestimo();
+			case "Artigo": return new Artigo().getTempoEmprestimo();
+			case "Revista": return new Revista().getTempoEmprestimo();
+			default: return 0;
+		}
+	}
     
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
@@ -253,29 +238,6 @@ public class DevolucaoTela extends JFrame {
                     tipo,
                     status
             });
-        }
-        
-        campoFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            
-            private void filtrar() {
-                String texto = campoFiltro.getText().toLowerCase();
-                if (texto.trim().isEmpty()) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
-                        public boolean include(RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
-                            String titulo = entry.getStringValue(1).toLowerCase();
-                            String autor = entry.getStringValue(2).toLowerCase();
-                            String tipo = entry.getStringValue(4).toLowerCase();
-                            return titulo.contains(texto) || autor.contains(texto) || tipo.contains(texto);
-                        }
-                    });
-                }
-            }
-        });
-        
+        } 
     }
 }

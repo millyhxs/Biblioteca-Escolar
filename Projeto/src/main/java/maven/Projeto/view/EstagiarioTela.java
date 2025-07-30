@@ -19,8 +19,8 @@ class EstagiarioTela extends JFrame {
         getContentPane().add(painel);
 
         JLabel titulo = new JLabel("Área do Estagiário", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 22));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 20, 400, 120);
         painel.add(titulo);
 

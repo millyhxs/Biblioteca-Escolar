@@ -19,8 +19,8 @@ public class BibliotecarioTela extends JFrame {
 	    getContentPane().add(painel);
         
         JLabel titulo = new JLabel("Área do Bibliotecário", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 22));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 20, 400, 80);
         painel.add(titulo);
         

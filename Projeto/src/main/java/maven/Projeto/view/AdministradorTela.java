@@ -10,7 +10,7 @@ import java.awt.*;
 public class AdministradorTela extends JFrame {
 
 	private static final long serialVersionUID = 3123822800837998866L;
-	 private final ComponenteUtil util = new ComponenteUtil();
+	ComponenteUtil util = new ComponenteUtil();
 
 	public AdministradorTela() {
 		util.aplicarTemaPadrao(this, "Painel do Administrador", 400, 400);
@@ -21,8 +21,8 @@ public class AdministradorTela extends JFrame {
  
         
         JLabel titulo = new JLabel("Área do Administrador", SwingConstants.CENTER);
-        titulo.setFont(new Font("Serif", Font.BOLD, 22));
-        titulo.setForeground(Color.WHITE);
+        titulo.setFont(util.getFonteTitulo());
+        titulo.setForeground(util.getCorTextoBranco());
         titulo.setBounds(0, 20, 400, 50);
         painel.add(titulo);
         

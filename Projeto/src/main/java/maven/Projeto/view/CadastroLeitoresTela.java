@@ -114,8 +114,6 @@ public class CadastroLeitoresTela extends JFrame {
                 String email = emailField.getText();
                 String tipo = (String) tipoCombo.getSelectedItem();
                 
-                
-                
 				leitoresController.verificacaoDeDados(tipo, matricula, nomeTxt, telefone, email);
                 
                 for (int i = 0; i < modeloTabela.getRowCount(); i++) {
