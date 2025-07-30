@@ -37,7 +37,10 @@ public class RelatoriosUtil {
     private final Font CABECALHO = new Font(FontFactory.getFont(FONTE, 15, Font.BOLD));
     
     /**
-     * Gera um relatório PDF com todos os empréstimos realizados no mês atual.
+     * Gera um relatório PDF com todos os empréstimos realizados de acordo com o mes escolhido.
+     * 
+     * @param mesEscolhido Mês que será mostrado no PDF e usado como base para a filtragem de Empréstimos.
+     * @param anoEscolhido Ano que será mostrado no PDF.
      */
     public void gerarEmprestimosMes(int mesEscolhido, int anoEscolhido) {
         Document doc = new Document();
@@ -45,10 +48,11 @@ public class RelatoriosUtil {
             PdfWriter.getInstance(doc, new FileOutputStream("relatorio_emprestimos_mes.pdf"));
             doc.open();
             
-            // Formatando nome do mês com primeira letra maiúscula em português
             YearMonth anoMes = YearMonth.of(anoEscolhido, mesEscolhido);
+            
             String mesEAno = anoMes.format(DateTimeFormatter.ofPattern("MMMM/yyyy", new Locale("pt", "BR")));
-            mesEAno = mesEAno.substring(0, 1).toUpperCase() + mesEAno.substring(1); // Primeira letra maiúscula
+            
+            mesEAno = mesEAno.substring(0, 1).toUpperCase() + mesEAno.substring(1);
             
             Paragraph titulo = new Paragraph("Empréstimos do mês - " + mesEAno, TITULO);
             titulo.setSpacingAfter(10);
@@ -69,7 +73,7 @@ public class RelatoriosUtil {
                 if (dataEmprestimo != null &&
                     dataEmprestimo.getMonthValue() == mesEscolhido &&
                     dataEmprestimo.getYear() == anoEscolhido) {
-
+                	
                     tabela.addCell(new PdfPCell(new Phrase(d.getCodigoObra(), TEXTO)));
                     tabela.addCell(new PdfPCell(new Phrase(d.getMatriculaUsuario(), TEXTO)));
                     tabela.addCell(new PdfPCell(new Phrase(dataEmprestimo.format(formatoBR), TEXTO)));
@@ -131,10 +135,10 @@ public class RelatoriosUtil {
                 tabela.addCell(buscarTituloDaObra(entrada.getKey()));
                 tabela.addCell(String.valueOf(entrada.getValue()));
             }
-
+            
             document.add(tabela);
             JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório: " + e.getMessage());
@@ -143,7 +147,6 @@ public class RelatoriosUtil {
             abrirPdf("relatorio_obras_mais_emprestadas.pdf");
         }
     }
-
     
     /**
      * Gera um relatório com os usuários que mais atrasaram devoluções.
@@ -239,6 +242,8 @@ public class RelatoriosUtil {
     
     /**
      * Abre o PDF automaticamente no leitor padrão do sistema.
+     * 
+     * @param caminho Caminho que será utilizado para abrir o PDF.
      */
     private void abrirPdf(String caminho) {
         try {

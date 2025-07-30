@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
 public class RelatorioTela extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 2402584122525090331L;
+	
 	RelatoriosUtil relatoriosPDF = new RelatoriosUtil();
-    public RelatorioTela() {
+    
+	public RelatorioTela() {
         setTitle("Relatórios Gerenciais");
         setSize(400, 320);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
