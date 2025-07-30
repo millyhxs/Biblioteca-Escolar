@@ -1,6 +1,12 @@
 Biblioteca Escolar com conceitos de POO
 ---------------------------------------------------
 
+Projeto da disciplina Programação Orientada a Objetos do curso de ADS.
+
+Criadores: 
+![Hélder Christian] (https://github.com/Heilch) 
+![Hellen Millena] (https://github.com/millyhxs) 
+
 🎯 Objetivo
 ---------------------------------------------------
 
