@@ -79,7 +79,6 @@ Sobrecarga e sobrescrita de métodos.
 
 Tratamento de exceções personalizadas.
 
----------------------------------------------------
 💻 Tecnologias Utilizadas
 ---------------------------------------------------
 Eclipse IDE
