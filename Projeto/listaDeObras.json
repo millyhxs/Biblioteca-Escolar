@@ -18,15 +18,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L860",
-    "titulo": "A Metamorfose",
-    "autor": "Franz Kafka",
-    "anoDePublicacao": "1915",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L840",
     "titulo": "Dom Quixote",
     "autor": "Miguel de Cervantes",
@@ -54,15 +45,6 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L584",
-    "titulo": "Duna",
-    "autor": "Frank Herbert",
-    "anoDePublicacao": "2010",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
     "codigo": "L669",
     "titulo": "O Senhor dos Anéis",
     "autor": "J.R.R. Tolkien",
@@ -79,15 +61,6 @@
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
-  },
-  {
-    "codigo": "R975",
-    "titulo": "Veja",
-    "autor": "Victor Civita",
-    "anoDePublicacao": "2010",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
   },
   {
     "codigo": "R957",
@@ -108,13 +81,22 @@
     "tipo": "Revista"
   },
   {
-    "codigo": "A184",
-    "titulo": "TCC de Mateus",
-    "autor": "Mateus Cavalcanti",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": true,
-    "tipo": "Artigo"
+    "codigo": "R790",
+    "titulo": "Capricho",
+    "autor": "Andrea Martinelli",
+    "anoDePublicacao": "2002",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "R975",
+    "titulo": "Veja",
+    "autor": "Victor Civita",
+    "anoDePublicacao": "2010",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
   },
   {
     "codigo": "A584",
@@ -122,7 +104,7 @@
     "autor": "Jamile Mendes",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
   },
   {
@@ -131,8 +113,17 @@
     "autor": "Lucas Costa",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
+  },
+  {
+    "codigo": "L860",
+    "titulo": "A Metamorfose",
+    "autor": "Franz Kafka",
+    "anoDePublicacao": "1915",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
   },
   {
     "codigo": "A790",
@@ -140,14 +131,32 @@
     "autor": "Claire Medeiros",
     "anoDePublicacao": "2022",
     "tempoDeEmprestimo": 2,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Artigo"
   },
   {
-    "codigo": "R790",
-    "titulo": "Capricho",
-    "autor": "Andrea Martinelli",
-    "anoDePublicacao": "2002",
+    "codigo": "L584",
+    "titulo": "Duna",
+    "autor": "Frank Herbert",
+    "anoDePublicacao": "2010",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "A184",
+    "titulo": "TCC de Mateus",
+    "autor": "Mateus Cavalcanti",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": false,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "R541",
+    "titulo": "Superinteressante",
+    "autor": "Editora Abril",
+    "anoDePublicacao": "2025",
     "tempoDeEmprestimo": 3,
     "emprestado": false,
     "tipo": "Revista"

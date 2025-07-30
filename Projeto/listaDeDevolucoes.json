@@ -4,5 +4,59 @@
     "matriculaUsuario": "20230102",
     "dataDevolucao": "04/08/2025",
     "dataEmprestimo": "04/08/2025"
+  },
+  {
+    "codigoObra": "A184",
+    "matriculaUsuario": "20235847",
+    "dataDevolucao": "04/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "R975",
+    "matriculaUsuario": "20230102",
+    "dataDevolucao": "04/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "A584",
+    "matriculaUsuario": "20230102",
+    "dataDevolucao": "06/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "L584",
+    "matriculaUsuario": "20235847",
+    "dataDevolucao": "11/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "A326",
+    "matriculaUsuario": "20235847",
+    "dataDevolucao": "11/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "L860",
+    "matriculaUsuario": "01258452",
+    "dataDevolucao": "08/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "A790",
+    "matriculaUsuario": "20230102",
+    "dataDevolucao": "08/08/2025",
+    "dataEmprestimo": "30/07/2025"
+  },
+  {
+    "codigoObra": "L584",
+    "matriculaUsuario": "20230102",
+    "dataDevolucao": "08/08/2025",
+    "dataEmprestimo": "08/08/2025"
+  },
+  {
+    "codigoObra": "A184",
+    "matriculaUsuario": "01258452",
+    "dataDevolucao": "12/08/2025",
+    "dataEmprestimo": "08/08/2025"
   }
 ]

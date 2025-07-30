@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "id": 1,
+    "matriculaUsuario": "20235847",
+    "valor": 7.5,
+    "dataDePagamento": "04/08/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 2,
+    "matriculaUsuario": "20230102",
+    "valor": 5.0,
+    "dataDePagamento": "04/08/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 3,
+    "matriculaUsuario": "20230102",
+    "valor": 12.5,
+    "dataDePagamento": "06/08/2025",
+    "metodoDoPagamento": "Cartão"
+  },
+  {
+    "id": 4,
+    "matriculaUsuario": "20235847",
+    "valor": 12.5,
+    "dataDePagamento": "11/08/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 5,
+    "matriculaUsuario": "20235847",
+    "valor": 25.0,
+    "dataDePagamento": "11/08/2025",
+    "metodoDoPagamento": "PIX"
+  },
+  {
+    "id": 6,
+    "matriculaUsuario": "01258452",
+    "valor": 5.0,
+    "dataDePagamento": "08/08/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 7,
+    "matriculaUsuario": "20230102",
+    "valor": 17.5,
+    "dataDePagamento": "08/08/2025",
+    "metodoDoPagamento": "Dinheiro"
+  },
+  {
+    "id": 8,
+    "matriculaUsuario": "01258452",
+    "valor": 5.0,
+    "dataDePagamento": "12/08/2025",
+    "metodoDoPagamento": "PIX"
+  }
+]

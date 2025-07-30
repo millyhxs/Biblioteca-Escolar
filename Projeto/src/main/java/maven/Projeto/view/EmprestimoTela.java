@@ -122,6 +122,8 @@ public class EmprestimoTela extends JFrame {
         painelPagamento.add(valorMultaLabel);
         painelPagamento.add(confirmarPagamentoBtn);
         painelPagamento.setVisible(false);
+        painel.add(painelPagamento);
+
         
         emprestarBtn.addActionListener(e -> emprestar());
         devolverBtn.addActionListener(e -> {

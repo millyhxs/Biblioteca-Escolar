@@ -16,7 +16,7 @@ public class CadastroObrasTela extends JFrame {
 	private static final long serialVersionUID = -7860411679376119792L;
 	
 	private JComboBox<String> tipoCombo;
-    private JTextField codField, tituloField, autorField, anoField, campoFiltro;
+    private JTextField tituloField, autorField, anoField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private TableRowSorter<DefaultTableModel> sorter;
@@ -41,13 +41,8 @@ public class CadastroObrasTela extends JFrame {
         tipoCombo.setBounds(100, 60, 150, 25);
         painel.add(tipoCombo);
         
-        painel.add(util.criarLabel("Código:", 270, 60));
-        codField = util.criarCampoTexto(340, 60);
-        codField.setEditable(false);
-        painel.add(codField);
-        
-        painel.add(util.criarLabel("Título:", 30, 100));
-        tituloField = util.criarCampoTexto(100, 100);
+        painel.add(util.criarLabel("Título:", 270, 60));
+        tituloField = util.criarCampoTexto(340, 60);
         painel.add(tituloField);
         
         painel.add(util.criarLabel("Autor:", 270, 100));
@@ -79,10 +74,21 @@ public class CadastroObrasTela extends JFrame {
         campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
         
-        modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo"}, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo"}, 0){
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+			
+			
+        };
         tabela = new JTable(modeloTabela);
-        sorter = new TableRowSorter<>(modeloTabela);
-        tabela.setRowSorter(sorter); 
+        tabela.setRowSelectionAllowed(true);
+        tabela.setAutoCreateRowSorter(true);
+        tabela.getTableHeader().setReorderingAllowed(false);
+     
         
         JScrollPane scroll = new JScrollPane(tabela);
         scroll.setBounds(30, 235, 670, 260);
@@ -93,18 +99,11 @@ public class CadastroObrasTela extends JFrame {
         
         atualizarTabela();
         
-        codField.setText(obraController.gerarCodigo((String) tipoCombo.getSelectedItem()));
-        
-        tipoCombo.addActionListener(e -> {
-            String tipoSelecionado = (String) tipoCombo.getSelectedItem();
-            String codigoGerado = obraController.gerarCodigo(tipoSelecionado);
-            codField.setText(codigoGerado);
-        });
         
         adicionarBtn.addActionListener(e -> {
             try {
                 String tipo = (String) tipoCombo.getSelectedItem();
-                String codigo = codField.getText();
+                String codigo = obraController.gerarCodigo(tipo);
                 String tituloTxt = tituloField.getText();
                 String autor = autorField.getText();
                 String ano = anoField.getText();
@@ -126,7 +125,6 @@ public class CadastroObrasTela extends JFrame {
                 JOptionPane.showMessageDialog(this, "Item adicionado com sucesso!");
                 
                 limparCampos();
-                codField.setText(obraController.gerarCodigo(tipo));
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -160,7 +158,6 @@ public class CadastroObrasTela extends JFrame {
                 
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
-                codField.setText(obraController.gerarCodigo((String) tipoCombo.getSelectedItem()));
             }
         });
         

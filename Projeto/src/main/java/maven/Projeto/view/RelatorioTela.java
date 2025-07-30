@@ -21,9 +21,6 @@ public class RelatorioTela extends JFrame {
         setResizable(false);
         
         JPanel painel = new JPanel() {
-            /**
-			 * 
-			 */
 			private static final long serialVersionUID = 4106092340683141571L;
 
 			protected void paintComponent(Graphics g) {
