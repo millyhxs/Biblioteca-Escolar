@@ -10,13 +10,23 @@ import maven.Projeto.util.ComponenteUtil;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe responsável por exibir a tela de login do sistema para funcionários.
+ * Permite autenticação por meio de ID e senha.
+ * @author Millena
+ */
 public class LoginTela extends JFrame {
-	private static final long serialVersionUID = -8807194293603135254L;
+	private static final long serialVersionUID = 1L;
 	
 	FuncionarioController funcionarioController = new FuncionarioController();
 	private final ComponenteUtil util = new ComponenteUtil();
 	private JTextField campoUsuario;
 	private JPasswordField campoSenha;
+	
+	/**
+	 * Construtor da classe LoginTela.
+	 * Inicializa e configura os componentes da interface gráfica.
+	 */
 	
     public LoginTela() {
     	util.aplicarTemaPadrao(this, "Login", 400, 400);
@@ -41,17 +51,20 @@ public class LoginTela extends JFrame {
         painel.add(labelUsuario);
         campoUsuario = util.criarCampoTexto(150, 120);
         painel.add(campoUsuario);
+        campoUsuario.setFocusable(true);
+
 
         JLabel labelSenha = util.criarLabel("Senha:", 90, 160);
         painel.add(labelSenha);
         campoSenha = util.criarCampoSenha(150, 160);
         painel.add(campoSenha);
 
-        JButton botaoLogin = util.criarBotao("Entrar", 100, 240, 200, 40, util.getCorBotaoPrincipal());
-        painel.add(botaoLogin);
+        JButton btnLogin = util.criarBotao("Entrar", 100, 240, 200, 40, util.getCorBotaoPrincipal());
+        painel.add(btnLogin);
+        getRootPane().setDefaultButton(btnLogin);
 
 
-        botaoLogin.addActionListener(e -> {
+        btnLogin.addActionListener(e -> {
         	String id = campoUsuario.getText();
             String senha = new String(campoSenha.getPassword());
             
@@ -100,6 +113,7 @@ public class LoginTela extends JFrame {
         });
     }
     
+    // Main
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LoginTela().setVisible(true));
     }

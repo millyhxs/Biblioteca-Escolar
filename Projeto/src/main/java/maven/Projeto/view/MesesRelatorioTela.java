@@ -5,6 +5,14 @@ import maven.Projeto.util.RelatoriosUtil;
 
 import javax.swing.*;
 
+/**
+ * Tela de geração de relatórios mensais de empréstimos.
+ * Exibe uma janela com botões para gerar relatórios 
+ * de empréstimos por mês e ano específicos.
+ *
+ * @author Millena
+ */
+
 public class MesesRelatorioTela extends JFrame {
     private static final long serialVersionUID = 1L;
     
@@ -12,6 +20,9 @@ public class MesesRelatorioTela extends JFrame {
     
     private RelatoriosUtil relatorio = new RelatoriosUtil();
     
+    /**
+     * Construtor da tela que inicializa e configura os componentes visuais.
+     */
     public MesesRelatorioTela() {
         util.aplicarTemaPadrao(this, "Relatório de Empréstimos por Mês", 700, 500);
         
@@ -25,7 +36,7 @@ public class MesesRelatorioTela extends JFrame {
         titulo.setBounds(0, 20, 700, 30);
         painel.add(titulo);
         
-        
+        // Botões mensais
         JButton btnJulho2025 = util.criarBotao("Julho/2025", 100, 100, 150, 40, util.getCorBotaoPrincipal());
         
         btnJulho2025.addActionListener(e -> relatorio.gerarEmprestimosMes(7, 2025));

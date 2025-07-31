@@ -12,9 +12,16 @@ import java.awt.*;
 import java.util.List;
 import java.time.LocalDate;
 
+/**
+ * Tela responsável pelo gerenciamento de empréstimos e devoluções de obras.
+ * Permite registrar empréstimos, devoluções e pagamentos de multas.
+ * 
+ * @author Millena
+ */
 public class EmprestimoTela extends JFrame {
-	private static final long serialVersionUID = -2740513108303069203L;
+	private static final long serialVersionUID = 1L;
 	
+	// Componentes da tela
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JPanel painelPagamento;
@@ -22,8 +29,9 @@ public class EmprestimoTela extends JFrame {
     private JComboBox<String> metodoPagamentoBox;
     private TableRowSorter<DefaultTableModel> sorter;
     private JButton confirmarPagamentoBtn;
-    private JTextField campoFiltro;
+    private JTextField campoBusca;
     
+    // Instâncias
     private Emprestimo emprestimoSelecionado;
     private ObraController obraController = new ObraController();
     private LeitoresController leitores = new LeitoresController();
@@ -46,6 +54,7 @@ public class EmprestimoTela extends JFrame {
         titulo.setBounds(0, 10, 900, 30);
         painel.add(titulo);
         
+        // Criação da tabela
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo", "Status"}, 0){
 			private static final long serialVersionUID = 7064388783696092988L;
 
@@ -59,8 +68,9 @@ public class EmprestimoTela extends JFrame {
         tabela.setRowSorter(sorter);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-			private static final long serialVersionUID = -1595664890445679868L;
+			private static final long serialVersionUID = 1L;
 
+			// Define cores personalizadas para a coluna de status
 			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -92,19 +102,22 @@ public class EmprestimoTela extends JFrame {
         scroll.setBounds(30, 60, 830, 300);
         painel.add(scroll);
         
-        campoFiltro = util.criarCampoTexto(30, 380);
-        campoFiltro.setSize(410, 30);
-        painel.add(campoFiltro);
+        // Campo de busca
+        painel.add(util.criarLabel("Busca:", 30, 380));
+        campoBusca = util.criarCampoTexto(90, 380);
+        campoBusca.setSize(350, 30);
+        painel.add(campoBusca);
         FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
-        filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{1, 2, 4});
+        filtro.aplicarFiltroMultiplo(campoBusca, new int[]{1, 2, 4});
         
+        // Botões
         JButton emprestarBtn = util.criarBotao("Realizar Empréstimo", 30, 420, 200, 30, util.getCorBotaoSecundario());
         JButton devolverBtn = util.criarBotao("Registrar Devolução", 240, 420, 200, 30, util.getCorBotaoSecundario());
         
         painel.add(emprestarBtn);
         painel.add(devolverBtn);
         
-        
+        // Painel de pagamento de multa
         painelPagamento = new JPanel(null);
         painelPagamento.setBounds(480, 380, 380, 150);
         painelPagamento.setBorder(BorderFactory.createTitledBorder("Pagamento de Multa"));
@@ -135,6 +148,7 @@ public class EmprestimoTela extends JFrame {
         atualizarTabela();
     }
     
+    // Trata empréstimos após seleção e validações
     private void emprestar() {
         int linha = tabela.getSelectedRow();
         
@@ -190,7 +204,8 @@ public class EmprestimoTela extends JFrame {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
         }
     }
-	
+    
+    // Prepara devolução e verifica se há multa
 	private void prepararDevolucao() {
 		int linha = tabela.getSelectedRow();
 		if (linha == -1) {
@@ -233,6 +248,7 @@ public class EmprestimoTela extends JFrame {
 		}
     }
 	
+	// Registra pagamento e conclui devolução
     private void registrarPagamento() {
         if (emprestimoSelecionado == null) { 
         	return;
@@ -258,6 +274,7 @@ public class EmprestimoTela extends JFrame {
         atualizarTabela();
     }
     
+    // Define dias permitidos por tipo de obra
     private int obterDiasPermitidos(String tipo) {
 		switch (tipo) {
 			case "Livro": return new Livro().getTempoEmprestimo();
@@ -267,6 +284,7 @@ public class EmprestimoTela extends JFrame {
 		}
 	}
     
+    // Atualiza a tabela com status atual de todas as obras
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         List<Emprestimo> emprestimos = emprestimoController.getEmprestimos();
@@ -278,6 +296,7 @@ public class EmprestimoTela extends JFrame {
         modeloTabela.fireTableDataChanged();
     }
     
+    // Adiciona obras com seus respectivos status à tabela
     private void addObrasComStatus(List<? extends Obra> obras, String tipo, List<Emprestimo> emprestimos) {
         for (Obra obra : obras) {
             String status = "Disponível";

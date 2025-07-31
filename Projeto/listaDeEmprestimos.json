@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "codigoObra": "A790",
+    "matriculaUsuario": "20235847",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "02/08/2025"
+  },
+  {
+    "codigoObra": "R957",
+    "matriculaUsuario": "01258452",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "03/08/2025"
+  },
+  {
+    "codigoObra": "L669",
+    "matriculaUsuario": "20230102",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "07/08/2025"
+  },
+  {
+    "codigoObra": "L840",
+    "matriculaUsuario": "03548548",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "07/08/2025"
+  },
+  {
+    "codigoObra": "A584",
+    "matriculaUsuario": "20230102",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "02/08/2025"
+  },
+  {
+    "codigoObra": "L707",
+    "matriculaUsuario": "20235847",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "07/08/2025"
+  },
+  {
+    "codigoObra": "R790",
+    "matriculaUsuario": "20202123",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "03/08/2025"
+  },
+  {
+    "codigoObra": "L860",
+    "matriculaUsuario": "02321524",
+    "responsavel": "Carmen Lucia",
+    "taxaDaMulta": 2.5,
+    "dataEmprestimo": "31/07/2025",
+    "dataDevolucaoPrevista": "07/08/2025"
+  }
+]

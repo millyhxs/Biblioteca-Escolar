@@ -50,7 +50,7 @@ public class RelatoriosUtil {
             
             YearMonth anoMes = YearMonth.of(anoEscolhido, mesEscolhido);
             
-            String mesEAno = anoMes.format(DateTimeFormatter.ofPattern("MMMM/yyyy", new Locale("pt", "BR")));
+            String mesEAno = anoMes.format(DateTimeFormatter.ofPattern("MMMM/yyyy", Locale.of("pt", "BR")));
             
             mesEAno = mesEAno.substring(0, 1).toUpperCase() + mesEAno.substring(1);
             

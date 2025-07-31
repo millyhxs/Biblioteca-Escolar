@@ -5,13 +5,22 @@ import javax.swing.*;
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.util.ComponenteUtil;
 
-import java.awt.*;
+/**
+ * Tela principal para acesso às funcionalidades do Administrador.
+ * Permite o acesso as telas cadastrais
+ * 
+ * @author Millena
+ */
 
 public class AdministradorTela extends JFrame {
-
-	private static final long serialVersionUID = 3123822800837998866L;
+	private static final long serialVersionUID = 1L;
+	
+	// Utilitário para componentes visuais reutilizáveis
 	ComponenteUtil util = new ComponenteUtil();
 
+	/**
+	 * Construtor que inicializa a interface do painel do Administrador.
+	 */
 	public AdministradorTela() {
 		util.aplicarTemaPadrao(this, "Painel do Administrador", 400, 400);
         
@@ -26,6 +35,7 @@ public class AdministradorTela extends JFrame {
         titulo.setBounds(0, 20, 400, 50);
         painel.add(titulo);
         
+        // Botões
         JButton btnCadastrarObras = util.criarBotao("Cadastrar Obras", 100, 100, 200, 40, util.getCorBotaoPrincipal());
         btnCadastrarObras.addActionListener(e -> new CadastroObrasTela().setVisible(true));
         painel.add(btnCadastrarObras);
@@ -46,6 +56,7 @@ public class AdministradorTela extends JFrame {
             new LoginTela().setVisible(true);
         });
         
+        // Encerra sessão do administrador ao fechar a janela
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {

@@ -1,5 +1,6 @@
 package maven.Projeto.view;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,16 +14,30 @@ import maven.Projeto.model.Leitor;
 import maven.Projeto.util.ComponenteUtil;
 import maven.Projeto.util.FiltroTabelaUtil;
 
+/**
+ * Tela de cadastro, edição e exclusão de leitores.
+ * Permite também listar os leitores já existentes,
+ * e realizar buscas.
+ * 
+ * @author Millena
+ */
 public class CadastroLeitoresTela extends JFrame {
-	private static final long serialVersionUID = -7156802021149027047L;
+	private static final long serialVersionUID = 1L;
 	
+	// Componentes da tela
 	private JComboBox<String> tipoCombo;
     private JTextField matriculaField, nomeField, telefoneField, emailField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
+    private final Color corOriginalCampo = Color.WHITE;
+    
+    // Instâncias de utilitários e controlador
     private LeitoresController leitoresController = new LeitoresController();
     private ComponenteUtil util = new ComponenteUtil();
     
+    /**
+     * Construtor que inicializa a interface de gerenciamento de leitores.
+     */
 	public CadastroLeitoresTela() {
 		util.aplicarTemaPadrao(this, "Cadastro de Leitores", 740, 560);
 		
@@ -36,21 +51,23 @@ public class CadastroLeitoresTela extends JFrame {
         titulo.setBounds(0, 10, 700, 30);
         painel.add(titulo);
         
-        painel.add(util.criarLabel("Tipo:", 30, 60));
+        // Campos de entrada
+        painel.add(util.criarLabel("Tipo:", 30, 100));
         tipoCombo = new JComboBox<>(new String[]{"Aluno", "Professor", "Servidor"});
-        tipoCombo.setBounds(100, 60, 150, 25);
+        tipoCombo.setBounds(100, 100, 150, 25);
         painel.add(tipoCombo);
         
         painel.add(util.criarLabel("Matricula:", 270, 60));
         matriculaField = util.criarCampoTexto(340, 60);
         painel.add(matriculaField);
         
-        painel.add(util.criarLabel("Nome:", 30, 100));
-        nomeField = util.criarCampoTexto(100, 100);
+        painel.add(util.criarLabel("Nome:", 30, 60));
+        nomeField = util.criarCampoTexto(100, 60);
         painel.add(nomeField);
         
         painel.add(util.criarLabel("Telefone:", 270, 100));
         
+        // Campo de telefone com máscara
         try {
             MaskFormatter maskTelefone = new MaskFormatter("(##) #####-####");
             maskTelefone.setPlaceholderCharacter('_');
@@ -66,8 +83,10 @@ public class CadastroLeitoresTela extends JFrame {
         emailField = util.criarCampoTexto(550, 60);
         painel.add(emailField);
         
+        // Botões de ação
         JButton adicionarBtn = util.criarBotao("Adicionar Leitor", 110, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
+        getRootPane().setDefaultButton(adicionarBtn);
 
         JButton editarBtn = util.criarBotao("Editar Leitor", 290, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(editarBtn);
@@ -75,12 +94,12 @@ public class CadastroLeitoresTela extends JFrame {
         JButton excluirBtn = util.criarBotao("Excluir Leitor", 470, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(excluirBtn);
  
- 
+        // Campo de filtro
         painel.add(util.criarLabel("Filtrar:", 30, 200));
         campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
         
-        
+        // Tabela de dados
         modeloTabela = new DefaultTableModel(new String[]{"Matrícula", "Nome", "Telefone", "Email", "Tipo"}, 0) {
 			private static final long serialVersionUID = -6839186715585930198L;
 
@@ -101,11 +120,13 @@ public class CadastroLeitoresTela extends JFrame {
         scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
+        // Filtro dinâmico na tabela
         FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
         filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{0, 1, 2, 3});
         
         atualizarTabela();
         
+        // Ação do botão Adicionar
         adicionarBtn.addActionListener(e -> {
             try {
                 String matricula = matriculaField.getText();
@@ -128,14 +149,15 @@ public class CadastroLeitoresTela extends JFrame {
                 }
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor adicionado com sucesso!");
-                
+                sairModoEdicao();
                 limparCampos();
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-         
+        
+        // Ação do botão Excluir
         excluirBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
@@ -163,9 +185,11 @@ public class CadastroLeitoresTela extends JFrame {
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Leitor excluído com sucesso!");
                 limparCampos();
+                sairModoEdicao();
             }
         });
         
+        // Ação do botão Editar
         editarBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
@@ -188,6 +212,7 @@ public class CadastroLeitoresTela extends JFrame {
                 matriculaField.setEditable(true);
                 JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso!");
                 limparCampos();
+                sairModoEdicao();
                 
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -195,6 +220,7 @@ public class CadastroLeitoresTela extends JFrame {
         
         });
         
+        // Preenche campos ao selecionar uma linha
         tabela.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tabela.getSelectedRow() != -1) {
                 int linha = tabela.getSelectedRow();
@@ -206,12 +232,33 @@ public class CadastroLeitoresTela extends JFrame {
 
                 matriculaField.setEditable(false);
                 editarBtn.setText("Salvar Edição");
+                entrarModoEdicao();
             }
         });
 
 
 	}
 	
+	 // Métodos de mudanças visuais pro usuário saber quando está no modo de edição.
+    private void entrarModoEdicao() {
+        emailField.setBackground(util.getCorEdicao());
+        nomeField.setBackground(util.getCorEdicao());
+        matriculaField.setBackground(util.getCorEdicao());
+        telefoneField.setBackground(util.getCorEdicao());
+        tipoCombo.setBackground(util.getCorEdicao());
+    }
+
+    private void sairModoEdicao() {
+        emailField.setBackground(corOriginalCampo);
+        nomeField.setBackground(corOriginalCampo);
+        matriculaField.setBackground(corOriginalCampo);
+        telefoneField.setBackground(corOriginalCampo);
+        tipoCombo.setBackground(corOriginalCampo);
+    }
+	
+	/**
+     * Limpa os campos de entrada.
+     */
 	private void limparCampos() {
 		matriculaField.setText("");
 	    nomeField.setText("");
@@ -222,6 +269,10 @@ public class CadastroLeitoresTela extends JFrame {
 	}
 
 	
+	/**
+     * Atualiza os dados exibidos na tabela,
+     * organizando por tipo de usuário (Aluno/Professor/Servidor) .
+     */
 	private void atualizarTabela() {
 	    modeloTabela.setRowCount(0);
 

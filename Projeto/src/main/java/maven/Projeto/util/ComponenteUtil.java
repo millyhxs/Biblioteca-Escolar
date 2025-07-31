@@ -19,6 +19,7 @@ public class ComponenteUtil {
     public final Color CorBotaoSecundario = new Color (128, 128, 128);
     public final Color CorBotaoSair = new Color(100, 100, 100);
     public final Color CorTextoBranco = Color.WHITE;
+    private final Color corEdicao = new Color(255, 255, 180);
 
     /**
      * Cria e retorna um JLabel com o estilo padrão.
@@ -69,7 +70,9 @@ public class ComponenteUtil {
      */
     public JPanel painelComFundo(LayoutManager layout) {
         return new JPanel(layout) {
-            protected void paintComponent(Graphics g) {
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(CorFundoEscuro);
             }
@@ -124,6 +127,10 @@ public class ComponenteUtil {
 
 	public Color getCorBotaoSecundario() {
 		return CorBotaoSecundario;
+	}
+
+	public Color getCorEdicao() {
+		return corEdicao;
 	}
     
 } 

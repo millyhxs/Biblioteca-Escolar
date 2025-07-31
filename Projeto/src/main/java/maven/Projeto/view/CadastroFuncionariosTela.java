@@ -1,5 +1,6 @@
 package maven.Projeto.view;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,18 +13,31 @@ import maven.Projeto.model.Funcionario;
 import maven.Projeto.util.ComponenteUtil;
 import maven.Projeto.util.FiltroTabelaUtil;
 
+/**
+ * Tela de cadastro, edição e exclusão de funcionários.
+ * Permite adicionar novos funcionários, listar os existentes,
+ * realizar buscas e aplicar filtros.
+ * 
+ * @author Millena
+ */
 public class CadastroFuncionariosTela extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	  // Instâncias
+    private FuncionarioController funcionarioController = new FuncionarioController();
+    private ComponenteUtil util = new ComponenteUtil();
+    
+	// Componentes da tela
 	private JComboBox<String> nivelCombo;
     private JTextField idField, nomeField, campoFiltro;
     private JPasswordField senhaField;
     private JTable tabela;
     private DefaultTableModel modeloTabela;	
-    private FuncionarioController funcionarioController = new FuncionarioController();
-    private ComponenteUtil util = new ComponenteUtil();
+    private final Color corOriginalCampo = Color.WHITE;
     
-    
+    /**
+     * Construtor que inicializa a interface de gerenciamento de funcionários.
+     */
     public CadastroFuncionariosTela() {
     	util.aplicarTemaPadrao(this, "Cadastro de Funcionarios", 740, 560);
         
@@ -37,6 +51,7 @@ public class CadastroFuncionariosTela extends JFrame {
         titulo.setBounds(0, 10, 700, 30);
         painel.add(titulo);
         
+        // Campos de entrada
         painel.add(util.criarLabel("ID:", 30, 60));
         idField = util.criarCampoTexto(90, 60);
         painel.add(idField);
@@ -55,19 +70,23 @@ public class CadastroFuncionariosTela extends JFrame {
         nivelCombo.setBounds(330, 100, 150, 25);
         painel.add(nivelCombo);
         
-        JButton adicionarBtn = util.criarBotao("Adicionar Funcionário", 110, 150, 160, 30, util.getCorBotaoSecundario());
+        // Botões de ação
+        JButton adicionarBtn = util.criarBotao("Adicionar Funcionário", 60, 150, 190, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
+        getRootPane().setDefaultButton(adicionarBtn);
         
-        JButton editarBtn = util.criarBotao("Editar Funcionário", 290, 150, 160, 30, util.getCorBotaoSecundario());
+        JButton editarBtn = util.criarBotao("Editar Funcionário", 270, 150, 190, 30, util.getCorBotaoSecundario());
         painel.add(editarBtn);
         
-        JButton excluirBtn = util.criarBotao("Excluir Funcionário", 470, 150, 160, 30, util.getCorBotaoSecundario());
+        JButton excluirBtn = util.criarBotao("Excluir Funcionário", 480, 150, 190, 30, util.getCorBotaoSecundario());
         painel.add(excluirBtn);
         
+        // Campo de filtro
         painel.add(util.criarLabel("Filtrar:", 30, 200));
         campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
         
+        // Tabela de dados
         modeloTabela = new DefaultTableModel(new String[]{"ID", "Nome", "Nível de Acesso"}, 0) {
 			private static final long serialVersionUID = 1L;
 			
@@ -86,11 +105,13 @@ public class CadastroFuncionariosTela extends JFrame {
         scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
+        // Filtro dinâmico na tabela
         FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
         filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{0, 1});
         
         atualizarTabela();
         
+        // Ação do botão Adicionar
         adicionarBtn.addActionListener(e -> {
             String id = idField.getText();
             String nome = nomeField.getText();
@@ -113,6 +134,7 @@ public class CadastroFuncionariosTela extends JFrame {
                 atualizarTabela();
                 JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
                 limparCampos();
+                sairModoEdicao();
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
@@ -120,6 +142,7 @@ public class CadastroFuncionariosTela extends JFrame {
 			}
         });
         
+        // Ação do botão Excluir
         excluirBtn.addActionListener(e -> {
             int linha = tabela.getSelectedRow();
             if (linha == -1) {
@@ -142,6 +165,7 @@ public class CadastroFuncionariosTela extends JFrame {
                     atualizarTabela();
                     JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
                     limparCampos();
+                    sairModoEdicao();
                 } catch (CampoVazioException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -149,6 +173,7 @@ public class CadastroFuncionariosTela extends JFrame {
             
         });
         
+        // Ação do botão Editar
         editarBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
@@ -171,11 +196,13 @@ public class CadastroFuncionariosTela extends JFrame {
                 editarBtn.setText("Editar Leitor");
                 JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!"); 
                 limparCampos();
+                sairModoEdicao();
             } catch (CampoVazioException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        atualizarTabela();
+        
+        // Preenche campos ao selecionar uma linha
         tabela.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tabela.getSelectedRow() != -1) {
                 int linha = tabela.getSelectedRow();
@@ -184,17 +211,41 @@ public class CadastroFuncionariosTela extends JFrame {
                 nomeField.setText((String) modeloTabela.getValueAt(linha, 1));
                 nivelCombo.setSelectedItem((String) modeloTabela.getValueAt(linha, 2));
                 editarBtn.setText("Salvar Edição");
+                entrarModoEdicao();
             }
         });
         
     }
     
+    // Métodos de mudanças visuais pro usuário saber quando está no modo de edição.
+    private void entrarModoEdicao() {
+        idField.setBackground(util.getCorEdicao());
+        nomeField.setBackground(util.getCorEdicao());
+        senhaField.setBackground(util.getCorEdicao());
+        nivelCombo.setBackground(util.getCorEdicao());
+    }
+
+    private void sairModoEdicao() {
+        idField.setBackground(corOriginalCampo);
+        nomeField.setBackground(corOriginalCampo);
+        senhaField.setBackground(corOriginalCampo);
+        nivelCombo.setBackground(corOriginalCampo);
+    }
+
+    
+    /**
+     * Limpa os campos de entrada.
+     */
     private void limparCampos() {
     	idField.setText("");
     	nomeField.setText("");
     	senhaField.setText("");
     }
     
+    /**
+     * Atualiza os dados exibidos na tabela,
+     * organizando por nível de acesso.
+     */
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         

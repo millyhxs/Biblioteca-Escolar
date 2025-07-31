@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class RelatorioTela extends JFrame {
 	
-	private static final long serialVersionUID = 2402584122525090331L;
+	private static final long serialVersionUID = 1L;
 	ComponenteUtil util = new ComponenteUtil();
 	RelatoriosUtil relatoriosPDF = new RelatoriosUtil();
     

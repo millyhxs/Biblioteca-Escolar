@@ -10,19 +10,29 @@ import maven.Projeto.util.FiltroTabelaUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
+/**
+ * Tela de cadastro e exclusão de obras.
+ * Permite também listar as obras já existentes.
+ * 
+ * @author Millena
+ */
 public class CadastroObrasTela extends JFrame {
-	private static final long serialVersionUID = -7860411679376119792L;
+	private static final long serialVersionUID = 1L;
 	
+	// Componentes da tela
 	private JComboBox<String> tipoCombo;
     private JTextField tituloField, autorField, anoField, campoFiltro;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
-    private TableRowSorter<DefaultTableModel> sorter;
+    
+    // Instâncias de utilitários e controlador
     private ObraController obraController = new ObraController();
     private ComponenteUtil util = new ComponenteUtil();
     
+    /**
+     * Construtor que inicializa a interface de gerenciamento de obras.
+     */
     public CadastroObrasTela() {
     	util.aplicarTemaPadrao(this, "Cadastro de Obras", 740, 560);
         
@@ -36,17 +46,18 @@ public class CadastroObrasTela extends JFrame {
         titulo.setBounds(0, 10, 700, 30);
         painel.add(titulo);
         
-        painel.add(util.criarLabel("Tipo:", 30, 60));
+        // Campos de entrada
+        painel.add(util.criarLabel("Tipo:", 270, 100));
         tipoCombo = new JComboBox<>(new String[]{"Livro", "Revista", "Artigo"});
-        tipoCombo.setBounds(100, 60, 150, 25);
+        tipoCombo.setBounds(340, 100, 150, 25);
         painel.add(tipoCombo);
         
-        painel.add(util.criarLabel("Título:", 270, 60));
-        tituloField = util.criarCampoTexto(340, 60);
+        painel.add(util.criarLabel("Título:", 30, 60));
+        tituloField = util.criarCampoTexto(100, 60);
         painel.add(tituloField);
         
-        painel.add(util.criarLabel("Autor:", 270, 100));
-        autorField = util.criarCampoTexto(340, 100);
+        painel.add(util.criarLabel("Autor:", 270, 60));
+        autorField = util.criarCampoTexto(340, 60);
         painel.add(autorField);
         
         painel.add(util.criarLabel("Ano:", 510, 60));
@@ -63,17 +74,21 @@ public class CadastroObrasTela extends JFrame {
             }
         });
 
-        
+        // Botões de ação
         JButton adicionarBtn = util.criarBotao("Adicionar item", 200, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(adicionarBtn);
+        getRootPane().setDefaultButton(adicionarBtn);
         
         JButton excluirBtn = util.criarBotao("Excluir item", 380, 150, 160, 30, util.getCorBotaoSecundario());
         painel.add(excluirBtn);
         
+        // Campo de filtro
         painel.add(util.criarLabel("Filtrar:", 30, 200));
         campoFiltro = util.criarCampoTexto(90, 200);
         painel.add(campoFiltro);
         
+        
+        // Tabela de dados
         modeloTabela = new DefaultTableModel(new String[]{"Código", "Título", "Autor", "Ano", "Tipo"}, 0){
 			private static final long serialVersionUID = 1L;
 
@@ -94,12 +109,13 @@ public class CadastroObrasTela extends JFrame {
         scroll.setBounds(30, 235, 670, 260);
         painel.add(scroll);
         
+        // Filtro dinâmico na tabela
         FiltroTabelaUtil filtro = new FiltroTabelaUtil(tabela);
         filtro.aplicarFiltroMultiplo(campoFiltro, new int[]{0, 1, 2});
         
         atualizarTabela();
         
-        
+        // Ação do botão Adicionar
         adicionarBtn.addActionListener(e -> {
             try {
                 String tipo = (String) tipoCombo.getSelectedItem();
@@ -131,6 +147,7 @@ public class CadastroObrasTela extends JFrame {
             }
         });
         
+        // Ação do botão Excluir
         excluirBtn.addActionListener(e -> {
             int linhaSelecionada = tabela.getSelectedRow();
             
@@ -163,13 +180,19 @@ public class CadastroObrasTela extends JFrame {
         
     }
     
+    /**
+     * Limpa os campos de entrada.
+     */
     private void limparCampos() {
         tituloField.setText("");
         autorField.setText("");
         anoField.setText("");
     }
 
-    
+    /**
+     * Atualiza os dados exibidos na tabela,
+     * organizando por tipo de obra (Livro/Revita/Artigo).
+     */
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
         

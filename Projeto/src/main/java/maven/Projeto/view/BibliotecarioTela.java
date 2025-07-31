@@ -5,12 +5,22 @@ import javax.swing.*;
 import maven.Projeto.controller.FuncionarioController;
 import maven.Projeto.util.ComponenteUtil;
 
-import java.awt.*;
+/**
+ * Tela principal de acesso para o Bibliotecário.
+ * Permite acesso às funcionalidades de empréstimos e relatórios.
+ * 
+ * @author Millena
+ */
 
 public class BibliotecarioTela extends JFrame {
-	private static final long serialVersionUID = 8350761075553799383L;
-	private final ComponenteUtil util = new ComponenteUtil();
+	private static final long serialVersionUID = 1L;
 	
+	// Utilitário para componentes visuais reutilizáveis
+	ComponenteUtil util = new ComponenteUtil();
+	
+	/**
+	 * Construtor que monta a interface gráfica da área do Bibliotecário.
+	 */
 	public BibliotecarioTela() {
 		util.aplicarTemaPadrao(this, "Painel do Bibliotecário", 400, 400);
         
@@ -24,6 +34,7 @@ public class BibliotecarioTela extends JFrame {
         titulo.setBounds(0, 20, 400, 80);
         painel.add(titulo);
         
+        // Botões
         JButton btnEmprestimos = util.criarBotao("Empréstimos", 100, 120, 200, 40, util.getCorBotaoPrincipal());
         btnEmprestimos.addActionListener(e -> new EmprestimoTela().setVisible(true));
         painel.add(btnEmprestimos);
@@ -43,6 +54,7 @@ public class BibliotecarioTela extends JFrame {
             new LoginTela().setVisible(true);
         });
         
+        // Encerra sessão do bibliotecário ao fechar a janela
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
