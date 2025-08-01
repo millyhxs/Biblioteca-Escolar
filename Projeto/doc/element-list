@@ -1,1 +1,7 @@
+maven.Projeto.controller
+maven.Projeto.dao
+maven.Projeto.exceptions
 maven.Projeto.model
+maven.Projeto.util
+maven.Projeto.view
+maven.teste.Projeto
