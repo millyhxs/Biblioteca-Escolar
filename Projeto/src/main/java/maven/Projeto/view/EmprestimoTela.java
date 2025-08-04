@@ -124,9 +124,11 @@ public class EmprestimoTela extends JFrame {
         painelPagamento.setVisible(false);
         
         emprestarBtn.addActionListener(e -> emprestar());
-        devolverBtn.addActionListener(e -> prepararDevolucao());
+        devolverBtn.addActionListener(e -> {
+        	prepararDevolucao();
+        });
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento()); 
-  
+        
         
         atualizarTabela();
     }
@@ -223,7 +225,6 @@ public class EmprestimoTela extends JFrame {
 	        	diasPermitidos = revista.getTempoEmprestimo();	
 	        }
 	        float valorMulta = emprestimoController.verificarMulta(emprestimoSelecionado, diasPermitidos);
-	        
 	        if (valorMulta > 0f) {
 	        	valorMultaLabel.setText("Multa: R$ " + String.format("%.2f", valorMulta));
 	        	painelPagamento.setVisible(true);

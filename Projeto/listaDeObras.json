@@ -1,6 +1,6 @@
 [
   {
-    "codigo": "L002",
+    "codigo": "L375",
     "titulo": "A Revolução dos Bichos",
     "autor": "George Orwell",
     "anoDePublicacao": "1945",
@@ -9,7 +9,7 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L003",
+    "codigo": "L454",
     "titulo": "Moby Dick",
     "autor": "Herman Melville",
     "anoDePublicacao": "1851",
@@ -18,7 +18,7 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L005",
+    "codigo": "L860",
     "titulo": "A Metamorfose",
     "autor": "Franz Kafka",
     "anoDePublicacao": "1915",
@@ -27,7 +27,7 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L009",
+    "codigo": "L840",
     "titulo": "Dom Quixote",
     "autor": "Miguel de Cervantes",
     "anoDePublicacao": "1605",
@@ -36,7 +36,7 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L011",
+    "codigo": "L883",
     "titulo": "Felicidade Clandestina",
     "autor": "Clarice Lispector",
     "anoDePublicacao": "1971",
@@ -45,70 +45,7 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L012",
-    "titulo": "Terra de Santa Cruz",
-    "autor": "Adélia Prado",
-    "anoDePublicacao": "1981",
-    "tempoDeEmprestimo": 7,
-    "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "A001",
-    "titulo": "TCC de Mateus",
-    "autor": "Mateus Cavalcanti",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
-    "codigo": "A002",
-    "titulo": "TCC de Jamile",
-    "autor": "Jamile Mendes",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
-    "codigo": "A005",
-    "titulo": "TCC de Lucas",
-    "autor": "Lucas Costa",
-    "anoDePublicacao": "2022",
-    "tempoDeEmprestimo": 2,
-    "emprestado": false,
-    "tipo": "Artigo"
-  },
-  {
-    "codigo": "R002",
-    "titulo": "Veja",
-    "autor": "Victor Civita",
-    "anoDePublicacao": "2010",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "R003",
-    "titulo": "Forbes",
-    "autor": "Larry Ellison",
-    "anoDePublicacao": "2015",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "R004",
-    "titulo": "Capricho",
-    "autor": "Andrea Martinelli",
-    "anoDePublicacao": "2002",
-    "tempoDeEmprestimo": 3,
-    "emprestado": false,
-    "tipo": "Revista"
-  },
-  {
-    "codigo": "L013",
+    "codigo": "L707",
     "titulo": "Odisseia",
     "autor": "Homero",
     "anoDePublicacao": "2015",
@@ -117,34 +54,88 @@
     "tipo": "Livro"
   },
   {
-    "codigo": "L001",
+    "codigo": "L584",
+    "titulo": "Duna",
+    "autor": "Frank Herbert",
+    "anoDePublicacao": "2010",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L669",
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R. Tolkien",
+    "anoDePublicacao": "1954",
+    "tempoDeEmprestimo": 7,
+    "emprestado": false,
+    "tipo": "Livro"
+  },
+  {
+    "codigo": "L233",
     "titulo": "O Pequeno Príncipe",
-    "autor": "Antoine de Saint-Exupéry",
+    "autor": "Antoine Saint-Exupé",
     "anoDePublicacao": "1943",
     "tempoDeEmprestimo": 7,
     "emprestado": false,
     "tipo": "Livro"
   },
   {
-    "codigo": "L006",
-    "titulo": "Duna",
-    "autor": "Frank Herbert",
+    "codigo": "R975",
+    "titulo": "Veja",
+    "autor": "Victor Civita",
     "anoDePublicacao": "2010",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
   },
   {
-    "codigo": "R001",
+    "codigo": "R957",
+    "titulo": "Forbes",
+    "autor": "Larry Ellison",
+    "anoDePublicacao": "2015",
+    "tempoDeEmprestimo": 3,
+    "emprestado": false,
+    "tipo": "Revista"
+  },
+  {
+    "codigo": "R405",
     "titulo": "Recreio",
     "autor": "Ruth Rocha",
     "anoDePublicacao": "1981",
     "tempoDeEmprestimo": 3,
-    "emprestado": true,
+    "emprestado": false,
     "tipo": "Revista"
   },
   {
-    "codigo": "A004",
+    "codigo": "A184",
+    "titulo": "TCC de Mateus",
+    "autor": "Mateus Cavalcanti",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A584",
+    "titulo": "TCC de Jamile",
+    "autor": "Jamile Mendes",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A326",
+    "titulo": "TCC de Lucas",
+    "autor": "Lucas Costa",
+    "anoDePublicacao": "2022",
+    "tempoDeEmprestimo": 2,
+    "emprestado": true,
+    "tipo": "Artigo"
+  },
+  {
+    "codigo": "A790",
     "titulo": "TCC de Claire",
     "autor": "Claire Medeiros",
     "anoDePublicacao": "2022",
@@ -153,39 +144,12 @@
     "tipo": "Artigo"
   },
   {
-    "codigo": "L004",
-    "titulo": "O Senhor dos Anéis",
-    "autor": "J.R.R.Tolkien",
-    "anoDePublicacao": "1954",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L007",
-    "titulo": "Sherlock Holmes",
-    "autor": "Arthur Conan Doyle ",
-    "anoDePublicacao": "1800",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L008",
-    "titulo": "Os Forasteiros",
-    "autor": "Michelle Paver",
-    "anoDePublicacao": "2014",
-    "tempoDeEmprestimo": 7,
+    "codigo": "R790",
+    "titulo": "Capricho",
+    "autor": "Andrea Martinelli",
+    "anoDePublicacao": "2002",
+    "tempoDeEmprestimo": 3,
     "emprestado": false,
-    "tipo": "Livro"
-  },
-  {
-    "codigo": "L010",
-    "titulo": "O Sol e a Estrela",
-    "autor": "Rick Riordan",
-    "anoDePublicacao": "2023",
-    "tempoDeEmprestimo": 7,
-    "emprestado": true,
-    "tipo": "Livro"
+    "tipo": "Revista"
   }
 ]

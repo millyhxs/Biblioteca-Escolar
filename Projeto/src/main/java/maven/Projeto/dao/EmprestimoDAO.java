@@ -141,6 +141,7 @@ public class EmprestimoDAO extends DAO{
             float valorMulta = diasAtraso * multaPorDia;
             return valorMulta;
         } else {
+        	System.out.println("taxa 0");
             return 0f;
         }
     }

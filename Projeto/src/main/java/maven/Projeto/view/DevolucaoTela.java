@@ -122,7 +122,7 @@ public class DevolucaoTela extends JFrame {
         painelPagamento.setVisible(false);
         
         painel.add(painelPagamento);
-
+        
         devolverBtn.addActionListener(e -> prepararDevolucao());
         confirmarPagamentoBtn.addActionListener(e -> registrarPagamento());
         
